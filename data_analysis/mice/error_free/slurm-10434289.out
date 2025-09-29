@@ -1,0 +1,1016 @@
+mixtools package, version 2.0.0, Released 2022-12-04
+This package is based upon work supported by the National Science Foundation under Grant No. SES-0518772 and the Chan Zuckerberg Initiative: Essential Open Source Software for Science (Grant No. 2020-255193).
+
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+Warning message:
+package ‘dplyr’ was built under R version 4.2.3 
+Loading required package: lattice
+Warning messages:
+1: package ‘flexmix’ was built under R version 4.2.3 
+2: package ‘lattice’ was built under R version 4.2.3 
+Warning message:
+package ‘stringr’ was built under R version 4.2.3 
+[1] NA
+[1] "Number of samples="
+[1] 109
+[1] "89985_N1"
+[1] "all mutations"
+[1] 121131
+[1] "SNPs and autosomes"
+[1] 116617
+[1] "Fitting"
+number of iterations= 165 
+[1] 0.1762135
+[1] 0.341224
+[1] "89986_N1"
+[1] "all mutations"
+[1] 68564
+[1] "SNPs and autosomes"
+[1] 65575
+[1] "Fitting"
+number of iterations= 104 
+[1] 0.1338024
+[1] 0.3440244
+[1] "90004_N1"
+[1] "all mutations"
+[1] 79719
+[1] "SNPs and autosomes"
+[1] 76730
+[1] "Fitting"
+number of iterations= 561 
+[1] 0.140294
+[1] 0.2985413
+[1] "90004_N4"
+[1] "all mutations"
+[1] 56453
+[1] "SNPs and autosomes"
+[1] 54116
+[1] "Fitting"
+number of iterations= 99 
+[1] 0.1370692
+[1] 0.3642111
+[1] "90170_N3"
+[1] "all mutations"
+[1] 88124
+[1] "SNPs and autosomes"
+[1] 84414
+[1] "Fitting"
+number of iterations= 114 
+[1] 0.09970485
+[1] 0.3456575
+[1] "90400_N4"
+[1] "all mutations"
+[1] 88068
+[1] "SNPs and autosomes"
+[1] 84584
+[1] "Fitting"
+number of iterations= 70 
+[1] 0.1099983
+[1] 0.3346123
+[1] "90400_N5"
+[1] "all mutations"
+[1] 42857
+[1] "SNPs and autosomes"
+[1] 41068
+[1] "Fitting"
+number of iterations= 174 
+[1] 0.138993
+[1] 0.3388564
+[1] "90446_N3"
+[1] "all mutations"
+[1] 89126
+[1] "SNPs and autosomes"
+[1] 85752
+[1] "Fitting"
+number of iterations= 202 
+[1] 0.1751635
+[1] 0.3811155
+[1] "90721_N1"
+[1] "all mutations"
+[1] 66206
+[1] "SNPs and autosomes"
+[1] 63458
+[1] "Fitting"
+number of iterations= 361 
+[1] 0.3691712
+[1] 0.274135
+[1] "90732_N2"
+[1] "all mutations"
+[1] 47123
+[1] "SNPs and autosomes"
+[1] 44956
+[1] "Fitting"
+number of iterations= 119 
+[1] 0.1574092
+[1] 0.3611466
+[1] "90789_N1"
+[1] "all mutations"
+[1] 85058
+[1] "SNPs and autosomes"
+[1] 81573
+[1] "Fitting"
+number of iterations= 237 
+[1] 0.1327011
+[1] 0.3545807
+[1] "90789_N2"
+[1] "all mutations"
+[1] 75464
+[1] "SNPs and autosomes"
+[1] 72263
+[1] "Fitting"
+number of iterations= 90 
+[1] 0.1271145
+[1] 0.3724908
+[1] "90791_N3"
+[1] "all mutations"
+[1] 71252
+[1] "SNPs and autosomes"
+[1] 68411
+[1] "Fitting"
+number of iterations= 171 
+[1] 0.1400428
+[1] 0.3724584
+[1] "90801_N1"
+[1] "all mutations"
+[1] 69559
+[1] "SNPs and autosomes"
+[1] 66851
+[1] "Fitting"
+number of iterations= 394 
+[1] 0.3154052
+[1] 0.2569513
+[1] "90802_N1"
+[1] "all mutations"
+[1] 56646
+[1] "SNPs and autosomes"
+[1] 54265
+[1] "Fitting"
+number of iterations= 74 
+[1] 0.1179558
+[1] 0.3441003
+[1] "90803_N3"
+[1] "all mutations"
+[1] 14482
+[1] "SNPs and autosomes"
+[1] 13464
+[1] "Fitting"
+number of iterations= 160 
+[1] 0.153366
+[1] 0.3683205
+[1] "90803_N4"
+[1] "all mutations"
+[1] 69197
+[1] "SNPs and autosomes"
+[1] 66236
+[1] "Fitting"
+number of iterations= 114 
+[1] 0.09211229
+[1] 0.3945038
+[1] "90803_N7"
+[1] "all mutations"
+[1] 67814
+[1] "SNPs and autosomes"
+[1] 65250
+[1] "Fitting"
+number of iterations= 267 
+[1] 0.1174678
+[1] 0.3244458
+[1] "90803_N8"
+[1] "all mutations"
+[1] 53104
+[1] "SNPs and autosomes"
+[1] 50986
+[1] "Fitting"
+WARNING! NOT CONVERGENT! 
+number of iterations= 1000 
+[1] 0.2519675
+[1] 0.2187083
+[1] "90880_N1"
+[1] "all mutations"
+[1] 83535
+[1] "SNPs and autosomes"
+[1] 80242
+[1] "Fitting"
+number of iterations= 239 
+[1] 0.1307836
+[1] 0.30211
+[1] "90886_N2"
+[1] "all mutations"
+[1] 51239
+[1] "SNPs and autosomes"
+[1] 49101
+[1] "Fitting"
+number of iterations= 142 
+[1] 0.3660018
+[1] 0.1193132
+[1] "90886_N5"
+[1] "all mutations"
+[1] 74354
+[1] "SNPs and autosomes"
+[1] 71561
+[1] "Fitting"
+number of iterations= 147 
+[1] 0.162915
+[1] 0.3476519
+[1] "90888_N1"
+[1] "all mutations"
+[1] 105942
+[1] "SNPs and autosomes"
+[1] 102490
+[1] "Fitting"
+number of iterations= 362 
+[1] 0.3071546
+[1] 0.2274108
+[1] "90888_N5"
+[1] "all mutations"
+[1] 29222
+[1] "SNPs and autosomes"
+[1] 27789
+[1] "Fitting"
+number of iterations= 95 
+[1] 0.1196987
+[1] 0.3660485
+[1] "91097_N1"
+[1] "all mutations"
+[1] 46380
+[1] "SNPs and autosomes"
+[1] 44222
+[1] "Fitting"
+number of iterations= 166 
+[1] 0.1554083
+[1] 0.3767941
+[1] "91100_N1"
+[1] "all mutations"
+[1] 60504
+[1] "SNPs and autosomes"
+[1] 58133
+[1] "Fitting"
+number of iterations= 30 
+[1] 0.09331981
+[1] 0.3239129
+[1] "91100_N2"
+[1] "all mutations"
+[1] 55710
+[1] "SNPs and autosomes"
+[1] 53305
+[1] "Fitting"
+number of iterations= 148 
+[1] 0.1277917
+[1] 0.3693317
+[1] "91100_N4"
+[1] "all mutations"
+[1] 84662
+[1] "SNPs and autosomes"
+[1] 81488
+[1] "Fitting"
+number of iterations= 59 
+[1] 0.09888764
+[1] 0.3117878
+[1] "91113_N2"
+[1] "all mutations"
+[1] 90136
+[1] "SNPs and autosomes"
+[1] 86939
+[1] "Fitting"
+number of iterations= 371 
+[1] 0.1361771
+[1] 0.2876085
+[1] "91113_N4"
+[1] "all mutations"
+[1] 59416
+[1] "SNPs and autosomes"
+[1] 57109
+[1] "Fitting"
+number of iterations= 170 
+[1] 0.1372285
+[1] 0.3385765
+[1] "91113_N6"
+[1] "all mutations"
+[1] 20691
+[1] "SNPs and autosomes"
+[1] 19758
+[1] "Fitting"
+number of iterations= 589 
+[1] 0.1361645
+[1] 0.2695157
+[1] "91113_N7"
+[1] "all mutations"
+[1] 51131
+[1] "SNPs and autosomes"
+[1] 49202
+[1] "Fitting"
+number of iterations= 180 
+[1] 0.1325034
+[1] 0.2819147
+[1] "91213_N2"
+[1] "all mutations"
+[1] 56081
+[1] "SNPs and autosomes"
+[1] 53697
+[1] "Fitting"
+number of iterations= 208 
+[1] 0.188112
+[1] 0.3852666
+[1] "91215_N4"
+[1] "all mutations"
+[1] 63155
+[1] "SNPs and autosomes"
+[1] 60752
+[1] "Fitting"
+number of iterations= 117 
+[1] 0.36717
+[1] 0.1141386
+[1] "91215_N9"
+[1] "all mutations"
+[1] 36676
+[1] "SNPs and autosomes"
+[1] 35055
+[1] "Fitting"
+number of iterations= 156 
+[1] 0.1377434
+[1] 0.3768771
+[1] "91216_N4"
+[1] "all mutations"
+[1] 45526
+[1] "SNPs and autosomes"
+[1] 43457
+[1] "Fitting"
+number of iterations= 23 
+[1] 0.3324974
+[1] 0.09063155
+[1] "91217_N1"
+[1] "all mutations"
+[1] 52496
+[1] "SNPs and autosomes"
+[1] 50155
+[1] "Fitting"
+number of iterations= 60 
+[1] 0.3914935
+[1] 0.1153532
+[1] "91217_N2"
+[1] "all mutations"
+[1] 61747
+[1] "SNPs and autosomes"
+[1] 59138
+[1] "Fitting"
+number of iterations= 154 
+[1] 0.1600156
+[1] 0.3603332
+[1] "91218_N1"
+[1] "all mutations"
+[1] 71874
+[1] "SNPs and autosomes"
+[1] 68957
+[1] "Fitting"
+number of iterations= 152 
+[1] 0.3901935
+[1] 0.1365988
+[1] "91414_N2"
+[1] "all mutations"
+[1] 43922
+[1] "SNPs and autosomes"
+[1] 41734
+[1] "Fitting"
+number of iterations= 128 
+[1] 0.1064585
+[1] 0.3721767
+[1] "91539_N3"
+[1] "all mutations"
+[1] 94528
+[1] "SNPs and autosomes"
+[1] 90768
+[1] "Fitting"
+number of iterations= 166 
+[1] 0.1516545
+[1] 0.3484852
+[1] "91539_N4"
+[1] "all mutations"
+[1] 69353
+[1] "SNPs and autosomes"
+[1] 66384
+[1] "Fitting"
+number of iterations= 96 
+[1] 0.2032637
+[1] 0.3989117
+[1] "91540_N1"
+[1] "all mutations"
+[1] 74382
+[1] "SNPs and autosomes"
+[1] 71608
+[1] "Fitting"
+number of iterations= 198 
+[1] 0.08838393
+[1] 0.2131279
+[1] "91599_N1"
+[1] "all mutations"
+[1] 53187
+[1] "SNPs and autosomes"
+[1] 51107
+[1] "Fitting"
+number of iterations= 88 
+[1] 0.1264285
+[1] 0.367505
+[1] "91613_N2"
+[1] "all mutations"
+[1] 54386
+[1] "SNPs and autosomes"
+[1] 51686
+[1] "Fitting"
+number of iterations= 113 
+[1] 0.1253315
+[1] 0.3560592
+[1] "91615_N2"
+[1] "all mutations"
+[1] 67972
+[1] "SNPs and autosomes"
+[1] 65275
+[1] "Fitting"
+number of iterations= 163 
+[1] 0.1847393
+[1] 0.3666235
+[1] "91618_N3"
+[1] "all mutations"
+[1] 49124
+[1] "SNPs and autosomes"
+[1] 47173
+[1] "Fitting"
+number of iterations= 119 
+[1] 0.118162
+[1] 0.3737144
+[1] "91620_N7"
+[1] "all mutations"
+[1] 47430
+[1] "SNPs and autosomes"
+[1] 45545
+[1] "Fitting"
+number of iterations= 336 
+[1] 0.1198602
+[1] 0.3721723
+[1] "91835_N2"
+[1] "all mutations"
+[1] 42298
+[1] "SNPs and autosomes"
+[1] 40130
+[1] "Fitting"
+number of iterations= 132 
+[1] 0.09730025
+[1] 0.3380696
+[1] "91837_N2"
+[1] "all mutations"
+[1] 80195
+[1] "SNPs and autosomes"
+[1] 77335
+[1] "Fitting"
+number of iterations= 302 
+[1] 0.1665231
+[1] 0.3474262
+[1] "91837_N5"
+[1] "all mutations"
+[1] 73499
+[1] "SNPs and autosomes"
+[1] 70600
+[1] "Fitting"
+number of iterations= 40 
+[1] 0.3797094
+[1] 0.114343
+[1] "91838_N4"
+[1] "all mutations"
+[1] 36204
+[1] "SNPs and autosomes"
+[1] 34287
+[1] "Fitting"
+number of iterations= 109 
+[1] 0.1296907
+[1] 0.4031501
+[1] "91838_N5"
+[1] "all mutations"
+[1] 35164
+[1] "SNPs and autosomes"
+[1] 33389
+[1] "Fitting"
+number of iterations= 101 
+[1] 0.1149624
+[1] 0.3949742
+[1] "91839_N2"
+[1] "all mutations"
+[1] 69596
+[1] "SNPs and autosomes"
+[1] 66734
+[1] "Fitting"
+number of iterations= 119 
+[1] 0.1056665
+[1] 0.3664951
+[1] "91842_N1"
+[1] "all mutations"
+[1] 88886
+[1] "SNPs and autosomes"
+[1] 85799
+[1] "Fitting"
+number of iterations= 240 
+[1] 0.1890908
+[1] 0.3731868
+[1] "91842_N5"
+[1] "all mutations"
+[1] 50339
+[1] "SNPs and autosomes"
+[1] 48200
+[1] "Fitting"
+number of iterations= 140 
+[1] 0.1504314
+[1] 0.3240311
+[1] "91931_N3"
+[1] "all mutations"
+[1] 53984
+[1] "SNPs and autosomes"
+[1] 51805
+[1] "Fitting"
+number of iterations= 153 
+[1] 0.1186603
+[1] 0.2559897
+[1] "91931_N5"
+[1] "all mutations"
+[1] 68076
+[1] "SNPs and autosomes"
+[1] 65497
+[1] "Fitting"
+number of iterations= 290 
+[1] 0.1668852
+[1] 0.3482799
+[1] "91931_N6"
+[1] "all mutations"
+[1] 66112
+[1] "SNPs and autosomes"
+[1] 62965
+[1] "Fitting"
+number of iterations= 75 
+[1] 0.1095285
+[1] 0.3620202
+[1] "91932_N2"
+[1] "all mutations"
+[1] 50989
+[1] "SNPs and autosomes"
+[1] 49044
+[1] "Fitting"
+number of iterations= 72 
+[1] 0.09327247
+[1] 0.3520059
+[1] "91932_N3"
+[1] "all mutations"
+[1] 36903
+[1] "SNPs and autosomes"
+[1] 35289
+[1] "Fitting"
+number of iterations= 141 
+[1] 0.3204611
+[1] 0.4033426
+[1] "91932_N5"
+[1] "all mutations"
+[1] 55530
+[1] "SNPs and autosomes"
+[1] 53326
+[1] "Fitting"
+number of iterations= 308 
+[1] 0.1334102
+[1] 0.3198096
+[1] "91944_N1"
+[1] "all mutations"
+[1] 69318
+[1] "SNPs and autosomes"
+[1] 66661
+[1] "Fitting"
+number of iterations= 192 
+[1] 0.1235015
+[1] 0.347898
+[1] "91948_N1"
+[1] "all mutations"
+[1] 68883
+[1] "SNPs and autosomes"
+[1] 66376
+[1] "Fitting"
+number of iterations= 283 
+[1] 0.1323869
+[1] 0.329098
+[1] "91948_N2"
+[1] "all mutations"
+[1] 59898
+[1] "SNPs and autosomes"
+[1] 57268
+[1] "Fitting"
+number of iterations= 96 
+[1] 0.2007552
+[1] 0.4087998
+[1] "92057_N1"
+[1] "all mutations"
+[1] 62051
+[1] "SNPs and autosomes"
+[1] 59646
+[1] "Fitting"
+number of iterations= 307 
+[1] 0.1805327
+[1] 0.3896903
+[1] "92057_N5"
+[1] "all mutations"
+[1] 48533
+[1] "SNPs and autosomes"
+[1] 46228
+[1] "Fitting"
+number of iterations= 86 
+[1] 0.09400658
+[1] 0.4237401
+[1] "92104_N2"
+[1] "all mutations"
+[1] 52841
+[1] "SNPs and autosomes"
+[1] 50703
+[1] "Fitting"
+number of iterations= 162 
+[1] 0.1331013
+[1] 0.3549032
+[1] "92105_N1"
+[1] "all mutations"
+[1] 8436
+[1] "SNPs and autosomes"
+[1] 7782
+[1] "Fitting"
+number of iterations= 156 
+[1] 0.1201928
+[1] 0.3615957
+[1] "92105_N2"
+[1] "all mutations"
+[1] 53318
+[1] "SNPs and autosomes"
+[1] 51389
+[1] "Fitting"
+number of iterations= 147 
+[1] 0.07401339
+[1] 0.2598121
+[1] "92105_N3"
+[1] "all mutations"
+[1] 48984
+[1] "SNPs and autosomes"
+[1] 47098
+[1] "Fitting"
+number of iterations= 151 
+[1] 0.1307186
+[1] 0.3471361
+[1] "92105_N5"
+[1] "all mutations"
+[1] 30159
+[1] "SNPs and autosomes"
+[1] 28596
+[1] "Fitting"
+number of iterations= 72 
+[1] 0.09584027
+[1] 0.3929161
+[1] "92105_N8"
+[1] "all mutations"
+[1] 54735
+[1] "SNPs and autosomes"
+[1] 52570
+[1] "Fitting"
+number of iterations= 189 
+[1] 0.1833986
+[1] 0.3838496
+[1] "92186_N3"
+[1] "all mutations"
+[1] 47656
+[1] "SNPs and autosomes"
+[1] 45422
+[1] "Fitting"
+number of iterations= 226 
+[1] 0.1853495
+[1] 0.3749978
+[1] "92188_N4"
+[1] "all mutations"
+[1] 43639
+[1] "SNPs and autosomes"
+[1] 41938
+[1] "Fitting"
+number of iterations= 53 
+[1] 0.1043914
+[1] 0.3812735
+[1] "92188_N5"
+[1] "all mutations"
+[1] 55273
+[1] "SNPs and autosomes"
+[1] 53008
+[1] "Fitting"
+number of iterations= 168 
+[1] 0.09220544
+[1] 0.367106
+[1] "92189_N1"
+[1] "all mutations"
+[1] 57232
+[1] "SNPs and autosomes"
+[1] 55012
+[1] "Fitting"
+WARNING! NOT CONVERGENT! 
+number of iterations= 1000 
+[1] 0.1533925
+[1] 0.3121284
+[1] "92189_N2"
+[1] "all mutations"
+[1] 48975
+[1] "SNPs and autosomes"
+[1] 46778
+[1] "Fitting"
+number of iterations= 106 
+[1] 0.1071142
+[1] 0.3342314
+[1] "92189_N6"
+[1] "all mutations"
+[1] 56736
+[1] "SNPs and autosomes"
+[1] 54539
+[1] "Fitting"
+number of iterations= 141 
+[1] 0.09965977
+[1] 0.3779224
+[1] "92189_N7"
+[1] "all mutations"
+[1] 69323
+[1] "SNPs and autosomes"
+[1] 66486
+[1] "Fitting"
+number of iterations= 292 
+[1] 0.342724
+[1] 0.1564953
+[1] "92294_N2"
+[1] "all mutations"
+[1] 57627
+[1] "SNPs and autosomes"
+[1] 55081
+[1] "Fitting"
+number of iterations= 202 
+[1] 0.3489823
+[1] 0.1630644
+[1] "93092_N2"
+[1] "all mutations"
+[1] 85587
+[1] "SNPs and autosomes"
+[1] 82307
+[1] "Fitting"
+number of iterations= 389 
+[1] 0.3246347
+[1] 0.2424951
+[1] "93092_N6"
+[1] "all mutations"
+[1] 29687
+[1] "SNPs and autosomes"
+[1] 28387
+[1] "Fitting"
+number of iterations= 35 
+[1] 0.3527564
+[1] 0.1000397
+[1] "93092_N8"
+[1] "all mutations"
+[1] 70051
+[1] "SNPs and autosomes"
+[1] 67462
+[1] "Fitting"
+number of iterations= 150 
+[1] 0.1053066
+[1] 0.3398267
+[1] "93094_N2"
+[1] "all mutations"
+[1] 51049
+[1] "SNPs and autosomes"
+[1] 48792
+[1] "Fitting"
+number of iterations= 162 
+[1] 0.1918888
+[1] 0.3829759
+[1] "93096_N1"
+[1] "all mutations"
+[1] 45654
+[1] "SNPs and autosomes"
+[1] 43738
+[1] "Fitting"
+number of iterations= 73 
+[1] 0.2688047
+[1] 0.3612073
+[1] "93096_N3"
+[1] "all mutations"
+[1] 47019
+[1] "SNPs and autosomes"
+[1] 45230
+[1] "Fitting"
+number of iterations= 103 
+[1] 0.3781702
+[1] 0.1247909
+[1] "93097_N1"
+[1] "all mutations"
+[1] 50498
+[1] "SNPs and autosomes"
+[1] 47986
+[1] "Fitting"
+number of iterations= 162 
+[1] 0.1316361
+[1] 0.3566879
+[1] "93098_N1"
+[1] "all mutations"
+[1] 53199
+[1] "SNPs and autosomes"
+[1] 50889
+[1] "Fitting"
+number of iterations= 140 
+[1] 0.1871929
+[1] 0.3940885
+[1] "93100_N1"
+[1] "all mutations"
+[1] 69186
+[1] "SNPs and autosomes"
+[1] 66261
+[1] "Fitting"
+number of iterations= 299 
+[1] 0.1649169
+[1] 0.3658335
+[1] "93129_N7"
+[1] "all mutations"
+[1] 62667
+[1] "SNPs and autosomes"
+[1] 60061
+[1] "Fitting"
+number of iterations= 182 
+[1] 0.191239
+[1] 0.3850937
+[1] "93129_N8"
+[1] "all mutations"
+[1] 45280
+[1] "SNPs and autosomes"
+[1] 43061
+[1] "Fitting"
+number of iterations= 86 
+[1] 0.1050137
+[1] 0.3560751
+[1] "93131_N7"
+[1] "all mutations"
+[1] 27387
+[1] "SNPs and autosomes"
+[1] 26114
+[1] "Fitting"
+number of iterations= 150 
+[1] 0.1575186
+[1] 0.3929131
+[1] "93131_N8"
+[1] "all mutations"
+[1] 55574
+[1] "SNPs and autosomes"
+[1] 53102
+[1] "Fitting"
+number of iterations= 103 
+[1] 0.3634933
+[1] 0.1026585
+[1] "93133_N4"
+[1] "all mutations"
+[1] 75405
+[1] "SNPs and autosomes"
+[1] 72590
+[1] "Fitting"
+number of iterations= 349 
+[1] 0.3505951
+[1] 0.2661822
+[1] "93244_N5"
+[1] "all mutations"
+[1] 49029
+[1] "SNPs and autosomes"
+[1] 46942
+[1] "Fitting"
+number of iterations= 272 
+[1] 0.1406806
+[1] 0.3338048
+[1] "93258_N1"
+[1] "all mutations"
+[1] 28958
+[1] "SNPs and autosomes"
+[1] 27725
+[1] "Fitting"
+number of iterations= 217 
+[1] 0.1356172
+[1] 0.3698333
+[1] "93258_N12"
+[1] "all mutations"
+[1] 103200
+[1] "SNPs and autosomes"
+[1] 99680
+[1] "Fitting"
+number of iterations= 109 
+[1] 0.1786455
+[1] 0.3550408
+[1] "93258_N3"
+[1] "all mutations"
+[1] 44976
+[1] "SNPs and autosomes"
+[1] 43115
+[1] "Fitting"
+number of iterations= 213 
+[1] 0.146271
+[1] 0.3355313
+[1] "93258_N4"
+[1] "all mutations"
+[1] 31782
+[1] "SNPs and autosomes"
+[1] 30303
+[1] "Fitting"
+number of iterations= 139 
+[1] 0.1686263
+[1] 0.3402377
+[1] "93258_N9"
+[1] "all mutations"
+[1] 99559
+[1] "SNPs and autosomes"
+[1] 95621
+[1] "Fitting"
+number of iterations= 190 
+[1] 0.1855982
+[1] 0.3742337
+[1] "93259_N2"
+[1] "all mutations"
+[1] 60126
+[1] "SNPs and autosomes"
+[1] 57652
+[1] "Fitting"
+number of iterations= 370 
+[1] 0.2692674
+[1] 0.3361949
+[1] "93260_N3"
+[1] "all mutations"
+[1] 73596
+[1] "SNPs and autosomes"
+[1] 71035
+[1] "Fitting"
+number of iterations= 149 
+[1] 0.1653496
+[1] 0.3581346
+[1] "93260_N5"
+[1] "all mutations"
+[1] 79320
+[1] "SNPs and autosomes"
+[1] 76555
+[1] "Fitting"
+number of iterations= 254 
+[1] 0.1168102
+[1] 0.3124409
+[1] "93260_N6"
+[1] "all mutations"
+[1] 67580
+[1] "SNPs and autosomes"
+[1] 65125
+[1] "Fitting"
+number of iterations= 314 
+[1] 0.249171
+[1] 0.322267
+[1] "94314_N5"
+[1] "all mutations"
+[1] 42672
+[1] "SNPs and autosomes"
+[1] 40789
+[1] "Fitting"
+number of iterations= 371 
+[1] 0.3290452
+[1] 0.1634385
+[1] "94315_N7"
+[1] "all mutations"
+[1] 51273
+[1] "SNPs and autosomes"
+[1] 49031
+[1] "Fitting"
+number of iterations= 77 
+[1] 0.397175
+[1] 0.1180379
+[1] "94315_N8"
+[1] "all mutations"
+[1] 61578
+[1] "SNPs and autosomes"
+[1] 59144
+[1] "Fitting"
+number of iterations= 150 
+[1] 0.1992404
+[1] 0.3934454
+[1] "94316_N3"
+[1] "all mutations"
+[1] 63323
+[1] "SNPs and autosomes"
+[1] 61019
+[1] "Fitting"
+number of iterations= 171 
+[1] 0.3622771
+[1] 0.1780952
+    sample  n_mut mu_subclon   mu_clon w_subclon    w_clon cells_survived
+1 89985_N1 116617 0.17621353 0.3412240 0.4699915 0.5300085         4cells
+2 89986_N1  65575 0.13380240 0.3440244 0.1278536 0.8721464         4cells
+3 90004_N1  76730 0.14029398 0.2985413 0.1691907 0.8308093         4cells
+4 90004_N4  54116 0.13706924 0.3642111 0.1815729 0.8184271         4cells
+5 90170_N3  84414 0.09970485 0.3456575 0.0768356 0.9231644         3cells
+6 90400_N4  84584 0.10999833 0.3346123 0.1665800 0.8334200         3cells
+[1] 109
