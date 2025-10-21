@@ -8,7 +8,7 @@ driver = "7:145859242_T/A"
 compl_nucl <- hash("A"="T", "T"="A" )
 opposite_strand <- hash("+"="-", "-"="+")
 
-df_drivers = read.table("../../data/Drivers_annotated.csv", header=TRUE, sep=",")
+df_drivers = read.table("../data/Drivers_annotated.csv", header=TRUE, sep=",")
 driver_gene = df_drivers[df_drivers$mutID == driver,]$Gene_name
 driver_pos = df_drivers[df_drivers$mutID == driver,]$pos
 driver_expression = df_drivers[df_drivers$mutID == driver,]$expression_q
@@ -16,7 +16,7 @@ driver_strand = df_drivers[df_drivers$mutID == driver,]$Gene_strand
 driver_refN = df_drivers[df_drivers$mutID == driver,]$refN
 driver_altN = df_drivers[df_drivers$mutID == driver,]$altN
 
-df_MRCA <- read.table("../../MRCA/results/Summary_mixed_excluded.txt", header=TRUE, sep=",")
+df_MRCA <- read.table("../LAD/results/Summary_divisions_with_symmetrical_no_mixtures.txt", header=TRUE, sep=",")
 print(table(df_MRCA$division))
 
 result_samples <- NULL
@@ -28,7 +28,7 @@ for (sample_name in df_MRCA$sample){
     print(sample_name)
     print(paste("Division=", df_MRCA[df_MRCA$sample==sample_name,]$division, sep=""))
     if (df_MRCA[df_MRCA$sample==sample_name,]$division == 1){
-        df_sample <- read.table(paste("../../data/mutations_vs_genes_vs_HMM_multi_state/", sample_name, ".gene.HMMmulti_state.nodMat", sep=""), header= TRUE, sep= ",")
+        df_sample <- read.table(paste("../data/mutations_vs_genes_vs_HMM_multi_state/", sample_name, ".gene.HMMmulti_state.nodMat", sep=""), header= TRUE, sep= ",")
         df_sample <- df_sample[df_sample$HMM_multi_state == "A2",]
         multi_sum <- (nrow(df_sample[df_sample$Multi_class == "M" & df_sample$expression_q == driver_expression & df_sample$geneStrand == driver_strand & df_sample$refN == driver_refN,])+nrow(df_sample[df_sample$Multi_class == "M" & df_sample$expression_q == driver_expression & df_sample$geneStrand == opposite_strand[[driver_strand]] & df_sample$refN == compl_nucl[[driver_refN]],]))
         all_sum <- (nrow(df_sample[df_sample$expression_q == driver_expression & df_sample$geneStrand == driver_strand & df_sample$refN == driver_refN,])+nrow(df_sample[df_sample$expression_q == driver_expression & df_sample$geneStrand == opposite_strand[[driver_strand]] & df_sample$refN == compl_nucl[[driver_refN]],]))
@@ -43,7 +43,7 @@ for (sample_name in df_MRCA$sample){
     } else if(df_MRCA[df_MRCA$sample==sample_name,]$division == 0){
         next
     } else{
-        df_sample <- read.table(paste("../../data/mutations_vs_genes_vs_HMM_multi_state/", sample_name, ".gene.HMMmulti_state.nodMat", sep=""), header= TRUE, sep= ",")
+        df_sample <- read.table(paste("../data/mutations_vs_genes_vs_HMM_multi_state/", sample_name, ".gene.HMMmulti_state.nodMat", sep=""), header= TRUE, sep= ",")
         df_sample <- df_sample[df_sample$HMM_multi_state == "A1",]
         multi_sum <- (nrow(df_sample[df_sample$Multi_class == "M" & df_sample$expression_q == driver_expression & df_sample$geneStrand == driver_strand & df_sample$refN == driver_refN,])+nrow(df_sample[df_sample$Multi_class == "M" & df_sample$expression_q == driver_expression & df_sample$geneStrand == opposite_strand[[driver_strand]] & df_sample$refN == compl_nucl[[driver_refN]],]))
         all_sum <- (nrow(df_sample[df_sample$expression_q == driver_expression & df_sample$geneStrand == driver_strand & df_sample$refN == driver_refN,])+nrow(df_sample[df_sample$expression_q == driver_expression & df_sample$geneStrand == opposite_strand[[driver_strand]] & df_sample$refN == compl_nucl[[driver_refN]],]))

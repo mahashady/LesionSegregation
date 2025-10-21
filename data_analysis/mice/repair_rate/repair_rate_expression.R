@@ -2,7 +2,7 @@ library(ggplot2)
 library(ggpmisc)
 
 
-df_MRCA <- read.table("../../MRCA/results/Summary_mixed_excluded.txt", header=TRUE, sep=",")
+df_MRCA <- read.table("../LAD/results/Summary_divisions_with_symmetrical_no_mixtures.txt", header=TRUE, sep=",")
 print(table(df_MRCA$division))
 
 result_samples <- NULL
@@ -13,7 +13,7 @@ for (sample_name in df_MRCA$sample){
     print(sample_name)
     print(paste("Division=", df_MRCA[df_MRCA$sample==sample_name,]$division, sep=""))
     if (df_MRCA[df_MRCA$sample==sample_name,]$division == 1){
-        df_sample <- read.table(paste("../../data/mutations_vs_genes_vs_HMM_multi_state/", sample_name, ".gene.HMMmulti_state.nodMat", sep=""), header= TRUE, sep= ",")
+        df_sample <- read.table(paste("../data/mutations_vs_genes_vs_HMM_multi_state/", sample_name, ".gene.HMMmulti_state.nodMat", sep=""), header= TRUE, sep= ",")
         df_sample <- df_sample[df_sample$HMM_multi_state == "A2",]
         multi_rate_q1 <- nrow(df_sample[df_sample$Multi_class == "M" & df_sample$expression_q == "q1",])/nrow(df_sample[df_sample$expression_q == "q1",])
         multi_rate_q5 <- nrow(df_sample[df_sample$Multi_class == "M" & df_sample$expression_q == "q5",])/nrow(df_sample[df_sample$expression_q == "q5",])
@@ -24,7 +24,7 @@ for (sample_name in df_MRCA$sample){
     } else if(df_MRCA[df_MRCA$sample==sample_name,]$division == 0){
         next
     } else{
-        df_sample <- read.table(paste("../../data/mutations_vs_genes_vs_HMM_multi_state/", sample_name, ".gene.HMMmulti_state.nodMat", sep=""), header= TRUE, sep= ",")
+        df_sample <- read.table(paste("../data/mutations_vs_genes_vs_HMM_multi_state/", sample_name, ".gene.HMMmulti_state.nodMat", sep=""), header= TRUE, sep= ",")
         df_sample <- df_sample[df_sample$HMM_multi_state == "A1",]
         multi_rate_q1 <- nrow(df_sample[df_sample$Multi_class == "M" & df_sample$expression_q == "q1",])/nrow(df_sample[df_sample$expression_q == "q1",])
         multi_rate_q5 <- nrow(df_sample[df_sample$Multi_class == "M" & df_sample$expression_q == "q5",])/nrow(df_sample[df_sample$expression_q == "q5",])
