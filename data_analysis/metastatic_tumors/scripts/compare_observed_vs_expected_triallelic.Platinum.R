@@ -5,13 +5,13 @@ library(tidyverse)
 library(pheatmap)
 library(grid)
 
-df_expected1 <- read.table("/workspace/projects/lesion_segregation/metastatic_tumors/results/expected_triallelic_spectrum/enriched.Platinum.SBS_less10.expected_triallelic.csv", header=TRUE, sep=",")
+df_expected1 <- read.table("../results/expected_triallelic_spectrum/enriched.Platinum.SBS_less10.expected_triallelic.csv", header=TRUE, sep=",")
 df_expected1$enriched.Platinum.SBS17_less10.expected <- df_expected1$expected_count/sum(df_expected1$expected_count)
-df_expected2 <- read.table("/workspace/projects/lesion_segregation/metastatic_tumors/results/expected_triallelic_spectrum/NONenriched.Platinum.SBS_less10.expected_triallelic.csv", header=TRUE, sep=",")
+df_expected2 <- read.table("../results/expected_triallelic_spectrum/NONenriched.Platinum.SBS_less10.expected_triallelic.csv", header=TRUE, sep=",")
 df_expected2$NONenriched.Platinum.SBS17_less10.expected <- df_expected2$expected_count/sum(df_expected2$expected_count)
-# df_expected3 <- read.table("/workspace/projects/lesion_segregation/metastatic_tumors/results/expected_triallelic_spectrum/enriched.Platinum.SBS_more10.expected_triallelic.csv", header=TRUE, sep=",")
+# df_expected3 <- read.table("../results/expected_triallelic_spectrum/enriched.Platinum.SBS_more10.expected_triallelic.csv", header=TRUE, sep=",")
 # df_expected3$enriched.Platinum.SBS17_more10.expected <- df_expected3$expected_count/sum(df_expected3$expected_count)
-# df_expected4 <- read.table("/workspace/projects/lesion_segregation/metastatic_tumors/results/expected_triallelic_spectrum/NONenriched.Platinum.SBS_more10.expected_triallelic.csv", header=TRUE, sep=",")
+# df_expected4 <- read.table("../results/expected_triallelic_spectrum/NONenriched.Platinum.SBS_more10.expected_triallelic.csv", header=TRUE, sep=",")
 # df_expected4$NONenriched.Platinum.SBS17_more10.expected <- df_expected4$expected_count/sum(df_expected4$expected_count)
 # df_expected_list <- list(df_expected1, df_expected2, df_expected3, df_expected4)
 df_expected_list <- list(df_expected1, df_expected2)
@@ -19,13 +19,13 @@ df_expected_list <- list(df_expected1, df_expected2)
 df_expected <- reduce(df_expected_list, full_join, by = "context")
 print(head(df_expected))
 
-df_observed1 <- read.table("/workspace/projects/lesion_segregation/metastatic_tumors/results/multi_spectrum/multi_spectrum_enriched.Platinum.SBS17_less10.tsv", header=TRUE, sep=",")[,c("mutation","Type","N_muts")]
+df_observed1 <- read.table("../results/multi_spectrum/multi_spectrum_enriched.Platinum.SBS17_less10.tsv", header=TRUE, sep=",")[,c("mutation","Type","N_muts")]
 df_observed1$enriched.Platinum.SBS17_less10.observed <- df_observed1$N_muts/sum(df_observed1$N_muts)
-df_observed2 <- read.table("/workspace/projects/lesion_segregation/metastatic_tumors/results/multi_spectrum/multi_spectrum_NONenriched.Platinum.SBS17_less10.tsv", header=TRUE, sep=",")[,c("mutation","N_muts")]
+df_observed2 <- read.table("../results/multi_spectrum/multi_spectrum_NONenriched.Platinum.SBS17_less10.tsv", header=TRUE, sep=",")[,c("mutation","N_muts")]
 df_observed2$NONenriched.Platinum.SBS17_less10.observed <- df_observed2$N_muts/sum(df_observed2$N_muts)
-# df_observed3 <- read.table("/workspace/projects/lesion_segregation/metastatic_tumors/results/multi_spectrum/multi_spectrum_enriched.Platinum.SBS17_more10.tsv", header=TRUE, sep=",")[,c("mutation","Type","N_muts")]
+# df_observed3 <- read.table("../results/multi_spectrum/multi_spectrum_enriched.Platinum.SBS17_more10.tsv", header=TRUE, sep=",")[,c("mutation","Type","N_muts")]
 # df_observed3$enriched.Platinum.SBS17_more10.observed <- df_observed3$N_muts/sum(df_observed3$N_muts)
-# df_observed4 <- read.table("/workspace/projects/lesion_segregation/metastatic_tumors/results/multi_spectrum/multi_spectrum_NONenriched.Platinum.SBS17_more10.tsv", header=TRUE, sep=",")[,c("mutation","N_muts")]
+# df_observed4 <- read.table("../results/multi_spectrum/multi_spectrum_NONenriched.Platinum.SBS17_more10.tsv", header=TRUE, sep=",")[,c("mutation","N_muts")]
 # df_observed4$NONenriched.Platinum.SBS17_more10.observed <- df_observed4$N_muts/sum(df_observed4$N_muts)
 # df_observed_list <- list(df_observed1, df_observed2, df_observed3, df_observed4)
 df_observed_list <- list(df_observed1, df_observed2)
@@ -37,7 +37,7 @@ print(head(df_observed))
 result <- merge(df_expected[,c("context","enriched.Platinum.SBS17_less10.expected","NONenriched.Platinum.SBS17_less10.expected")], df_observed[,c("mutation","Type","enriched.Platinum.SBS17_less10.observed","NONenriched.Platinum.SBS17_less10.observed")], by.x="context", by.y="mutation")
 # result <- merge(df_expected[,c("context","enriched.Platinum.SBS17_more10.expected","NONenriched.Platinum.SBS17_more10.expected")], df_observed[,c("mutation","Type","enriched.Platinum.SBS17_more10.observed","NONenriched.Platinum.SBS17_more10.observed")], by.x="context", by.y="mutation")
 print(head(result))
-df_signatures <- read.table("/workspace/projects/lesion_segregation/metastatic_tumors/results/expected_triallelic_spectrum/signatures.expected_triallelic.Platinum.csv", header=TRUE, sep=",")
+df_signatures <- read.table("../results/expected_triallelic_spectrum/signatures.expected_triallelic.Platinum.csv", header=TRUE, sep=",")
 df_signatures$context <- rownames(df_signatures)
 print(head(df_signatures))
 # result <- merge(result, df_signatures[,c("X","X25_1", "X37_1", "X31_SBS17b_0.968799_1", "X21_SBS31_0.953955_1", "X14_1")], by.x="context", by.y="X")

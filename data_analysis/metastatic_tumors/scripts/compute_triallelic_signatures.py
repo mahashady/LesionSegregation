@@ -16,14 +16,16 @@ from collections import defaultdict
 import itertools
 from compute_expected_triallelic_spectrum import compute_expected_triallelic
 
+
 # Load genome composition from a JSON file
-with open("/workspace/projects/bladder_ts/results/cord_blood_tws/genome_counts_tribases.json", "r") as f:
+with open("../data/genome_counts_tribases.json", "r") as f:
     genome_context = json.load(f)  
 
 def main(args):
+    # treatmnet could be Platinum or Alkylating
     treatment = "Platinum"
-    df_signatures = pd.read_csv("/workspace/projects/mutfootprints/mutfootprints/data/HMF/20190502/signature_extraction/results/SignatureAnalyzer/snvs/processes/Pan_full/Pan_full.processes.tsv", sep="\t")
-    df_signatures_experimental = pd.read_csv("/workspace/projects/lesion_segregation/metastatic_tumors/data/human_sbs96_unfiltered_v1_0.txt", sep="\t")
+    df_signatures = pd.read_csv("../data//Pan_full.processes.tsv", sep="\t")
+    df_signatures_experimental = pd.read_csv("../data/human_sbs96_unfiltered_v1_0.txt", sep="\t")
     print(df_signatures.head())
     print(df_signatures_experimental.head())
     df_signatures = df_signatures.merge(
@@ -57,11 +59,10 @@ def main(args):
     df.columns = signatures_of_interest
     print(df.head())
 
-    # with open("/workspace/projects/lesion_segregation/metastatic_tumors/results/expected_triallelic_spectrum/" + setting + ".Platinum.SBS_more10.expected_triallelic.csv", "w", newline="") as f:
-    outfile = "/workspace/projects/lesion_segregation/metastatic_tumors/results/expected_triallelic_spectrum/signatures.expected_triallelic." + treatment  + ".csv"
+    outfile = "../results/expected_triallelic_spectrum/signatures.expected_triallelic." + treatment  + ".csv"
     df.to_csv(outfile, index=True)
 
-    print("✅ Expected triallelic spectrum of platinum signatures saved to 'signatures.expected_triallelic.csv'")
+    print("Expected triallelic spectrum of platinum signatures saved to 'signatures.expected_triallelic.csv'")
 
 
 if __name__=="__main__":

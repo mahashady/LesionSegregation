@@ -29,7 +29,8 @@ def make_empty_dict():
 
 def main(args):
     i = 0
-    files = glob.glob("/workspace/datasets/hartwig/20230914/somatic/*/purple/*.purple.somatic.vcf.gz")
+    # HERE the PATH CONTAINING SOMATIC VCFs SHOULD BE UPDATED
+    files = glob.glob(".../hartwig/20230914/somatic/*/purple/*.purple.somatic.vcf.gz")
     outfile_full = open("../results/ALL_Hartwig_bi_multi.by_chrom.txt", "a")
     outfile_full.write("sample\tchr\tA>N\tT>N\tG>N\tC>N\tA>N_triallelic\tT>N_triallilic\tG>N_triallelic\tC>N_triallelic\tA>N_cuatro\tT>N_cuatro\tG>N_cuatro\tC>N_cuatro\n")
     outfile_short = open("../results/ALL_Hartwig_bi_multi.txt", "a")

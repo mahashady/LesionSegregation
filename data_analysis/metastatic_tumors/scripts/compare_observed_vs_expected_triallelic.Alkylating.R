@@ -6,17 +6,17 @@ library(pheatmap)
 library(grid)
 
 
-df_expected1 <- read.table("/workspace/projects/lesion_segregation/metastatic_tumors/results/expected_triallelic_spectrum/enriched.Alkylating.expected_triallelic.csv", header=TRUE, sep=",")
+df_expected1 <- read.table("../results/expected_triallelic_spectrum/enriched.Alkylating.expected_triallelic.csv", header=TRUE, sep=",")
 df_expected1$enriched.Alkylating.expected <- df_expected1$expected_count/sum(df_expected1$expected_count)
-df_expected2 <- read.table("/workspace/projects/lesion_segregation/metastatic_tumors/results/expected_triallelic_spectrum/NONenriched.Alkylating.expected_triallelic.csv", header=TRUE, sep=",")
+df_expected2 <- read.table("../results/expected_triallelic_spectrum/NONenriched.Alkylating.expected_triallelic.csv", header=TRUE, sep=",")
 df_expected2$NONenriched.Alkylating.expected <- df_expected2$expected_count/sum(df_expected2$expected_count)
 df_expected_list <- list(df_expected1, df_expected2)
 df_expected <- reduce(df_expected_list, full_join, by = "context")
 print(head(df_expected))
 
-df_observed1 <- read.table("/workspace/projects/lesion_segregation/metastatic_tumors/results/multi_spectrum/multi_spectrum_enriched.Alkylating.tsv", header=TRUE, sep=",")[,c("mutation","Type","N_muts")]
+df_observed1 <- read.table("../results/multi_spectrum/multi_spectrum_enriched.Alkylating.tsv", header=TRUE, sep=",")[,c("mutation","Type","N_muts")]
 df_observed1$enriched.Alkylating.observed <- df_observed1$N_muts/sum(df_observed1$N_muts)
-df_observed2 <- read.table("/workspace/projects/lesion_segregation/metastatic_tumors/results/multi_spectrum/multi_spectrum_NONenriched.Alkylating.tsv", header=TRUE, sep=",")[,c("mutation","N_muts")]
+df_observed2 <- read.table("../results/multi_spectrum/multi_spectrum_NONenriched.Alkylating.tsv", header=TRUE, sep=",")[,c("mutation","N_muts")]
 df_observed2$NONenriched.Alkylating.observed <- df_observed2$N_muts/sum(df_observed2$N_muts)
 df_observed_list <- list(df_observed1, df_observed2)
 df_observed <- reduce(df_observed_list, full_join, by = "mutation")
@@ -24,7 +24,7 @@ print(head(df_observed))
 
 result <- merge(df_expected[,c("context","enriched.Alkylating.expected","NONenriched.Alkylating.expected")], df_observed[,c("mutation","Type","enriched.Alkylating.observed","NONenriched.Alkylating.observed")], by.x="context", by.y="mutation")
 print(head(result))
-df_signatures <- read.table("/workspace/projects/lesion_segregation/metastatic_tumors/results/expected_triallelic_spectrum/signatures.expected_triallelic.Alkylating.csv", header=TRUE, sep=",")
+df_signatures <- read.table("../results/expected_triallelic_spectrum/signatures.expected_triallelic.Alkylating.csv", header=TRUE, sep=",")
 colnames(df_signatures)[1] <-  "context"
 print(head(df_signatures))
 
