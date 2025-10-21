@@ -27,5 +27,11 @@ library(viridis)
 library(ggplot2)
 library(this.path)
 library(dplyr)
+library(data.table)
+library(purrr)
+library(stats4)
+library(tidyr)
+library(ggridges)
+
 ```
 ## License
