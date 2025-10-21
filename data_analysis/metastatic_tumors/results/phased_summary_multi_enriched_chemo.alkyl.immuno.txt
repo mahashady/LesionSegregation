@@ -1,0 +1,3 @@
+Phased	38
+Anti	14
+No phasing	384
