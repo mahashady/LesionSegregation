@@ -1,0 +1,3 @@
+Phased	67
+Anti	82
+No phasing	862
