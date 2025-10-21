@@ -3,6 +3,16 @@ This repository contains the scripts to reproduce analyses described in the manu
 ## Code
 All the code required is available in this repo, and should be run in Python (version >=) or R (code developed and tested with version 4.4.2) or Perl (code developed and tested with version v5.32.1). 
 ### Python Dependencies
+import argparse
+import glob
+import string
+import gzip
+import re
+import os
+import subprocess
+import pandas as pd
+import statistics
+
 ### R dependecies
 ```
 library(HMM)
