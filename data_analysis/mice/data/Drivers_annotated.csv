@@ -1,0 +1,5 @@
+Gene_name,mutID,chr,pos,refN,altN,mutID_m10,Gene_strand,Damage_strand_(T_is_damages_nucleotide),Ref_codon_substitution,Coding_codon_substituition,AA_change,expression_q
+Egfr,11:14185624_T/A,11,14185624,T,A,11:16869231_T/A,+,Non-transcribed,TTC>ATC,TTC>ATC,F254I,q5
+Braf,6:37548568_A/T,6,37548568,A,T,6:39627783_A/T,-,Non-transcribed,CAC>CTC,GTG>GAG,V637E,q4
+Hras,7:145859242_T/C,7,145859242,T,C,7:141192550_T/C,-,Transcribed,TTG>TCG,CAA>CGA,Q61R,q5
+Hras,7:145859242_T/A,7,145859242,T,A,7:141192550_T/A,-,Transcribed,TTG>TAG,CAA>CTA,Q61L,q5

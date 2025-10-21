@@ -22,9 +22,9 @@ def subset_genes(subset_file_name):
 
 
 def main(args):
-    genes_MAPK = subset_genes("../../data/gene_sets/MAPK_pathway_genes.txt")
-    genes_census = subset_genes("../../data/gene_sets/Census_tier1.txt")
-    genes_file = open("../../data/expression/all_expression.csv")
+    genes_MAPK = subset_genes("../data/gene_sets/MAPK_pathway_genes.txt")
+    genes_census = subset_genes("../data/gene_sets/Census_tier1.txt")
+    genes_file = open("../data/expression/all_expression.csv")
     genes_dict = {}
     for line in genes_file:
         line = line.strip("\r\n").split(";")
@@ -42,42 +42,44 @@ def main(args):
             genes_dict[chrom].append([start, end, gene_name, gene_strand, tranId ,gene_expr, gene_exprq])
 
 
-    df_MRCA = pd.read_csv("../../MRCA/results/Summary_divisions_with_symmetrical_no_tetra.txt", sep=",")
+    df_MRCA = pd.read_csv("../LAD/results/Summary_divisions_with_symmetrical_no_mixtures.txt", sep=",")
     print(df_MRCA.head())
     samples = df_MRCA["sample"]
     for sample in samples:
-        mut_file = open("../../data/mutations/" + sample + ".nodMat")
-        print(sample)
-        outname = "../../data/mutations_vs_genes/" + sample + ".with_gene_annot.nodMat"
-        outfile = open(outname, "a")
-        for line in mut_file:
-            line=line.strip("\r\n")
-            data = line.split(",")
-            if data[0] == 'chr':
-                outfile.write(line + "," + "geneName,geneStrand,tranId,expression,expression_q,inCensus,inMAPK\n")
-            else:
-                mut_chr = data[0]
-                mut_coord = int(data[1])
-                gene_name=""
-                gene_strand=""
-                transcript_id=""
-                gene_expression=""
-                gene_expression_q=""
-                gene_in_census=0
-                gene_in_MAPK=0
-                for gene in genes_dict[mut_chr]:
-                    if (mut_coord >= gene[0] and mut_coord <= gene[1]):
-                        gene_name=gene[2]
-                        gene_strand=gene[3]
-                        transcript_id=gene[4]
-                        gene_expression=gene[5]
-                        gene_expression_q=gene[6]
-                        if gene[2] in genes_census:
-                            gene_in_census = 1
-                        if gene[2] in genes_MAPK:
-                            gene_in_MAPK = 1
+        mut_file_name = "../data/mutations/" + sample + ".nodMat"
+        if os.path.isfile(mut_file_name):
+            print(sample)
+            mut_file = open(mut_file_name)
+            outname = "../data/mutations_vs_genes/" + sample + ".with_gene_annot.nodMat"
+            outfile = open(outname, "a")
+            for line in mut_file:
+                line=line.strip("\r\n")
+                data = line.split(",")
+                if data[0] == 'chr':
+                    outfile.write(line + "," + "geneName,geneStrand,tranId,expression,expression_q,inCensus,inMAPK\n")
+                else:   
+                    mut_chr = data[0]
+                    mut_coord = int(data[1])
+                    gene_name=""
+                    gene_strand=""
+                    transcript_id=""
+                    gene_expression=""
+                    gene_expression_q=""
+                    gene_in_census=0
+                    gene_in_MAPK=0
+                    for gene in genes_dict[mut_chr]:
+                        if (mut_coord >= gene[0] and mut_coord <= gene[1]):
+                            gene_name=gene[2]
+                            gene_strand=gene[3]
+                            transcript_id=gene[4]
+                            gene_expression=gene[5]
+                            gene_expression_q=gene[6]
+                            if gene[2] in genes_census:
+                                gene_in_census = 1
+                            if gene[2] in genes_MAPK:
+                                gene_in_MAPK = 1
 
-                outfile.write(line + "," + gene_name + "," + gene_strand + "," + transcript_id  + "," + gene_expression  + "," + gene_expression_q + "," + str(gene_in_census) + "," + str(gene_in_MAPK) + "\n")    
+                    outfile.write(line + "," + gene_name + "," + gene_strand + "," + transcript_id  + "," + gene_expression  + "," + gene_expression_q + "," + str(gene_in_census) + "," + str(gene_in_MAPK) + "\n")    
 
 if __name__=="__main__":
     parser = argparse.ArgumentParser()

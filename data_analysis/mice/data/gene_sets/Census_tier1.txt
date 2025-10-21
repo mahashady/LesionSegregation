@@ -1,0 +1,480 @@
+Gene Symbol	Name	Role in Cancer
+ACVR1	activin A receptor, type I	oncogene
+AKT1	v-akt murine thymoma viral oncogene homolog 1	oncogene
+AKT2	v-akt murine thymoma viral oncogene homolog 2	oncogene
+AR	Androgen Receptor	oncogene
+CACNA1D	calcium channel, voltage-dependent, L type, alpha 1D subunit	oncogene
+CALR	calreticulin	oncogene
+CARD11	caspase recruitment domain family, member 11	oncogene
+CCNE1	cyclin E1	oncogene
+CD79A	CD79a molecule, immunoglobulin-associated alpha	oncogene
+CD79B	CD79b molecule, immunoglobulin-associated beta	oncogene
+CDK4	cyclin-dependent kinase 4	oncogene
+CHD4	chromodomain helicase DNA binding protein 4	oncogene
+CSF3R	colony stimulating factor 3 receptor (granulocyte)	oncogene
+CXCR4	C-X-C motif chemokine receptor 4	oncogene
+DDR2	discoidin domain receptor 2	oncogene
+EGFR	epidermal growth factor receptor (erythroblastic leukemia viral (v-erb-b) oncogene homolog, avian)	oncogene
+ERBB3	erb-b2 receptor tyrosine kinase 3	oncogene
+FGFR4	fibroblast growth factor receptor 4	oncogene
+FLT3	fms-related tyrosine kinase 3	oncogene
+FLT4	fms-related tyrosine kinase 4	oncogene
+FOXA1	forkhead box A1	oncogene
+FUBP1	far upstream element (FUSE) binding protein 1	oncogene
+GATA2	GATA binding protein 2	oncogene
+GNA11	guanine nucleotide binding protein (G protein), alpha 11 (Gq class)	oncogene
+GNAQ	guanine nucleotide binding protein (G protein), q polypeptide	oncogene
+GNAS	guanine nucleotide binding protein (G protein), alpha stimulating activity polypeptide 1	oncogene
+H3F3A	H3 histone, family 3A	oncogene
+H3F3B	H3 histone, family 3B (H3.3B)	oncogene
+HIF1A	hypoxia inducible factor 1 alpha subunit	oncogene
+HIST1H3B	histone cluster 1, H3b	oncogene
+HRAS	v-Ha-ras Harvey rat sarcoma viral oncogene homolog	oncogene
+IDH1	isocitrate dehydrogenase 1 (NADP+), soluble	oncogene
+IDH2	isocitrate dehydrogenase 2 (NADP+), mitochondrial	oncogene
+IKBKB	inhibitor of kappa light polypeptide gene enhancer in B-cells, kinase beta	oncogene
+IL6ST	interleukin 6 signal transducer (gp130, oncostatin M receptor)	oncogene
+IL7R	interleukin 7 receptor	oncogene
+JAK3	Janus kinase 3	oncogene
+JUN	jun oncogene	oncogene
+KDR	vascular endothelial growth factor receptor 2	oncogene
+KIT	v-kit Hardy-Zuckerman 4 feline sarcoma viral oncogene homolog	oncogene
+KRAS	v-Ki-ras2 Kirsten rat sarcoma 2 viral oncogene homolog	oncogene
+MAP2K1	mitogen-activated protein kinase kinase 1	oncogene
+MAP2K2	mitogen-activated protein kinase kinase 2	oncogene
+MAPK1	mitogen-activated protein kinase 1	oncogene
+MDM2	Mdm2 p53 binding protein homolog	oncogene
+MDM4	Mdm4 p53 binding protein homolog	oncogene
+MET	met proto-oncogene (hepatocyte growth factor receptor)	oncogene
+MITF	melanogenesis-associated transcription factor	oncogene
+MPL	myeloproliferative leukaemia virus oncogene, thrombopoietin receptor	oncogene
+MTOR	mechanistic target of rapamycin	oncogene
+MYCL	v-myc avian myelocytomatosis viral oncogene lung carcinoma derived homolog	oncogene
+MYCN	v-myc myelocytomatosis viral related oncogene, neuroblastoma derived (avian)	oncogene
+MYD88	myeloid differentiation primary response gene (88)	oncogene
+MYOD1	myogenic differentiation 1	oncogene
+NRAS	neuroblastoma RAS viral (v-ras) oncogene homolog	oncogene
+NT5C2	5'-nucleotidase, cytosolic II	oncogene
+PIK3CA	phosphoinositide-3-kinase, catalytic, alpha polypeptide	oncogene
+PIK3CB	phosphatidylinositol-4,5-bisphosphate 3-kinase catalytic subunit beta	oncogene
+PPM1D	protein phosphatase, Mg2+/Mn2+ dependent 1D	oncogene
+PREX2	phosphatidylinositol-3,4,5-trisphosphate dependent Rac exchange factor 2	oncogene
+PRKACA	protein kinase cAMP-activated catalytic subunit alpha	oncogene
+PTPN11	protein tyrosine phosphatase, non-receptor type 11	oncogene
+RAC1	ras-related C3 botulinum toxin substrate 1 (rho family, small GTP binding protein Rac1)	oncogene
+REL	v-rel reticuloendotheliosis viral oncogene homolog (avian)	oncogene
+SALL4	spalt like transcription factor 4	oncogene
+SF3B1	splicing factor 3b, subunit 1, 155kDa	oncogene
+SIX1	SIX homeobox 1	oncogene
+SMO	smoothened homolog (Drosophila)	oncogene
+SOX2	SRY (sex determining region Y)-box 2	oncogene
+SRC	SRC proto-oncogene, non-receptor tyrosine kinase	oncogene
+SRSF2	serine/arginine-rich splicing factor 2	oncogene
+STAT3	signal transducer and activator of transcription 3 (acute-phase response factor)	oncogene
+TRRAP	transformation/transcription domain-associated protein	oncogene
+TSHR	thyroid stimulating hormone receptor	oncogene
+U2AF1	U2 small nuclear RNA auxiliary factor 1	oncogene
+UBR5	ubiquitin protein ligase E3 component n-recognin 5	oncogene
+USP8	ubiquitin specific peptidase 8	oncogene
+WAS	Wiskott-Aldrich syndrome	oncogene
+XPO1	exportin 1 (CRM1 homolog, yeast)	oncogene
+ABL1	v-abl Abelson murine leukemia viral oncogene homolog 1	oncogene, fusion
+ABL2	c-abl oncogene 2, non-receptor tyrosine kinase	oncogene, fusion
+ACKR3	atypical chemokine receptor 3	oncogene, fusion
+AFF3	AF4/FMR2 family, member 3	oncogene, fusion
+AFF4	AF4/FMR2 family, member 4	oncogene, fusion
+ALK	anaplastic lymphoma kinase (Ki-1)	oncogene, fusion
+ATF1	activating transcription factor 1	oncogene, fusion
+BCL11A	B-cell CLL/lymphoma 11A	oncogene, fusion
+BCL2	B-cell CLL/lymphoma 2	oncogene, fusion
+BCL3	B-cell CLL/lymphoma 3	oncogene, fusion
+BCL6	B-cell CLL/lymphoma 6	oncogene, fusion
+BCL9	B-cell CLL/lymphoma 9	oncogene, fusion
+BRAF	v-raf murine sarcoma viral oncogene homolog B1	oncogene, fusion
+BRD3	bromodomain containing 3	oncogene, fusion
+BRD4	bromodomain containing 4	oncogene, fusion
+CCND1	cyclin D1	oncogene, fusion
+CCND2	cyclin D2	oncogene, fusion
+CCND3	cyclin D3	oncogene, fusion
+CD74	CD74 molecule, major histocompatibility complex, class II invariant chain	oncogene, fusion
+CDK6	cyclin-dependent kinase 6	oncogene, fusion
+CREB1	cAMP responsive element binding protein 1	oncogene, fusion
+CREB3L2	cAMP responsive element binding protein 3-like 2	oncogene, fusion
+CRLF2	cytokine receptor-like factor 2	oncogene, fusion
+CRTC1	CREB regulated transcription coactivator 1	oncogene, fusion
+CTNNB1	catenin (cadherin-associated protein), beta 1	oncogene, fusion
+DDIT3	DNA-damage-inducible transcript 3	oncogene, fusion
+DDX5	DEAD (Asp-Glu-Ala-Asp) box polypeptide 5	oncogene, fusion
+DDX6	DEAD (Asp-Glu-Ala-Asp) box polypeptide 6	oncogene, fusion
+DEK	DEK oncogene (DNA binding)	oncogene, fusion
+ELK4	ELK4, ETS-domain protein (SRF accessory protein 1)	oncogene, fusion
+ERBB2	v-erb-b2 erythroblastic leukemia viral oncogene homolog 2, neuro/glioblastoma derived oncogene homolog (avian)	oncogene, fusion
+ERG	v-ets erythroblastosis virus E26 oncogene like (avian)	oncogene, fusion
+ETV1	ets variant gene 1	oncogene, fusion
+ETV4	ets variant gene 4 (E1A enhancer binding protein, E1AF)	oncogene, fusion
+ETV5	ets variant gene 5	oncogene, fusion
+EWSR1	Ewing sarcoma breakpoint region 1 (EWS)	oncogene, fusion
+FCGR2B	Fc fragment of IgG, low affinity IIb, receptor for (CD32)	oncogene, fusion
+FCRL4	Fc receptor-like 4	oncogene, fusion
+FEV	FEV protein - (HSRNAFEV)	oncogene, fusion
+FGFR1	fibroblast growth factor receptor 1	oncogene, fusion
+FGFR2	fibroblast growth factor receptor 2	oncogene, fusion
+FGFR3	fibroblast growth factor receptor 3	oncogene, fusion
+FLI1	Friend leukemia virus integration 1	oncogene, fusion
+FOXP1	forkhead box P1	oncogene, fusion
+FSTL3	follistatin-like 3 (secreted glycoprotein)	oncogene, fusion
+HEY1	hairy/enhancer-of-split related with YRPW motif 1	oncogene, fusion
+HIP1	huntingtin interacting protein 1	oncogene, fusion
+HLF	hepatic leukemia factor	oncogene, fusion
+HMGA1	high mobility group AT-hook 1	oncogene, fusion
+HMGA2	high mobility group AT-hook 2 (HMGIC)	oncogene, fusion
+HNRNPA2B1	heterogeneous nuclear ribonucleoprotein A2/B1	oncogene, fusion
+HOXA13	homeo box A13	oncogene, fusion
+HOXC11	homeo box C11	oncogene, fusion
+HOXC13	homeo box C13	oncogene, fusion
+HOXD11	homeo box D11	oncogene, fusion
+HOXD13	homeo box D13	oncogene, fusion
+JAK2	Janus kinase 2	oncogene, fusion
+KAT6A	K(lysine) acetyltransferase 6A	oncogene, fusion
+KDM5A	lysine (K)-specific demethylase 5A, JARID1A	oncogene, fusion
+KMT2A	lysine (K)-specific methyltransferase 2A	oncogene, fusion
+LCK	lymphocyte-specific protein tyrosine kinase	oncogene, fusion
+LMO1	LIM domain only 1 (rhombotin 1) (RBTN1)	oncogene, fusion
+LMO2	LIM domain only 2 (rhombotin-like 1) (RBTN2)	oncogene, fusion
+LPP	LIM domain containing preferred translocation partner in lipoma	oncogene, fusion
+LYL1	lymphoblastic leukemia derived sequence 1	oncogene, fusion
+MAF	v-maf musculoaponeurotic fibrosarcoma oncogene homolog	oncogene, fusion
+MAFB	v-maf musculoaponeurotic fibrosarcoma oncogene homolog B (avian)	oncogene, fusion
+MALT1	mucosa associated lymphoid tissue lymphoma translocation gene 1	oncogene, fusion
+MAML2	mastermind-like 2 (Drosophila)	oncogene, fusion
+MECOM	MDS1 and EVI1 complex locus	oncogene, fusion
+MN1	MN1 proto-oncogene, transcriptional regulator	oncogene, fusion
+MSI2	musashi homolog 2 (Drosophila)	oncogene, fusion
+MTCP1	mature T-cell proliferation 1	oncogene, fusion
+MYB	v-myb myeloblastosis viral oncogene homolog	oncogene, fusion
+MYC	v-myc myelocytomatosis viral oncogene homolog (avian)	oncogene, fusion
+NCOA2	nuclear receptor coactivator 2 (TIF2)	oncogene, fusion
+NFATC2	nuclear factor of activated T-cells, cytoplasmic, calcineurin-dependent 2	oncogene, fusion
+NPM1	nucleophosmin (nucleolar phosphoprotein B23, numatrin)	oncogene, fusion
+NR4A3	nuclear receptor subfamily 4, group A, member 3 (NOR1)	oncogene, fusion
+NSD2	Wolf-Hirschhorn syndrome candidate 1(MMSET)	oncogene, fusion
+NSD3	Wolf-Hirschhorn syndrome candidate 1-like 1 (NSD3)	oncogene, fusion
+NTRK3	neurotrophic tyrosine kinase, receptor, type 3	oncogene, fusion
+NUP98	nucleoporin 98kDa	oncogene, fusion
+NUTM1	NUT midline carcinoma, family member 1	oncogene, fusion
+OLIG2	oligodendrocyte lineage transcription factor 2 (BHLHB1)	oncogene, fusion
+P2RY8	purinergic receptor P2Y, G-protein coupled, 8	oncogene, fusion
+PAX3	paired box gene 3	oncogene, fusion
+PBX1	pre-B-cell leukemia transcription factor 1	oncogene, fusion
+PDCD1LG2	programmed cell death 1 ligand 2	oncogene, fusion
+PDGFB	platelet-derived growth factor beta polypeptide (simian sarcoma viral (v-sis) oncogene homolog)	oncogene, fusion
+PDGFRA	platelet-derived growth factor, alpha-receptor	oncogene, fusion
+PDGFRB	platelet-derived growth factor receptor, beta polypeptide	oncogene, fusion
+PIM1	pim-1 oncogene	oncogene, fusion
+PLAG1	pleiomorphic adenoma gene 1	oncogene, fusion
+PLCG1	phospholipase C, gamma 1	oncogene, fusion
+POU2AF1	POU domain, class 2, associating factor 1 (OBF1)	oncogene, fusion
+POU5F1	POU domain, class 5, transcription factor 1	oncogene, fusion
+PRDM16	PR domain containing 16	oncogene, fusion
+PSIP1	PC4 and SFRS1 interacting protein 1 (LEDGF)	oncogene, fusion
+RAF1	v-raf-1 murine leukemia viral oncogene homolog 1	oncogene, fusion
+RAP1GDS1	RAP1, GTP-GDP dissociation stimulator 1	oncogene, fusion
+RARA	retinoic acid receptor, alpha	oncogene, fusion
+RET	ret proto-oncogene	oncogene, fusion
+ROS1	v-ros UR2 sarcoma virus oncogene homolog 1 (avian)	oncogene, fusion
+RSPO3	R-spondin 3	oncogene, fusion
+SET	SET translocation	oncogene, fusion
+SETBP1	SET binding protein 1	oncogene, fusion
+SH3GL1	SH3-domain GRB2-like 1 (EEN)	oncogene, fusion
+SND1	staphylococcal nuclease and tudor domain containing 1	oncogene, fusion
+SRSF3	serine/arginine-rich splicing factor 3	oncogene, fusion
+SSX1	synovial sarcoma, X breakpoint 1	oncogene, fusion
+SSX2	synovial sarcoma, X breakpoint 2	oncogene, fusion
+SSX4	synovial sarcoma, X breakpoint 4	oncogene, fusion
+STAT6	signal transducer and activator of transcription 6, interleukin-4 induced	oncogene, fusion
+STIL	SCL/TAL1 interrupting locus	oncogene, fusion
+SYK	spleen tyrosine kinase	oncogene, fusion
+TAF15	TAF15 RNA polymerase II, TATA box binding protein (TBP)-associated factor, 68kDa	oncogene, fusion
+TAL1	T-cell acute lymphocytic leukemia 1 (SCL)	oncogene, fusion
+TAL2	T-cell acute lymphocytic leukemia 2	oncogene, fusion
+TCF7L2	transcription factor 7-like 2	oncogene, fusion
+TCL1A	T-cell leukemia/lymphoma 1A	oncogene, fusion
+TFE3	transcription factor binding to IGHM enhancer 3	oncogene, fusion
+TFEB	transcription factor EB	oncogene, fusion
+TLX1	T-cell leukemia, homeobox 1 (HOX11)	oncogene, fusion
+TLX3	T-cell leukemia, homeobox 3 (HOX11L2)	oncogene, fusion
+TNFRSF17	tumor necrosis factor receptor superfamily, member 17	oncogene, fusion
+TRIM27	tripartite motif-containing 27	oncogene, fusion
+USP6	ubiquitin specific peptidase 6 (Tre-2 oncogene)	oncogene, fusion
+WWTR1	WW domain containing transcription regulator 1	oncogene, fusion
+ZNF521	zinc finger protein 521	oncogene, fusion
+APOBEC3B	apolipoprotein B mRNA editing enzyme catalytic subunit 3B	oncogene, TSG
+ATP1A1	ATPase, Na+/K+ transporting, alpha 1 polypeptide	oncogene, TSG
+BCL9L	B-cell CLL/lymphoma 9-like	oncogene, TSG
+BCORL1	BCL6 corepressor-like 1	oncogene, TSG
+BMPR1A	bone morphogenetic protein receptor, type IA	oncogene, TSG
+BTK	Bruton agammaglobulinemia tyrosine kinase	oncogene, TSG
+CBLC	Cas-Br-M (murine) ecotropic retroviral transforming sequence c	oncogene, TSG
+CUX1	cut-like homeobox 1	oncogene, TSG
+DAXX	death-domain associated protein	oncogene, TSG
+DDB2	damage-specific DNA binding protein 2	oncogene, TSG
+EPAS1	endothelial PAS domain protein 1	oncogene, TSG
+ERBB4	erb-b2 receptor tyrosine kinase 4	oncogene, TSG
+EZH2	enhancer of zeste homolog 2	oncogene, TSG
+FES	FES proto-oncogene, tyrosine kinase	oncogene, TSG
+FOXL2	forkhead box L2	oncogene, TSG
+GATA1	GATA binding protein 1 (globin transcription factor 1)	oncogene, TSG
+GATA3	GATA binding protein 3	oncogene, TSG
+GPC3	glypican 3	oncogene, TSG
+IRS4	insulin receptor substrate 4	oncogene, TSG
+JAK1	Janus kinase 1	oncogene, TSG
+KDM6A	lysine (K)-specific demethylase 6A, UTX	oncogene, TSG
+KLF4	Kruppel-like factor 4	oncogene, TSG
+KMT2D	lysine (K)-specific methyltransferase 2D	oncogene, TSG
+LEF1	lymphoid enhancer binding factor 1	oncogene, TSG
+MAP2K4	mitogen-activated protein kinase kinase 4	oncogene, TSG
+MAP3K1	mitogen-activated protein kinase kinase kinase 1, E3 ubiquitin protein ligase	oncogene, TSG
+MAP3K13	mitogen-activated protein kinase kinase kinase 13	oncogene, TSG
+NFE2L2	nuclear factor (erythroid-derived 2)-like 2 (NRF2)	oncogene, TSG
+NKX2-1	NK2 homeobox 1	oncogene, TSG
+NOTCH2	Notch homolog 2	oncogene, TSG
+POLQ	DNA polymerase theta	oncogene, TSG
+PTK6	protein tyrosine kinase 6	oncogene, TSG
+QKI	QKI, KH domain containing, RNA binding	oncogene, TSG
+RAD21	RAD21 homolog (S. pombe)	oncogene, TSG
+RECQL4	RecQ protein-like 4	oncogene, TSG
+RHOA	ras homolog family member A	oncogene, TSG
+TBX3	T-box 3	oncogene, TSG
+TERT	telomerase reverse transcriptase	oncogene, TSG
+TP63	tumor protein p63	oncogene, TSG
+ARNT	aryl hydrocarbon receptor nuclear translocator	oncogene, TSG, fusion
+BCL11B	B-cell CLL/lymphoma 11B  (CTIP2)	oncogene, TSG, fusion
+BIRC3	baculoviral IAP repeat-containing 3	oncogene, TSG, fusion
+CBL	Cas-Br-M (murine) ecotropic retroviral transforming	oncogene, TSG, fusion
+CIC	capicua homolog	oncogene, TSG, fusion
+CREBBP	CREB binding protein (CBP)	oncogene, TSG, fusion
+ELF4	E74-like factor 4 (ets domain transcription factor)	oncogene, TSG, fusion
+ESR1	estrogen receptor 1	oncogene, TSG, fusion
+FOXO1	forkhead box O1	oncogene, TSG, fusion
+FOXO3	forkhead box O3	oncogene, TSG, fusion
+FOXO4	forkhead box O4	oncogene, TSG, fusion
+HOXA11	homeo box A11	oncogene, TSG, fusion
+HOXA9	homeo box A9	oncogene, TSG, fusion
+IKZF3	IKAROS Family Zinc Finger 3	oncogene, TSG, fusion
+IRF4	interferon regulatory factor 4	oncogene, TSG, fusion
+MRTFA	megakaryoblastic leukemia (translocation) 1	oncogene, TSG, fusion
+NFKB2	nuclear factor of kappa light polypeptide gene enhancer in B-cells 2 (p49/p100)	oncogene, TSG, fusion
+NOTCH1	Notch homolog 1, translocation-associated (Drosophila) (TAN1)	oncogene, TSG, fusion
+NTRK1	neurotrophic tyrosine kinase, receptor, type 1	oncogene, TSG, fusion
+PAX5	paired box gene 5 (B-cell lineage specific activator protein)	oncogene, TSG, fusion
+PRKAR1A	protein kinase, cAMP-dependent, regulatory, type I, alpha (tissue specific extinguisher 1)	oncogene, TSG, fusion
+RUNX1	runt-related transcription factor 1  (AML1)	oncogene, TSG, fusion
+STAT5B	signal transducer and activator of transcription 5B	oncogene, TSG, fusion
+SUZ12	suppressor of zeste 12 homolog (Drosophila)	oncogene, TSG, fusion
+TBL1XR1	transducin (beta)-like 1 X-linked receptor 1	oncogene, TSG, fusion
+TCF3	transcription factor 3 (E2A immunoglobulin enhancer binding factors E12/E47)	oncogene, TSG, fusion
+TET1	tet methylcytosine dioxygenase 1	oncogene, TSG, fusion
+TP53	tumor protein p53	oncogene, TSG, fusion
+TRIM24	tripartite motif containing 24	oncogene, TSG, fusion
+WT1	Wilms tumour 1 gene	oncogene, TSG, fusion
+ACVR1B	Activin A Receptor Type 1B	TSG
+ACVR2A	activin A receptor type 2A	TSG
+AMER1	APC membrane recruitment protein 1	TSG
+ARHGAP35	Rho GTPase activating protein 35	TSG
+ARID1B	AT rich interactive domain 1B	TSG
+ARID2	AT rich interactive domain 2	TSG
+ASXL1	additional sex combs like 1	TSG
+ATM	ataxia telangiectasia mutated	TSG
+ATP2B3	ATPase, Ca++ transporting, plasma membrane 3	TSG
+ATR	ATR serine/threonine kinase	TSG
+ATRX	alpha thalassemia/mental retardation syndrome X-linked	TSG
+AXIN1	axin 1	TSG
+AXIN2	axin 2	TSG
+B2M	beta-2-microglobulin	TSG
+BAP1	BRCA1 associated protein-1 (ubiquitin carboxy-terminal hydrolase)	TSG
+BARD1	BRCA1 associated RING domain 1	TSG
+BAX	BCL2 associated X, apoptosis regulator	TSG
+BLM	Bloom Syndrome	TSG
+BRCA1	familial breast/ovarian cancer gene 1	TSG
+BRCA2	familial breast/ovarian cancer gene 2	TSG
+BRIP1	BRCA1 interacting protein C-terminal helicase 1	TSG
+BUB1B	BUB1 budding uninhibited by benzimidazoles 1 homolog beta (yeast)	TSG
+CASP8	caspase 8, apoptosis-related cysteine peptidase	TSG
+CBLB	Cas-Br-M (murine) ecotropic retroviral transforming sequence b	TSG
+CDC73	cell division cycle 73	TSG
+CDH1	cadherin 1, type 1, E-cadherin (epithelial) (ECAD)	TSG
+CDK12	cyclin-dependent kinase 12	TSG
+CDKN1B	cyclin-dependent kinase inhibitor 1B (p27, Kip1)	TSG
+CDKN2A	cyclin-dependent kinase inhibitor 2A (p16(INK4a)) gene	TSG
+CDKN2C	cyclin-dependent kinase inhibitor 2C (p18, inhibits CDK4)	TSG
+CEBPA	CCAAT/enhancer binding protein (C/EBP), alpha	TSG
+CHEK2	CHK2 checkpoint homolog (S. pombe)	TSG
+CNOT3	CCR4-NOT transcription complex subunit 3	TSG
+CTCF	CCCTC-binding factor	TSG
+CYLD	familial cylindromatosis gene	TSG
+DDX3X	DEAD-box helicase 3, X-linked	TSG
+DICER1	dicer 1, ribonuclease type III	TSG
+DNM2	dynamin 2	TSG
+DNMT3A	DNA (cytosine-5-)-methyltransferase 3 alpha	TSG
+DROSHA	drosha ribonuclease III	TSG
+ERCC2	excision repair cross-complementing rodent repair deficiency, complementation group 2 (xeroderma pigmentosum D)	TSG
+ERCC3	excision repair cross-complementing rodent repair deficiency, complementation group 3 (xeroderma pigmentosum group B complementing)	TSG
+ERCC4	excision repair cross-complementing rodent repair deficiency, complementation group 4	TSG
+ERCC5	excision repair cross-complementing rodent repair deficiency, complementation group 5 (xeroderma pigmentosum, complementation group G (Cockayne syndrome))	TSG
+ETNK1	ethanolamine kinase 1	TSG
+EXT2	multiple exostoses type 2 gene	TSG
+FANCA	Fanconi anemia, complementation group A	TSG
+FANCC	Fanconi anemia, complementation group C	TSG
+FANCD2	Fanconi anemia, complementation group D2	TSG
+FANCE	Fanconi anemia, complementation group E	TSG
+FANCF	Fanconi anemia, complementation group F	TSG
+FANCG	Fanconi anemia, complementation group G	TSG
+FAS	Fas cell surface death receptor	TSG
+FAT1	FAT atypical cadherin 1	TSG
+FAT4	FAT atypical cadherin 4	TSG
+FBXO11	F-box protein 11	TSG
+FBXW7	F-box and WD-40 domain protein 7 (archipelago homolog, Drosophila)	TSG
+FH	fumarate hydratase	TSG
+FLCN	folliculin	TSG
+GRIN2A	glutamate receptor, ionotropic, N-methyl D-aspartate 2A	TSG
+HNF1A	HNF1 homeobox A	TSG
+KDM5C	lysine (K)-specific demethylase 5C (JARID1C)	TSG
+KEAP1	kelch like ECH associated protein 1	TSG
+KLF6	Kruppel-like factor 6	TSG
+KMT2C	lysine (K)-specific methyltransferase 2C	TSG
+LATS1	large tumor suppressor kinase 1	TSG
+LATS2	large tumor suppressor kinase 2	TSG
+LRP1B	LDL receptor related protein 1B	TSG
+LZTR1	leucine-zipper-like transcription regulator 1	TSG
+MAX	Myc associated factor X	TSG
+MED12	mediator complex subunit 12	TSG
+MEN1	multiple endocrine neoplasia type 1 gene	TSG
+MLH1	E.coli MutL homolog gene	TSG
+MSH2	mutS homolog 2 (E. coli)	TSG
+MSH6	mutS homolog 6 (E. coli)	TSG
+MUTYH	mutY homolog (E. coli)	TSG
+NBN	nibrin	TSG
+NCOR1	nuclear receptor corepressor 1	TSG
+NCOR2	nuclear receptor corepressor 2	TSG
+NF2	neurofibromatosis type 2 gene	TSG
+NFKBIE	nuclear factor of kappa light polypeptide gene enhancer in B-cells inhibitor, epsilon	TSG
+PALB2	partner and localizer of BRCA2	TSG
+PBRM1	polybromo 1	TSG
+PHF6	PHD finger protein 6	TSG
+PHOX2B	paired-like homeobox 2b	TSG
+PIK3R1	phosphoinositide-3-kinase, regulatory subunit 1 (alpha)	TSG
+PMS2	PMS2 postmeiotic segregation increased 2 (S. cerevisiae)	TSG
+POLD1	DNA polymerase delta 1, catalytic subunit	TSG
+POLE	polymerase (DNA directed), epsilon, catalytic subunit	TSG
+POT1	protection of telomeres 1	TSG
+PPP2R1A	protein phosphatase 2, scaffolding subunit A, alpha	TSG
+PPP6C	protein phosphatase 6, catalytic subunit	TSG
+PRDM1	PR domain containing 1, with ZNF domain	TSG
+PRF1	perforin 1 (pore forming protein)	TSG
+PTCH1	Homolog of Drosophila Patched gene	TSG
+PTEN	phosphatase and tensin homolog gene	TSG
+PTPN13	protein tyrosine phosphatase, non-receptor type 13	TSG
+PTPRB	protein tyrosine phosphatase, receptor type, B	TSG
+PTPRC	protein tyrosine phosphatase, receptor type, C	TSG
+PTPRT	protein tyrosine phosphatase, receptor type T	TSG
+RB1	retinoblastoma gene	TSG
+RBM10	RNA binding motif protein 10	TSG
+RNF43	ring finger protein 43	TSG
+RPL10	ribosomal protein L10	TSG
+RPL5	ribososomal protein L5	TSG
+SBDS	Shwachman-Bodian-Diamond syndrome protein	TSG
+SDHA	succinate dehydrogenase complex, subunit A, flavoprotein (Fp)	TSG
+SDHAF2	succinate dehydrogenase complex assembly factor 2	TSG
+SDHB	succinate dehydrogenase complex, subunit B, iron sulfur (Ip)	TSG
+SDHC	succinate dehydrogenase complex, subunit C, integral membrane protein, 15kDa	TSG
+SDHD	succinate dehydrogenase complex, subunit D, integral membrane protein	TSG
+SETD2	SET domain containing 2	TSG
+SFRP4	secreted frizzled related protein 4	TSG
+SH2B3	SH2B adaptor protein 3	TSG
+SMAD2	SMAD family member 2	TSG
+SMAD3	SMAD family member 3	TSG
+SMAD4	SMAD family member 4	TSG
+SMARCA4	SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily a, member 4	TSG
+SMARCB1	SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily b, member 1	TSG
+SMARCD1	SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily d, member 1	TSG
+SMARCE1	SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily e, member 1	TSG
+SOCS1	suppressor of cytokine signaling 1	TSG
+SPEN	spen family transcriptional repressor	TSG
+SPOP	speckle type POZ protein	TSG
+STAG2	stromal antigen 2	TSG
+STK11	serine/threonine kinase 11 gene (LKB1)	TSG
+SUFU	suppressor of fused homolog (Drosophila)	TSG
+TENT5C	Terminal nucleotidyltransferase 5C	TSG
+TET2	tet oncogene family member 2	TSG
+TGFBR2	transforming growth factor beta receptor II	TSG
+TMEM127	transmembrane protein 127	TSG
+TNFAIP3	tumor necrosis factor, alpha-induced protein 3	TSG
+TNFRSF14	tumor necrosis factor receptor superfamily, member 14 (herpesvirus entry mediator)	TSG
+TRAF7	tumour necrosis factor receptor-associated factor 7	TSG
+TSC1	tuberous sclerosis 1 gene	TSG
+TSC2	tuberous sclerosis 2 gene	TSG
+VHL	von Hippel-Lindau syndrome gene	TSG
+WRN	Werner syndrome (RECQL2)	TSG
+XPA	xeroderma pigmentosum, complementation group A	TSG
+XPC	xeroderma pigmentosum, complementation group C	TSG
+ZFHX3	zinc finger homeobox 3	TSG
+ZRSR2	zinc finger (CCCH type), RNA-binding motif and serine/arginine rich 2	TSG
+ABI1	abl-interactor 1	TSG, fusion
+ARHGAP26	Rho GTPase activating protein 26	TSG, fusion
+ARHGEF12	RHO guanine nucleotide exchange factor (GEF) 12 (LARG)	TSG, fusion
+ARID1A	AT rich interactive domain 1A (SWI-like)	TSG, fusion
+BCL10	B-cell CLL/lymphoma 10	TSG, fusion
+BCOR	BCL6 corepressor	TSG, fusion
+BTG1	B-cell translocation gene 1, anti-proliferative	TSG, fusion
+CAMTA1	calmodulin binding transcription activator 1	TSG, fusion
+CARS	cysteinyl-tRNA synthetase	TSG, fusion
+CBFB	core-binding factor, beta subunit	TSG, fusion
+CCDC6	coiled-coil domain containing 6	TSG, fusion
+CCNB1IP1	cyclin B1 interacting protein 1, E3 ubiquitin protein ligase	TSG, fusion
+CD274	CD274 molecule	TSG, fusion
+CDH11	cadherin 11, type 2, OB-cadherin (osteoblast)	TSG, fusion
+CDX2	caudal type homeo box transcription factor 2	TSG, fusion
+CIITA	class II, major histocompatibility complex, transactivator	TSG, fusion
+CLTC	clathrin, heavy polypeptide (Hc)	TSG, fusion
+CLTCL1	clathrin, heavy polypeptide-like 1	TSG, fusion
+CNBP	CCHC-type zinc finger, nucleic acid binding protein	TSG, fusion
+CREB3L1	cAMP responsive element binding protein 3-like 1	TSG, fusion
+DDX10	DEAD (Asp-Glu-Ala-Asp) box polypeptide 10	TSG, fusion
+EBF1	early B-cell factor 1	TSG, fusion
+EIF3E	eukaryotic translation initiation factor 3, subunit E	TSG, fusion
+ELL	ELL gene (11-19 lysine-rich leukemia gene)	TSG, fusion
+EP300	300 kd E1A-Binding protein gene	TSG, fusion
+EPS15	epidermal growth factor receptor pathway substrate 15 (AF1p)	TSG, fusion
+ETV6	ets variant gene 6 (TEL oncogene)	TSG, fusion
+EXT1	multiple exostoses type 1 gene	TSG, fusion
+FHIT	fragile histidine triad gene	TSG, fusion
+IKZF1	IKAROS family zinc finger 1	TSG, fusion
+KAT6B	K(lysine) acetyltransferase 6B	TSG, fusion
+KNL1	cancer susceptibility candidate 5	TSG, fusion
+LRIG3	leucine-rich repeats and immunoglobulin-like domains 3	TSG, fusion
+MLF1	myeloid leukemia factor 1	TSG, fusion
+MYH9	myosin, heavy polypeptide 9, non-muscle	TSG, fusion
+NAB2	NGFI-A binding protein 2	TSG, fusion
+NCOA4	nuclear receptor coactivator 4 - PTC3 (ELE1)	TSG, fusion
+NDRG1	N-myc downstream regulated 1	TSG, fusion
+NF1	neurofibromatosis type 1 gene	TSG, fusion
+NRG1	neuregulin 1	TSG, fusion
+PATZ1	zinc finger protein 278 (ZSG)	TSG, fusion
+PER1	period homolog 1 (Drosophila)	TSG, fusion
+PML	promyelocytic leukemia	TSG, fusion
+PPARG	peroxisome proliferative activated receptor, gamma	TSG, fusion
+PTPRK	protein tyrosine phosphatase, receptor type, K	TSG, fusion
+RAD51B	RAD51 paralog B	TSG, fusion
+RANBP2	RAN binding protein 2	TSG, fusion
+RHOH	ras homolog family member H	TSG, fusion
+RMI2	RecQ mediated genome instability 2	TSG, fusion
+RPL22	ribosomal protein L22 (EAP)	TSG, fusion
+RSPO2	R-spondin 2	TSG, fusion
+SFPQ	splicing factor proline/glutamine rich(polypyrimidine tract binding protein associated)	TSG, fusion
+SLC34A2	solute carrier family 34 (sodium phosphate), member 2	TSG, fusion
+TPM3	tropomyosin 3	TSG, fusion
+TRIM33	tripartite motif-containing 33 (PTC7,TIF1G)	TSG, fusion
+WIF1	WNT inhibitory factor 1	TSG, fusion
+YWHAE	tyrosine 3-monooxygenase/tryptophan 5-monooxygenase activation protein, epsilon polypeptide (14-3-3 epsilon)	TSG, fusion
+ZBTB16	zinc finger and BTB domain containing 16	TSG, fusion
+ZNF331	zinc finger protein 331	TSG, fusion
