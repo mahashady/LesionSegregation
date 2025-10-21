@@ -15,16 +15,16 @@ import csv
 from collections import defaultdict
 import itertools
 
-
+# Setting could be enriched or NONenriched
+# Treatment could be Platinum.SBS_more10 or Alkylating
 setting = "NONenriched"
-
+treatment = "Alkylating"
 # Load genome composition from a JSON file
-with open("/workspace/projects/bladder_ts/results/cord_blood_tws/genome_counts_tribases.json", "r") as f:
+with open("../data/genome_counts_tribases.json.json", "r") as f:
     genome_context = json.load(f)  
 
 # Load lists of samples
-# with open("/workspace/projects/lesion_segregation/metastatic_tumors/results/samples_lists.Platinum.SBS_more10.json", "r") as fl:
-with open("/workspace/projects/lesion_segregation/metastatic_tumors/results/samples_lists.Alkylating.json", "r") as fl:
+with open("../results/samples_lists." + treatment + ".json", "r") as fl:
     lists_of_samples = json.load(fl)  
 
 def load_sample_mutation_rates(filepath):
@@ -64,7 +64,7 @@ def compute_expected_triallelic(mutation_rates, genome_context):
     return expected
 
 def main(args):
-    samples_dir = "/workspace/projects/lesion_segregation/metastatic_tumors/results/bi_spectrum_by_sample_" + setting + ".chemo_alkyl_immuno/"
+    samples_dir = "../results/bi_spectrum_by_sample_" + setting + ".chemo_alkyl_immuno/"
     total_expected = defaultdict(float)
     list_of_samples = lists_of_samples[setting]
     for sample in list_of_samples:
@@ -74,14 +74,13 @@ def main(args):
         for label, count in sample_expected.items():
             total_expected[label] += count
 
-    # with open("/workspace/projects/lesion_segregation/metastatic_tumors/results/expected_triallelic_spectrum/" + setting + ".Platinum.SBS_more10.expected_triallelic.csv", "w", newline="") as f:
-    with open("/workspace/projects/lesion_segregation/metastatic_tumors/results/expected_triallelic_spectrum/" + setting + ".Alkylating.expected_triallelic.csv", "w", newline="") as f:
+    with open("../results/expected_triallelic_spectrum/" + setting + "." + treatment + ".expected_triallelic.csv", "w", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(["context", "expected_count"])
         for label in sorted(total_expected.keys()):
             writer.writerow([label, total_expected[label]])
 
-    print("✅ Cohort-level triallelic spectrum saved to 'cohort_expected_triallelic.csv'")
+    print("Cohort-level triallelic spectrum saved to 'cohort_expected_triallelic.csv'")
 
 
 

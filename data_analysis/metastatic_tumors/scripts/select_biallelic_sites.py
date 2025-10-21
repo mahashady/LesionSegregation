@@ -47,7 +47,8 @@ def main(args):
     
     for sample in multi_samples_list:
         print(sample)
-        file_name = glob.glob("/workspace/datasets/hartwig/20230914/somatic/"+sample+"*/purple/" + sample + "*.purple.somatic.vcf.gz")[0]
+        # HERE the PATH CONTAINING SOMATIC VCFs SHOULD BE UPDATED
+        file_name = glob.glob("./hartwig/20230914/somatic/"+sample+"*/purple/" + sample + "*.purple.somatic.vcf.gz")[0]
         if os.path.isfile("../results/bi_sites_by_sample_" + subset + ".chemo_alkyl_immuno/" + sample + "_bi_sites.txt") == False: 
             print("Creating file")
             outfile = open("../results/bi_sites_by_sample_" + subset + ".chemo_alkyl_immuno/" + sample + "_bi_sites.txt", "a")

@@ -68,7 +68,8 @@ def main(args):
     
     for sample in multi_samples_list:
         print(sample)
-        file_name = glob.glob("/workspace/datasets/hartwig/20230914/somatic/"+sample+"*/purple/" + sample + "*.purple.somatic.vcf.gz")[0]
+        # HERE the PATH CONTAINING SOMATIC VCFs SHOULD BE UPDATED
+        file_name = glob.glob("../hartwig/20230914/somatic/"+sample+"*/purple/" + sample + "*.purple.somatic.vcf.gz")[0]
         if os.path.isfile("../results/multi_sites_by_sample_" + subset + ".chemo_alkyl_immuno/" + sample + "_multi_sites.txt") == False: 
             print("Creating file")
             outfile = open("../results/multi_sites_by_sample_" + subset + ".chemo_alkyl_immuno/" + sample + "_multi_sites.txt", "a")
@@ -92,9 +93,10 @@ def main(args):
             
             print("Dict created")
             if subset == "enriched":
-                germline_file_name = glob.glob("/workspace/datasets/hartwig/20230914/germline/*" + sample +".annotated.vcf.gz")
+                # HERE the PATH CONTAINING GERMLINE VCFs SHOULD BE UPDATED
+                germline_file_name = glob.glob("../hartwig/20230914/germline/*" + sample +".annotated.vcf.gz")
             else:
-                germline_file_name = glob.glob("/workspace/datasets/hartwig/20230914/germline/2nd_batch/*" + sample +".annotated.vcf.gz")
+                germline_file_name = glob.glob("../hartwig/20230914/germline/2nd_batch/*" + sample +".annotated.vcf.gz")
 
             if len(germline_file_name) > 0:
                 germline_dict = load_germline(germline_file_name[0])

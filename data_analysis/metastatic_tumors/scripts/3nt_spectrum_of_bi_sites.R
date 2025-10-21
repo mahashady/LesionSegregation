@@ -2,8 +2,12 @@ library(hash)
 library(ggplot2)
 library(jsonlite)
 
-# Load the JSON file into a list
-json_data <- fromJSON("/workspace/projects/bladder_ts/results/cord_blood_tws/genome_counts_tribases.json")
+
+# subset <- "Platinum"
+subset <- "Alkylating"
+
+# Load the JSON file with genome tribases counts into a list
+json_data <- fromJSON("../data/genome_counts_tribases.json")
 
 # If it's a named vector (like a 96-mutation matrix), convert to data frame
 genome_composition <- data.frame(
@@ -17,13 +21,9 @@ print(head(genome_composition))
 muttype_level <- c("A[C>A]A","A[C>A]C","A[C>A]G","A[C>A]T","C[C>A]A","C[C>A]C","C[C>A]G","C[C>A]T","G[C>A]A","G[C>A]C","G[C>A]G","G[C>A]T","T[C>A]A","T[C>A]C","T[C>A]G","T[C>A]T","A[C>G]A","A[C>G]C","A[C>G]G","A[C>G]T","C[C>G]A","C[C>G]C","C[C>G]G","C[C>G]T","G[C>G]A","G[C>G]C","G[C>G]G","G[C>G]T","T[C>G]A","T[C>G]C","T[C>G]G","T[C>G]T","A[C>T]A","A[C>T]C","A[C>T]G","A[C>T]T","C[C>T]A","C[C>T]C","C[C>T]G","C[C>T]T","G[C>T]A","G[C>T]C","G[C>T]G","G[C>T]T","T[C>T]A","T[C>T]C","T[C>T]G","T[C>T]T","A[T>A]A","A[T>A]C","A[T>A]G","A[T>A]T","C[T>A]A","C[T>A]C","C[T>A]G","C[T>A]T","G[T>A]A","G[T>A]C","G[T>A]G","G[T>A]T","T[T>A]A","T[T>A]C","T[T>A]G","T[T>A]T","A[T>C]A","A[T>C]C","A[T>C]G","A[T>C]T","C[T>C]A","C[T>C]C","C[T>C]G","C[T>C]T","G[T>C]A","G[T>C]C","G[T>C]G","G[T>C]T","T[T>C]A","T[T>C]C","T[T>C]G","T[T>C]T","A[T>G]A","A[T>G]C","A[T>G]G","A[T>G]T","C[T>G]A","C[T>G]C","C[T>G]G","C[T>G]T","G[T>G]A","G[T>G]C","G[T>G]G","G[T>G]T","T[T>G]A","T[T>G]C","T[T>G]G","T[T>G]T" )
 possible_mutations <- paste(substr(muttype_level,1,1),substr(muttype_level,3,3), substr(muttype_level,7,7), ">",substr(muttype_level,5,5), sep="")
 
-# subset <- "Platinum"
-subset <- "Alkylating"
-genome_trinucl = "/workspace/datasets/dmg_maps/ref_counts/hg19/genome_counts_tribases.json"
-
-df_enriched = read.table("/home/mandrianova/Burst_kinetics/Hartwig/results/all_enriched.chemo_alkyl_immuno.txt", sep=",", header=TRUE)
+df_enriched = read.table("../results/all_enriched.chemo_alkyl_immuno.txt", sep=",", header=TRUE)
 print(head(df_enriched))
-df_non_enriched = read.table("/home/mandrianova/Burst_kinetics/Hartwig/results/all_NONenriched.chemo_alkyl_immuno.txt", sep=",", header=TRUE)
+df_non_enriched = read.table("../results/all_NONenriched.chemo_alkyl_immuno.txt", sep=",", header=TRUE)
 df_non_enriched = df_non_enriched[df_non_enriched$n_multi > 0,] #select NONenriched that have at least one multi-allelic sites to create the spectrum
 print(nrow(df_enriched))
 print(nrow(df_non_enriched))
@@ -78,7 +78,7 @@ mut_dict2spectrum <- function(mut_dict, possible_mutations) {
 iter_by_samples <- function(list_samples_of_interest, subset){
   all_mutations <- NULL
   for (sample in list_samples_of_interest){
-    file_name <- paste("/workspace/projects/lesion_segregation/metastatic_tumors/results/bi_sites_by_sample_", subset, ".chemo_alkyl_immuno/", sample, "_bi_sites.txt", sep="")
+    file_name <- paste("../results/bi_sites_by_sample_", subset, ".chemo_alkyl_immuno/", sample, "_bi_sites.txt", sep="")
     all_sample_mutations <- NULL
     if (file.exists(file_name)){
       print(sample)
@@ -93,7 +93,7 @@ iter_by_samples <- function(list_samples_of_interest, subset){
       print(head(df_sample_mutations))
       df_sample_mutations <- merge(df_sample_mutations, genome_composition, by = "context")
       df_sample_mutations$Mutrate <- as.numeric(df_sample_mutations$N_muts)/as.numeric(df_sample_mutations$counts)
-      write.csv(df_sample_mutations, file = paste0("/workspace/projects/lesion_segregation/metastatic_tumors/results/bi_spectrum_by_sample_", subset, ".chemo_alkyl_immuno/", sample ,"_bi_spectrum.txt"), row.names=FALSE)
+      write.csv(df_sample_mutations, file = paste0("../results/bi_spectrum_by_sample_", subset, ".chemo_alkyl_immuno/", sample ,"_bi_spectrum.txt"), row.names=FALSE)
     }
   }
   return(all_mutations)
@@ -136,4 +136,4 @@ p1 <- (ggplot(result)
   + facet_wrap(~subset, nrow = 2)
   + ggtitle(subset)
   )
-ggsave(paste("/home/mandrianova/Burst_kinetics/Hartwig/plots/biallelic_spectrum_enriched_vs_NONenriched_", subset, ".jpeg", sep=""), p1,width=30, height=20, dpi=300, units='cm')
+ggsave(paste("../plots/biallelic_spectrum_enriched_vs_NONenriched_", subset, ".jpeg", sep=""), p1,width=30, height=20, dpi=300, units='cm')
