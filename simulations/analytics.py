@@ -1,40 +1,13 @@
 import numpy as np
 import pandas as pd
+import os
 
+if not os.path.isdir('analytics_results/'):
+    os.mkdir('analytics_results/')
 
 cf_mult = 2.58
 
-# get lower and upper error bars based on standard deviation
-# egfr_counts = np.array([0, 4, 11, 2, 1, 3])
-# egfr_perc = egfr_counts/sum(egfr_counts)
-# egfr_low = (egfr_counts - cf_mult*np.sqrt(egfr_counts))/sum(egfr_counts)
-# egfr_high = (egfr_counts + cf_mult*np.sqrt(egfr_counts))/sum(egfr_counts)
-# egfr_range_sd = [(lo, hi) for lo, hi in zip(egfr_low, egfr_high)]
-#
-# braf_counts = np.array([3, 44, 28, 6, 9, 11])
-# braf_perc = braf_counts/sum(braf_counts)
-# braf_low = (braf_counts - cf_mult*np.sqrt(braf_counts))/sum(braf_counts)
-# braf_high = (braf_counts + cf_mult*np.sqrt(braf_counts))/sum(braf_counts)
-# braf_range_sd = [(lo, hi) for lo, hi in zip(braf_low, braf_high)]
-#
-# hras1_counts = np.array([0, 23, 16, 8, 7, 9])
-# hras1_perc = hras1_counts/sum(hras1_counts)
-# hras1_low = (hras1_counts - cf_mult*np.sqrt(hras1_counts))/sum(hras1_counts)
-# hras1_high = (hras1_counts + cf_mult*np.sqrt(hras1_counts))/sum(hras1_counts)
-# hras1_range_sd = [(lo, hi) for lo, hi in zip(hras1_low, hras1_high)]
-#
-# hras_braf_low = np.array([min(braf_low[i], hras1_low[i]) for i in range(6)])
-# hras_braf_high = np.array([max(braf_high[i], hras1_high[i]) for i in range(6)])
-#
-# hras0_counts = np.array([12, 16, 7, 1, 3, 5])
-# hras0_perc = hras0_counts/sum(hras0_counts)
-# hras0_low = (hras0_counts - cf_mult*np.sqrt(hras0_counts))/sum(hras0_counts)
-# hras0_high = (hras0_counts + cf_mult*np.sqrt(hras0_counts))/sum(hras0_counts)
-# hras0_range_sd = [(lo, hi) for lo, hi in zip(hras0_low, hras0_high)]
-
-
-conf_interval_df = pd.read_csv('/n/data2/hms/dbmi/sunyaev/lab/maha/drivers/cancer_simulations/C3H_confidence_intervals_poisson.csv')
-# conf_interval_df = pd.read_csv('C3H_confidence_intervals_poisson.csv')
+conf_interval_df = pd.read_csv('C3H_confidence_intervals_poisson.csv')
 conf_interval_groups = conf_interval_df.groupby('Gene_name')
 
 CF = 95
@@ -58,9 +31,6 @@ egfr_range_sd = [(round(lo, 2), round(hi, 2)) for lo, hi in zip(egfr_low, egfr_h
 braf_range_sd = [(round(lo, 2), round(hi, 2)) for lo, hi in zip(braf_low, braf_high)]
 hras1_range_sd = [(round(lo, 2), round(hi, 2)) for lo, hi in zip(hras1_low, hras1_high)]
 hras0_range_sd = [(round(lo, 2), round(hi, 2)) for lo, hi in zip(hras0_low, hras0_high)]
-
-
-# round_array = np.vectorize(lambda x: round(x, 2))
 
 
 def mrca_mse(data, obs_range):

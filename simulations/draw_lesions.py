@@ -35,8 +35,6 @@ def get_selection_coefficients(driver_s_first, driver_s_max, beta_a, beta_b, n_d
     return s_list
 
 
-
-
 def introduce_lesions_wrapper(chr_sizes, drivers_loci, lesion_rate, n_drivers, n_other, driver_s_first, driver_s_max, beta_a, beta_b, same_chrom, same_strand): #, strand_type):
     driver_lesions = {}
     other_lesions = {}
@@ -62,37 +60,14 @@ def introduce_lesions_wrapper(chr_sizes, drivers_loci, lesion_rate, n_drivers, n
             drivers = np.random.choice(possible_drivers, size=n_drivers, replace=False)
             if same_strand:
                 driver_lesions[chrom_with_drivers] = [[set(drivers), set()], [set(), set()]]
-                # if strand_type == 'both':
-                #     raise ValueError("can't have driver lesions on both tx and non-tx strands if same strand = True")
-                # elif strand_type == 'tx':
-                #     if chrom_with_drivers in TX_STRAND_DICT['strand1']:
-                #         driver_lesions[chrom_with_drivers] = [[set(drivers), set()], [set(), set()]]
-                #     else:
-                #         driver_lesions[chrom_with_drivers] = [[set(), set(drivers)], [set(), set()]]
-                # else:
-                #     if chrom_with_drivers in TX_STRAND_DICT['strand2']:
-                #         driver_lesions[chrom_with_drivers] = [[set(), set(drivers)], [set(), set()]]
-                #     else:
-                #         driver_lesions[chrom_with_drivers] = [[set(drivers), set()], [set(), set()]]
+
             else:
-                # if strand_type == 'both':
-                #     if n_drivers == 1:
-                #         raise ValueError("can't have driver lesions on both tx and non-tx strands if there's only 1 driver")
 
                 strand1_ind = binomial_rv(n_trials=1, prob=0.5, size=n_drivers)
                 strand1_drivers = drivers[strand1_ind == 1]
                 strand2_drivers = drivers[strand1_ind == 0]
                 driver_lesions[chrom_with_drivers] = [[set(strand1_drivers), set(strand2_drivers)], [set(), set()]]
-                # elif strand_type == 'tx':
-                #     if chrom_with_drivers in TX_STRAND_DICT['strand1']:
-                #         driver_lesions[chrom_with_drivers] = [[set(drivers), set()], [set(), set()]]
-                #     else:
-                #         driver_lesions[chrom_with_drivers] = [[set(), set(drivers)], [set(), set()]]
-                # else:
-                #     if chrom_with_drivers in TX_STRAND_DICT['strand2']:
-                #         driver_lesions[chrom_with_drivers] = [[set(), set(drivers)], [set(), set()]]
-                #     else:
-                #         driver_lesions[chrom_with_drivers] = [[set(drivers), set()], [set(), set()]]
+
             for d_ind in range(n_drivers):
                 if chrom_with_drivers not in assigned_s:
                     assigned_s[chrom_with_drivers] = {}
@@ -144,7 +119,6 @@ def main():
     parser.add_argument('--drivers_same_chrom', '-dc', required=False, default='False', help='whether drivers should be on same chrom, only relevant if using counts')
     parser.add_argument('--drivers_same_strand', '-ds', required=False, default='False',
                         help='whether drivers should be on same strand, only relevant if using counts and drivers same chrom set to True')
-    # parser.add_argument('--strand_type', '-st', required=False, default='both', choices=['tx', 'nontx', 'both'], help='whether to draw lesions on transcribed, non transcibed strand or both')
     parser.add_argument('--driver_s_first', '-s', required=False, default=None, help='selection coef to apply to first driver. Only use if drifer count specified'
                                                                                      'If multiple drivers: smax must also be set, '
                                                                                      'and the remaining drivers will get equal s that combine to max s')
@@ -233,9 +207,6 @@ def main():
     assigned_s, lesions = introduce_lesions_wrapper(chr_sizes, driver_locations, lesion_rate, n_drivers, n_other, driver_s_first, driver_s_max, beta_a, beta_b, same_chrom, same_strand) #, args.strand_type)
     pickle.dump(lesions, open(f'{outdir}/driver_lesions.pickle', 'wb'))
     pickle.dump(assigned_s, open(f'{outdir}/driver_lesion_selection_coefficients.pickle', 'wb'))
-
-
-
 
 
 if __name__ == '__main__':

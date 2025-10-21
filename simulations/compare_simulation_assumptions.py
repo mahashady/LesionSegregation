@@ -1,13 +1,10 @@
 import pandas as pd
 import numpy as np
 import os
-from simulation_plots import get_mrca_perc, get_mrca_list, get_mrca_and_all_4_list, get_all_4_perc
-# Read parameter fit HRAS
-# iterate over parameters we're comparing for
-# record fit lm fitness, lm no fitness, all fitness
-# compare each of lm no fitness, all fitness to lm fitness for each HRAS
+from simulation_plots import get_mrca_perc, get_mrca_and_all_4_list
 
-conf_interval_df = pd.read_csv('/n/data2/hms/dbmi/sunyaev/lab/maha/drivers/cancer_simulations/C3H_confidence_intervals_poisson.csv')
+
+conf_interval_df = pd.read_csv('simulations/C3H_confidence_intervals_poisson.csv')
 conf_interval_groups = conf_interval_df.groupby('Gene_name')
 for gene, grp in conf_interval_groups:
     srted_grp = grp.sort_values(by='division')
@@ -25,10 +22,10 @@ hras0_range_sd = [(round(lo, 2), round(hi, 2)) for lo, hi in zip(hras0_low, hras
 
 
 
-outdir = '/n/data2/hms/dbmi/sunyaev/lab/maha/drivers/assumptions_test/'
+outdir = 'assumptions_test/'
 if not os.path.isdir(outdir):
     os.mkdir(outdir)
-cell_path = '/n/data2/hms/dbmi/sunyaev/lab/maha/drivers/cells/grcm38.p6_rounded_autosomes_driver_loci_freq_5/2024-06-02_13-23/'
+cell_path = 'cells/grcm38.p6_rounded_driver_loci_freq_5/2025-10-10_11-22/'
 
 s_range = np.arange(0.2, 0.9, 0.1)
 parameters_to_test = [[0.15, 0.2, 0.05], [0.15, 0.2, 0.15],

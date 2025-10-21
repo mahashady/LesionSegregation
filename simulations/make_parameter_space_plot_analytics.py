@@ -1,11 +1,5 @@
-# read file with min/max s
-# get min s for each r, e pair (across u)
-# record min s
-# create r list, e list, s grid
-# make plot
 import pandas as pd
 import numpy as np
-import matplotlib as mplt
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
@@ -20,8 +14,8 @@ custom_rcParams = {'font.family': 'Arial',
 # update rcParams
 rcParams.update(custom_rcParams)
 
-indir = os.path.expanduser('~/Desktop/drivers/analytics_results/')
-outdir = os.path.expanduser('~/Desktop/drivers/figures/parameter_space_plots/')
+indir = os.path.expanduser('analytics_results/')
+outdir = os.path.expanduser('figures/parameter_space_plots/')
 
 
 CF = 95
@@ -50,9 +44,7 @@ for i in range(len(files)):
         for r_val in r:
             r_val = round(r_val, 2)
             subdf = df.loc[(df['r'].apply(rounding) == r_val) & (df['e'].apply(rounding) == e_val)]
-            print(e_val, r_val, round(df['e'], 2), round(df['r'], 2))
-            print(subdf)
-            print()
+
             if not subdf.empty:
                 anything_fits = True
             if len(np.unique(subdf['r'])) > 1 or len(np.unique(subdf['e'])) > 1:
@@ -61,10 +53,10 @@ for i in range(len(files)):
             e_row_max.append(round(subdf['max s'].max(), 2))
         s_min.append(e_row_min)
         s_max.append(e_row_max)
-    # reverse so e=0 is the bottom row
+
     s_min.reverse()
     s_max.reverse()
-    # e.reverse()
+
     s_min_df = pd.DataFrame(s_min, index=format(np.flip(e)), columns=format(r))
     s_max_df = pd.DataFrame(s_max, index=format(np.flip(e)), columns=format(r))
     if anything_fits:
@@ -72,27 +64,17 @@ for i in range(len(files)):
         ax = sns.heatmap(s_min_df, cmap='YlGnBu', vmin=0, vmax=1)
         ax.set_xlabel('Repair Rate', fontsize=14)
         ax.set_ylabel('Error-free Replication Rate', fontsize=14)
-        # ax.set_title(f'{title_maps[names[i]]}', fontsize=14)
+
         cbar = ax.collections[0].colorbar
         cbar.set_label('Minimum Selection Coefficient', fontsize=14)
         filename = f'{outdir}/heatmap_analytics_r_vs_e_{names[i]}_cf_{CF}'
+
         for suffix in ['png', 'svg', 'pdf']:
             outname = f'{filename}.{suffix}'
             plt.savefig(outname, format=suffix, bbox_inches='tight', dpi=300)
         plt.close(fig)
 
-        fig, ax = plt.subplots()
-        ax = sns.heatmap(s_max_df, cmap='YlGnBu', vmin=0, vmax=1)
-        ax.set_xlabel('Repair Rate', fontsize=14)
-        ax.set_ylabel('Error-free Replication Rate', fontsize=14)
-        # ax.set_title(f'{title_maps[names[i]]}', fontsize=14)
-        cbar = ax.collections[0].colorbar
-        cbar.set_label('Maximum Selection Coefficient', fontsize=14)
-        filename = f'{outdir}/heatmap_analytics_r_vs_e_{names[i]}_max_cf_{CF}'
-        for suffix in ['png', 'svg', 'pdf']:
-            outname = f'{filename}.{suffix}'
-            plt.savefig(outname, format=suffix, bbox_inches='tight', dpi=300)
-        plt.close(fig)
+
 
     # r vs u plots
     r = np.arange(0, 1.05, 0.05)
@@ -126,7 +108,7 @@ for i in range(len(files)):
         ax = sns.heatmap(s_min_df, cmap='YlGnBu', vmin=0, vmax=1)
         ax.set_xlabel('Repair Rate', fontsize=14)
         ax.set_ylabel('Mutagenic Repair Rate', fontsize=14)
-        # ax.set_title(f'{title_maps[names[i]]}', fontsize=14)
+
         cbar = ax.collections[0].colorbar
         cbar.set_label('Minimum Selection Coefficient', fontsize=14)
         filename = f'{outdir}/heatmap_analytics_r_vs_u_{names[i]}_cf_{CF}'
@@ -135,17 +117,5 @@ for i in range(len(files)):
             plt.savefig(outname, format=suffix, bbox_inches='tight', dpi=300)
         plt.close(fig)
 
-        fig, ax = plt.subplots()
-        ax = sns.heatmap(s_max_df, cmap='YlGnBu', vmin=0, vmax=1)
-        ax.set_xlabel('Repair Rate', fontsize=14)
-        ax.set_ylabel('Mutagenic Repair Rate', fontsize=14)
-        # ax.set_title(f'{title_maps[names[i]]}', fontsize=14)
-        cbar = ax.collections[0].colorbar
-        cbar.set_label('Maximum Selection Coefficient', fontsize=14)
-        filename = f'{outdir}/heatmap_analytics_r_vs_u_{names[i]}_max_cf_{CF}'
-        for suffix in ['png', 'svg', 'pdf']:
-            outname = f'{filename}.{suffix}'
-            plt.savefig(outname, format=suffix, bbox_inches='tight', dpi=300)
-        plt.close(fig)
 
 

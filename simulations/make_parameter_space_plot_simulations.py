@@ -16,8 +16,8 @@ custom_rcParams = {'font.family': 'Arial',
 # update rcParams
 rcParams.update(custom_rcParams)
 
-indir = os.path.expanduser('~/Desktop/drivers/simulation_grid/')
-outdir = os.path.expanduser('~/Desktop/drivers/figures/parameter_space_plots/')
+indir = os.path.expanduser('simulation_grid/')
+outdir = os.path.expanduser('figures/parameter_space_plots/')
 
 
 CF = 95
@@ -35,8 +35,8 @@ u_range = np.arange(0.05, 0.6, 0.1)
 
 
 for i in range(len(files)):
-    df = pd.read_csv(f'{indir}/{files[i]}') #.dropna(subset='min s')
-    print('here')
+    df = pd.read_csv(f'{indir}/{files[i]}')
+
     s_min = []
     s_max = []
     anything_fits = False
@@ -64,12 +64,12 @@ for i in range(len(files)):
     s_min_df = pd.DataFrame(s_min, index=format(np.flip(e_range)), columns=format(r_range))
     s_max_df = pd.DataFrame(s_max, index=format(np.flip(e_range)), columns=format(r_range))
     if anything_fits:
-        print(anything_fits)
+
         fig, ax = plt.subplots()
         ax = sns.heatmap(s_min_df, cmap='YlGnBu', vmin=0, vmax=1)
         ax.set_xlabel('Repair Rate', fontsize=14)
         ax.set_ylabel('Error-free Replication Rate', fontsize=14)
-        # ax.set_title(f'{title_maps[names[i]]}', fontsize=14)
+
         cbar = ax.collections[0].colorbar
         cbar.set_label('Minimum Selection Coefficient', fontsize=14)
         filename = f'{outdir}/heatmap_simulations_r_vs_e_{names[i]}_cf_{CF}'
@@ -78,21 +78,10 @@ for i in range(len(files)):
             plt.savefig(outname, format=suffix, bbox_inches='tight', dpi=300)
         plt.close(fig)
 
-        fig, ax = plt.subplots()
-        ax = sns.heatmap(s_max_df, cmap='YlGnBu', vmin=0, vmax=1)
-        ax.set_xlabel('Repair Rate', fontsize=14)
-        ax.set_ylabel('Error-free Replication Rate', fontsize=14)
-        # ax.set_title(f'{title_maps[names[i]]}', fontsize=14)
-        cbar = ax.collections[0].colorbar
-        cbar.set_label('Maximum Selection Coefficient', fontsize=14)
-        filename = f'{outdir}/heatmap_simulations_r_vs_e_{names[i]}_max_cf_{CF}'
-        for suffix in ['png', 'svg', 'pdf']:
-            outname = f'{filename}.{suffix}'
-            plt.savefig(outname, format=suffix, bbox_inches='tight', dpi=300)
-        plt.close(fig)
+
 
 for i in range(len(files)):
-    df = pd.read_csv(f'{indir}/{files[i]}')  # .dropna(subset='min s')
+    df = pd.read_csv(f'{indir}/{files[i]}')
     # r vs u plots
     s_min = []
     s_max = []
@@ -124,7 +113,7 @@ for i in range(len(files)):
         ax = sns.heatmap(s_min_df, cmap='YlGnBu', vmin=0, vmax=1)
         ax.set_xlabel('Repair Rate', fontsize=14)
         ax.set_ylabel('Mutagenic Repair Rate', fontsize=14)
-        # ax.set_title(f'{title_maps[names[i]]}', fontsize=14)
+
         cbar = ax.collections[0].colorbar
         cbar.set_label('Minimum Selection Coefficient', fontsize=14)
         filename = f'{outdir}/heatmap_simulations_r_vs_u_{names[i]}_cf_{CF}'
@@ -133,17 +122,5 @@ for i in range(len(files)):
             plt.savefig(outname, format=suffix, bbox_inches='tight', dpi=300)
         plt.close(fig)
 
-        fig, ax = plt.subplots()
-        ax = sns.heatmap(s_max_df, cmap='YlGnBu', vmin=0, vmax=1)
-        ax.set_xlabel('Repair Rate', fontsize=14)
-        ax.set_ylabel('Mutagenic Repair Rate', fontsize=14)
-        # ax.set_title(f'{title_maps[names[i]]}', fontsize=14)
-        cbar = ax.collections[0].colorbar
-        cbar.set_label('Maximum Selection Coefficient', fontsize=14)
-        filename = f'{outdir}/heatmap_simulations_r_vs_u_{names[i]}_max_cf_{CF}'
-        for suffix in ['png', 'svg', 'pdf']:
-            outname = f'{filename}.{suffix}'
-            plt.savefig(outname, format=suffix, bbox_inches='tight', dpi=300)
-        plt.close(fig)
 
 
