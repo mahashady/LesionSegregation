@@ -1,0 +1,15 @@
+mice_line,division,all_samples,one_driver
+C3H,0,20,17
+C3H,1,109,98
+C3H,2,90,77
+C3H,3,23,21
+C3H,4,28,24
+C3H,5,18,17
+C3H,late,15,12
+CAST,0,0,0
+CAST,1,15,12
+CAST,2,18,15
+CAST,3,4,3
+CAST,4,6,6
+CAST,5,1,1
+CAST,late,6,5
