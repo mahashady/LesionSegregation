@@ -20,7 +20,7 @@ import statistics
 import numpy as np # version 2.3.2
 import matplotlib # version 3.10.3
 import scipy # version 1.6.2
-import seaborn # version 0.1..1
+import seaborn # version 0.1.1
 ```
 ### R dependecies
 ```
