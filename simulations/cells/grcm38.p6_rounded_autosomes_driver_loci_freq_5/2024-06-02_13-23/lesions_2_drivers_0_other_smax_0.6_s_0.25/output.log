@@ -1,0 +1,25 @@
+Drawing lesions for cell in cells/grcm38.p6_rounded_autosomes_driver_loci_freq_5/2024-06-02_13-23/
+Lesion rate is: None
+Lesion counts are: drivers = 2, other = 0
+Driver same chromosome: False, same strand: False
+Driver lesions are selected to have max selected selection coefecients 0.6, with one driver having selection coeficient 0.25
+Random seed 7
+4: {30349564: 0.25}
+15: {87655395: 0.28}
+0: {}
+1: {}
+2: {}
+3: {}
+5: {}
+6: {}
+7: {}
+8: {}
+9: {}
+10: {}
+11: {}
+12: {}
+13: {}
+14: {}
+16: {}
+17: {}
+18: {}
