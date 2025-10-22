@@ -47,6 +47,7 @@ The code is supported for macOS and Linux and has been tested on the following s
 ```
 macOS Big Sur Version 11.6
 Linux CentOS 7
+Debian GNU/Linux 8 (jessie)
 Red Hat Enterprise Linux 9 (RH9)
 ```
 
