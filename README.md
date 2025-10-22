@@ -20,7 +20,7 @@ import statistics
 import numpy as np # version 2.3.2
 import matplotlib # version 3.10.3
 import scipy # version 1.6.2
-import seaborn # version 0.1..1
+import seaborn # version 0.1.1
 ```
 ### R dependecies
 ```
@@ -47,6 +47,7 @@ The code is supported for macOS and Linux and has been tested on the following s
 ```
 macOS Big Sur Version 11.6
 Linux CentOS 7
+Debian GNU/Linux 8 (jessie)
 Red Hat Enterprise Linux 9 (RH9)
 ```
 
