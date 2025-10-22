@@ -42,6 +42,14 @@ library(tidyr)
 library(ggridges)
 
 ```
+### Operating Systems
+The code is supported for macOS and Linux and has been tested on the following systems:
+```
+macOS Big Sur Version 11.6
+Linux CentOS 7
+Red Hat Enterprise Linux 9 (RH9)
+```
+
 ## Hardware Requirements
 Jobs were executed under the Slurm workload manager with the following maximum resource specifications:
 ```
