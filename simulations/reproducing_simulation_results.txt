@@ -1,0 +1,13 @@
+To reproduce all simulation results, use the provided cell example at simulations/cells/grcm38.p6_rounded_autosomes_driver_loci_freq_5/2024-06-02_13-23 and draw lesions (draw_lesions.py) with the following parameters:
+- lesion counts: 1 driver and 0 other with s in range 0.2-0.8
+- lesion counts: 2 drivers and 0 other with the following (s_max, first_s) combinations: (0.2, 0.1) ,(0.3, 0.1), (0.4, 0.25), (0.5, 0.25), (0.6, 0.25), (0.7, 0.3), (0.8, 0.3) # Note that results for the 2 driver case should not be affected by the value of s for a given s_max since all subsequent simulations with more than 1 driver lesions are run on synergestic epistasis.
+- lesion_counts: 3-5 drivers with (s_max, first_s) in the following: (0.4, 0.2), (0.5, 0.2), (0.6, 0.2)
+For all the above the --drivers_same_chrom and --drivers_same_strand options should be set to False
+
+Then run simulations (simulations.py) based on each set of lesions with the following parameters:
+- error-free replication in the range np.arange(0.05, 0.55, 0.1), repair in the range (0.2, 0.9, 0.1), and mutagenic repair (option is called shared_mutations_through_repair in the script) in the range (0.05, 0.6, 0.1). Note that mutagenic repair is upper bounded by the repair parameter, since the repair parameter refers to mutagenic + non-mutagenic repair. 
+- epistasis type is 'add' for 1 driver simulations and 'syn' for multidriver simulations
+- sim_min, sim_max, and sim_count should be picked by the user
+- all other parameters should be left as the default
+
+Scripts to reproduce grids and figures can then be run on the resulting simulations.
