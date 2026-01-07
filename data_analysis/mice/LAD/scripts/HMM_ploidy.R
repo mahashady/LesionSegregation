@@ -1,79 +1,204 @@
-args <- commandArgs(trailingOnly = TRUE)
-fn <- args[1]
-
-fnf<-paste("../results/HMM/input_HMM/", fn,sep = "")
-
 library(HMM)
-library(betareg)
-library(flexmix)
+#library(flexmix)
 library(mixtools)
 
-data<-read.table(file=fnf, header=F, sep=" ")####
-colnames(data) <- c("Chr", "Pos", "Mutation", "Context", "Cov_ref", "Cov_alt", "Sample_id", "bi_multi", "Substitution_type")
+##############################
+## 1. Parse arguments & setup
+##############################
+args <- commandArgs(trailingOnly = TRUE)
+input_fn <- args[1]
+print(input_fn)
+input_path <- paste("../results/input_HMM/", input_fn, sep = "")
+output_dir <- "../results/HMM/HMM_ploidy/"
 
-data$Substitution_type<-as.character(data$Substitution_type)
-data$bi_multi<-as.character(data$bi_multi)
-data$Chr<-as.character(data$Chr)
+if (!dir.exists(output_dir)) {
+  dir.create(output_dir, recursive = TRUE)
+}
 
-SM <- data[data$bi_multi == 'B' & (data$Substitution_type == 'A_N' | data$Substitution_type == 'T_N') & data$Chr != 'X',]
-SM$Chr<-as.numeric(SM$Chr)
-SM$Cov_alt<-as.numeric(SM$Cov_alt)
-SM$vaf <- SM$Cov_alt/(SM$Cov_alt+SM$Cov_ref)
-SM$coord <- as.numeric(SM$Chr)*1000000000+SM$Pos
+##############################
+## 2. Load and preprocess data
+##############################
+
+data <- read.table(file=input_path, header=TRUE, sep=",") 
+data$chr <- as.character(data$chr)
+# select bi-allelic autosomal T>N/A>N mutations
+message("Numer of all mutations = ", nrow(data))
+SM <- data[data$code_multi == 'B' & (data$code_as == 'A>N' | data$code_as == 'T>N') & data$chr != 'X',]
+SM$chr <- as.numeric(SM$chr)
+SM$altCount <- as.numeric(SM$altCount)
+
+# Calculate vaf
+SM$vaf <- SM$altCount/(SM$altCount+SM$refCount)
+#Numeric coordinate for ordering
+SM$coord <- as.numeric(SM$chr) * 1e9 + SM$pos
+message("Numer of input mutations = ", nrow(SM))
+
+#####################################
+## 3. Mixture model on VAF distribution
+#####################################
 
 fit <- normalmixEM(SM$vaf, k = 2) #fit vaf distribution as a mixture of two normal distributions
-sum(fit$posterior[,2]>0.8)
-sum(fit$posterior[,1]>0.8)
+print(head(fit$mu))
+# Count confidently assigned variants
+if (fit$mu[1] < fit$mu[2]){
+    n_subclonal <- sum(fit$posterior[, 1] > 0.8)
+    n_clonal <- sum(fit$posterior[, 2] > 0.8)
+} else {
+    n_subclonal <- sum(fit$posterior[, 2] > 0.8)
+    n_clonal <- sum(fit$posterior[, 1] > 0.8)
+}
 
+#####################################
+## 4. Define and run HMM
+#####################################
 
-TM<-matrix(c(rep(0.002,9)),3) 
-diag(TM) <- rep(0.192,3)
+TM <- matrix(0.002, nrow = 3, ncol = 3)
+diag(TM) <- 0.192
 
-#run HMMas on the whole set of mutations
-hmm=initHMM(c("A0","A1","A2" ),c("T_N","A_N"),
+# Initial HMM with 3 possible states of asymmetry
+hmm=initHMM(c("A1","A2","A3" ),c("T>N","A>N"),
             transProbs=TM, 
             emissionProbs=rbind(c(.9,.1),
                                 c(.5,.5),
                                 c(.1,.9))) 
 
-#run Baum-Welch and Viterbi for clonal mutations
-bw2=baumWelch(hmm,SM[(SM$Substitution_type == 'A_N' | SM$Substitution_type == 'T_N') & fit$posterior[,2] > 0.8,]$Substitution_type, 15)
-viterbi(bw2$hmm,SM[(SM$Substitution_type == 'A_N' | SM$Substitution_type == 'T_N') & fit$posterior[,2] > 0.8,]$Substitution_type) -> l2
 
+# Subset clonal and subclonal mutations
+if (fit$mu[1] < fit$mu[2]){
+    obs_clonal <- SM[fit$posterior[, 2] > 0.8,]
+    obs_subclonal <- SM[fit$posterior[, 1] > 0.8,]
+} else {
+    obs_clonal <- SM[fit$posterior[, 1] > 0.8,]
+    obs_subclonal <- SM[fit$posterior[, 2] > 0.8,]
+}
+message("N clonal mutations = ", nrow(obs_clonal))
+message("N subclonal mutations = ", nrow(obs_subclonal))
+#run Baum-Welch and Viterbi for clonal mutations
+bw_clonal <- baumWelch(hmm,obs_clonal$code_as, maxIterations = 15)
+print("Clonal HMM done")
+print(bw_clonal$hmm$emissionProbs)
+obs_clonal$states_clonal <- viterbi(bw_clonal$hmm, obs_clonal$code_as)
+print(head(obs_clonal))
 #run Baum-Welch and Viterbi for subclonal mutations
-bw1=baumWelch(hmm,SM[(SM$Substitution_type == 'A_N' | SM$Substitution_type == 'T_N') & fit$posterior[,1] > 0.8,]$Substitution_type, 15)
-viterbi(bw1$hmm,SM[(SM$Substitution_type == 'A_N' | SM$Substitution_type == 'T_N') & fit$posterior[,1] > 0.8,]$Substitution_type) -> l1
+bw_subclonal <- baumWelch(hmm, obs_subclonal$code_as, maxIterations = 15)
+print("Subclonal HMM done")
+print(bw_subclonal$hmm$emissionProbs)
+obs_subclonal$states_subclonal <- viterbi(bw_subclonal$hmm,obs_subclonal$code_as)
+print(head(obs_subclonal))
+#####################################
+## 5. Summarize HMM outputs
+#####################################
 
 #create matrix with emissions and number of sites in each state separately for clonal and subclonal mutations and write to the output
-EMP <- as.vector(c('Emissions_bw1_bw2',bw1$hmm$emissionProbs[,1],bw2$hmm$emissionProbs[,1]))
-STP <- c('Statecounts_bw1_bw2',sum(as.numeric(l1=='A0')),sum(as.numeric(l1=='A1')),sum(as.numeric(l1=='A2')),
-       sum(as.numeric(l2=='A0')),sum(as.numeric(l2=='A1')),sum(as.numeric(l2=='A2')))
+EMP <- c(
+  "Emissions_bw1_bw2",
+  bw_subclonal$hmm$emissionProbs[, 1],
+  bw_clonal$hmm$emissionProbs[, 1]
+)
+
+
+STP <- c(
+  "Statecounts_bw1_bw2",
+  sum(obs_subclonal$states_subclonal == "A1"),
+  sum(obs_subclonal$states_subclonal == "A2"),
+  sum(obs_subclonal$states_subclonal == "A3"),
+  sum(obs_clonal$states_clonal == "A1"),
+  sum(obs_clonal$states_clonal == "A2"),
+  sum(obs_clonal$states_clonal == "A3")
+)
+
 Bw_matrix <- rbind(EMP,STP)
 
-# write output to the file
-output_dir <- "../results/HMM/HMM_ploidy/"
-if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
-fnf1 <- paste(output_dir, fn,".BW",sep = "")
-write.table((Bw_matrix), file=fnf1, sep=" ", row.names=FALSE, quote = FALSE, col.names = FALSE)
+# output HMM summary
+write.table(
+  Bw_matrix,
+  file = file.path(output_dir, paste0(input_fn, ".BW")),
+  sep = " ",
+  row.names = FALSE,
+  col.names = FALSE,
+  quote = FALSE
+)
 
-#output boundary vafs for clonal and subclonal mutations, median vaf of clonal and subclonal mutations, number of clonal and subclonal mutations
-MAX <- min(max(SM[fit$posterior[,1]>0.8,]$vaf), max(SM[fit$posterior[,2]>0.8,]$vaf))
-MIN<-max(min(SM[fit$posterior[,1]>0.8,10]),min(SM[fit$posterior[,2]>0.8,10]))
-Distr_properies<-c('vafMed_vafboundaries_Distr_size',median(SM[fit$posterior[,1]>0.5,10]),median(SM[fit$posterior[,2]>0.5,10]),
-MAX,MIN,sum(as.numeric(fit$posterior[,1]>0.8)),sum(as.numeric(fit$posterior[,2]>0.8)))
+#####################################
+## 6. VAF distribution summaries
+#####################################
+
+# output boundary vafs for clonal and subclonal mutations, 
+# median vaf of clonal and subclonal mutations, number of clonal and subclonal mutations
+
+MAX <- min(
+  max(SM$vaf[fit$posterior[, 1] > 0.8]),
+  max(SM$vaf[fit$posterior[, 2] > 0.8])
+)
+MIN <- max(
+  min(SM$vaf[fit$posterior[, 1] > 0.8]),
+  min(SM$vaf[fit$posterior[, 2] > 0.8])
+)
 
 
-# write output to the file
-fnf2<-paste(output_dir, fn,".Clonesize",sep = "")
-write.table((Distr_properies),file=fnf2,sep=" ",row.names=FALSE,quote = FALSE,col.names = FALSE)
+if (fit$mu[1] < fit$mu[2]){
+    median_subclonal <- median(SM$vaf[fit$posterior[, 1] > 0.5])
+    median_clonal <- median(SM$vaf[fit$posterior[, 2] > 0.5])
+} else {
+    median_subclonal <- median(SM$vaf[fit$posterior[, 2] > 0.5])
+    median_clonal <- median(SM$vaf[fit$posterior[, 1] > 0.5])
+}
 
-#output the asymmetry states of clonal and subclonal mutations
-indices <- findInterval(SM[fit$posterior[,2]>0.8,]$coord, sort(SM[fit$posterior[,1]>0.8,]$coord))+1
-indices[indices > length(l1)] <- length(l1)
-AB <- as.data.frame(cbind(l1[indices],l2))
-combined_states <- table(paste(AB[,1], AB[,2], sep = ","))
-as.numeric(t(as.matrix(combined_states)))->CS
-as.vector(names(combined_states))->nam
-rbind(nam,as.numeric(CS))->Mat
-fnf3<-paste(output_dir, fn,".CloneAS",sep = "")
-write.table((Mat),file=fnf3,sep=" ",row.names=FALSE,quote = FALSE,col.names = FALSE)
+Distr_properties <- c(
+  "vafMed_vafboundaries_Distr_size",
+  median_subclonal,
+  median_clonal,
+  MAX,
+  MIN,
+  n_subclonal,
+  n_clonal
+)
+write.table(
+  Distr_properties,
+  file = file.path(output_dir, paste0(input_fn, ".Clonesize")),
+  sep = " ",
+  row.names = FALSE,
+  col.names = FALSE,
+  quote = FALSE
+)
+
+#####################################
+## 7. Asymmetry state combinations
+#####################################
+
+# Map clonal states onto subclonal coordinates
+
+obs_clonal_sorted <- obs_clonal[order(obs_clonal$coord),]
+obs_subclonal_sorted <- obs_subclonal[order(obs_subclonal$coord),]
+coord_clonal <- obs_clonal$coord
+coord_subclonal <- obs_subclonal$coord
+
+indices <- findInterval(
+  obs_clonal_sorted$coord,
+  obs_subclonal_sorted$coord
+) + 1
+indices[indices > length(obs_subclonal$states_subclonal)] <- length(obs_subclonal$states_subclonal)
+print(head(indices,20))
+
+AB <- data.frame(
+  subclonal = obs_subclonal_sorted$states_subclonal[indices],
+  clonal = obs_clonal_sorted$states_clonal
+)
+print(head(AB))
+print(table(AB[,1]))
+print(table(AB[,2]))
+
+
+combined_states <- table(paste(AB$subclonal, AB$clonal, sep = ","))
+Mat <- rbind(
+  names(combined_states),
+  as.numeric(combined_states)
+)
+write.table(
+  Mat,
+  file = file.path(output_dir, paste0(input_fn, ".CloneAS")),
+  sep = " ",
+  row.names = FALSE,
+  col.names = FALSE,
+  quote = FALSE
+)
