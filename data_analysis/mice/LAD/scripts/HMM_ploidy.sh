@@ -8,9 +8,9 @@
 
 source activate cancer_architecture
 # Path to the directory containing .hmm files
-input_dir="/results/HMM/input_HMM"
+input_dir="/home/bbg/mandrianova/Burst_kinetics/data_analysis/data_analysis/mice/LAD/results/HMM/input_HMM"
 # Get the list of .hmm files into an array
-files=("$input_dir"/*.hmm)
+files=("$input_dir"/87191_N2.hmm)
 
 # Get the file corresponding to the current job index ($SLURM_ARRAY_TASK_ID)
 file=${files[$SLURM_ARRAY_TASK_ID]}
@@ -21,4 +21,4 @@ filename=$(basename "$file")
 echo "Processing $filename"
 
 # Run the R script and pass the filename as an argument
-Rscript HMM_subclone.R "$filename"
+Rscript HMM_ploidy.R "$filename"
