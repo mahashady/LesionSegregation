@@ -1,19 +1,18 @@
-Description of HMM_subclone output files
+Script /mice/LAD/scripts/2_run_HHM_ploidy.py outputs several types of files.
 
-For each sample there are dethreetailed output files:
-1) <sampleID>.hmm.BW contains emissions and number of sites for each of the three WC asymmetry state separately for clonal and subclonal mutations.
+1) Full summary 
+Includes sample name, number of distributions fitting vaf distribution (Ncl),
+quality of HMM  asymmetry model on clonal and subclonal subsets (subsets_fit),
+observed-to-expected ratios of cloanl-subclonal states 1-1(o_e_11), 3-3 (o_e_33), 3-1 (o_e_31), 1-3(o_e_13),
+classification based on correspondance of asymmetry states between clonal and subclonal mutations (ASS).
 
-2) <sampleID>.hmm.Clonesize contains:
-   - median vaf value for subclonal and clonal mutations
-   - max vaf value for subclonal mutations, minimum vaf value for clonal mutations
-   - number of mutations attributed to clonal and subclonal group
+/mice/LAD/results/Ploidy_summary.tsv
 
-3) <sampleID>.CloneAS contains number of sites attributed to each combination of WC asymmetry states between clonal and subclonal mutations.
+2) Segments of WC asymmmetry for each sample
+/mice/LAD/results/HMM_as_result/*_intervals_HMMas.bed
 
-The aggregated file "Summary_subclone.tsv" contains information about perfomance of fiting of vaf distribution as a mixture of two normal distributions
-and classification of tumor as symmetric/diploid/tetraploid.
-Summary file columns:
-- sample name
-- fitting of the vaf distribution ("1_clone" if the algorithm was not able to fit vaf distribution as a mixture of two, 
-                                    "bad" if HMM asymmetry emissions lay outside of the expected values)
-- tumor classification
+3) Segments of multiallelic states for each sample
+/mice/LAD/results/HMM_multi_result/*_intervals_HMMmulti.bed
+
+4) Multiallelic states for each site in eachsample
+/mice/LAD/results/HMM_multi_result/*.tsv
