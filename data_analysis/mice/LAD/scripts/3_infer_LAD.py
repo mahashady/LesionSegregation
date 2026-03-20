@@ -230,8 +230,8 @@ def main(args):
         .size()
         .reset_index(name="Freq")
         )
-    lad_by_line_by_driver_one_driver.to_csv("../results/LAD_by_mice_line_by_driver_agg.txt", index=False)
-    print("LAD by mice line by driver has been written to ../results/LAD_by_mice_line_by_driver_agg.txt")
+    lad_by_line_by_driver_one_driver.to_csv("../results/LAD_ML_segm_by_mice_line_by_driver_agg.txt", index=False)
+    print("LAD by mice line by driver has been written to ../results/LAD_ML_segm_by_mice_line_by_driver_agg.txt")
 
     # Many drivers summaries
     lad_many_drivers = df_no_mixtures.loc[df_no_mixtures["drivers"].fillna("").str.contains(";", regex=False)].copy()
