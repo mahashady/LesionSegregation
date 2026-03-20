@@ -1,0 +1,29 @@
+Description of HMM output files
+There are five output files for each sample plus one summary file that aggregates the main results and was used for the following analysis.
+
+For each sample there are detailed output files:
+1) <sampleID>.summary contains the information about VAF, asymmetry and prevalence of HMM states
+List of columns:
+- input file name (sampleID)
+- A_N/T_N ratio in the HMMas state 4 for sites with VAF > 0.25
+- A_N/T_N ratio in the HMMas state 4 for sites with VAF < 0.15 (Numbers should be very close with previos column if nothing funny is going on)
+- Median VAF autosomes
+- Median VAF X chromosome
+- Number of sites in HMMas state 0
+- Number of sites in HMMas state 1
+- Number of sites in HMMas state 2
+- Number of sites in HMMas state 3
+- Number of sites in HMMas state 4
+- Number of sites in HMMmulti state 0
+- Number of sites in HMMmulti state 1
+- Number of sites in HMMmulti state 2
+**** Word "site" means segregating position in HMMmulti and A>N/T>N mutations in HMMas)
+
+2) <sampleID>.ASHMM contains attribution of each A>N/T>N mutation to one of five HMMas states (A0 ... A4)
+3) <sampleID>.PloidyHMM contains attribution of each multiallelic site to one of three HMMmulti states (A0 ... A2); 
+   *Pleae note that multiallelic sites requere derived allele to have >= 3 reads
+4) <sampleID>.bwASEM contains emission probabilities for A>N vs T>N mutations across five states of HMMas
+5) <sampleID>.bwPlEM contains emission probabilities for Biallelic vs Multi allelic sites across 3 states of HMMmulti
+
+"HMM_summary.txt" file contains aggregated information across all 455 analyzed tumors and was used for the following steps of analysis.
+It merges all columns from <sampleID>.summary + first column from <sampleID>.bwPlEM + first column from <sampleID>.bwASEM 

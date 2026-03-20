@@ -1,0 +1,249 @@
+Symbol	Name
+ACVR1B	activin A receptor, type IB
+ACVR1C	activin A receptor, type IC
+AKT1	v-akt murine thymoma viral oncogene homolog 1
+AKT2	v-akt murine thymoma viral oncogene homolog 2
+AKT3	v-akt murine thymoma viral oncogene homolog 3
+ARRB1	arrestin, beta 1
+ARRB2	arrestin, beta 2
+ATF2	activating transcription factor 2
+ATF4	activating transcription factor 4
+BDNF	brain-derived neurotrophic factor
+BRAF	B-Raf proto-oncogene, serine/threonine kinase
+CACNA1A	calcium channel, voltage-dependent, P/Q type, alpha 1A subunit
+CACNA1B	calcium channel, voltage-dependent, N type, alpha 1B subunit
+CACNA1C	calcium channel, voltage-dependent, L type, alpha 1C subunit
+CACNA1D	calcium channel, voltage-dependent, L type, alpha 1D subunit
+CACNA1E	calcium channel, voltage-dependent, R type, alpha 1E subunit
+CACNA1F	calcium channel, voltage-dependent, L type, alpha 1F subunit
+CACNA1G	calcium channel, voltage-dependent, T type, alpha 1G subunit
+CACNA1H	calcium channel, voltage-dependent, T type, alpha 1H subunit
+CACNA1I	calcium channel, voltage-dependent, T type, alpha 1I subunit
+CACNA1S	calcium channel, voltage-dependent, L type, alpha 1S subunit
+CACNA2D1	calcium channel, voltage-dependent, alpha 2/delta subunit 1
+CACNA2D2	calcium channel, voltage-dependent, alpha 2/delta subunit 2
+CACNA2D3	calcium channel, voltage-dependent, alpha 2/delta subunit 3
+CACNA2D4	calcium channel, voltage-dependent, alpha 2/delta subunit 4
+CACNB1	calcium channel, voltage-dependent, beta 1 subunit
+CACNB2	calcium channel, voltage-dependent, beta 2 subunit
+CACNB3	calcium channel, voltage-dependent, beta 3 subunit
+CACNB4	calcium channel, voltage-dependent, beta 4 subunit
+CACNG1	calcium channel, voltage-dependent, gamma subunit 1
+CACNG2	calcium channel, voltage-dependent, gamma subunit 2
+CACNG3	calcium channel, voltage-dependent, gamma subunit 3
+CACNG4	calcium channel, voltage-dependent, gamma subunit 4
+CACNG5	calcium channel, voltage-dependent, gamma subunit 5
+CACNG6	calcium channel, voltage-dependent, gamma subunit 6
+CACNG7	calcium channel, voltage-dependent, gamma subunit 7
+CACNG8	calcium channel, voltage-dependent, gamma subunit 8
+CASP3	caspase 3, apoptosis-related cysteine peptidase
+CD14	CD14 molecule
+CDC25B	cell division cycle 25B
+CDC42	cell division cycle 42
+CHUK	conserved helix-loop-helix ubiquitous kinase
+CRK	v-crk avian sarcoma virus CT10 oncogene homolog
+CRKL	v-crk avian sarcoma virus CT10 oncogene homolog-like
+DAXX	death-domain associated protein
+DDIT3	DNA-damage-inducible transcript 3
+DUSP1	dual specificity phosphatase 1
+DUSP10	dual specificity phosphatase 10
+DUSP14	dual specificity phosphatase 14
+DUSP16	dual specificity phosphatase 16
+DUSP2	dual specificity phosphatase 2
+DUSP3	dual specificity phosphatase 3
+DUSP4	dual specificity phosphatase 4
+DUSP5	dual specificity phosphatase 5
+DUSP6	dual specificity phosphatase 6
+DUSP7	dual specificity phosphatase 7
+DUSP8	dual specificity phosphatase 8
+DUSP9	dual specificity phosphatase 9
+ECSIT	ECSIT signalling integrator
+EGF	epidermal growth factor
+EGFR	epidermal growth factor receptor
+ELK1	ELK1, member of ETS oncogene family
+ELK4	ELK4, ETS-domain protein (SRF accessory protein 1)
+FAS	Fas cell surface death receptor
+FASLG	Fas ligand (TNF superfamily, member 6)
+FGF1	fibroblast growth factor 1 (acidic)
+FGF10	fibroblast growth factor 10
+FGF11	fibroblast growth factor 11
+FGF12	fibroblast growth factor 12
+FGF13	fibroblast growth factor 13
+FGF14	fibroblast growth factor 14
+FGF16	fibroblast growth factor 16
+FGF17	fibroblast growth factor 17
+FGF18	fibroblast growth factor 18
+FGF19	fibroblast growth factor 19
+FGF2	fibroblast growth factor 2 (basic)
+FGF20	fibroblast growth factor 20
+FGF21	fibroblast growth factor 21
+FGF22	fibroblast growth factor 22
+FGF23	fibroblast growth factor 23
+FGF3	fibroblast growth factor 3
+FGF4	fibroblast growth factor 4
+FGF5	fibroblast growth factor 5
+FGF6	fibroblast growth factor 6
+FGF7	fibroblast growth factor 7
+FGF8	fibroblast growth factor 8 (androgen-induced)
+FGF9	fibroblast growth factor 9
+FGFR1	fibroblast growth factor receptor 1
+FGFR2	fibroblast growth factor receptor 2
+FGFR3	fibroblast growth factor receptor 3
+FGFR4	fibroblast growth factor receptor 4
+FLNA	filamin A, alpha
+FLNB	filamin B, beta
+FLNC	filamin C, gamma
+FOS	FBJ murine osteosarcoma viral oncogene homolog
+GADD45A	growth arrest and DNA-damage-inducible, alpha
+GADD45B	growth arrest and DNA-damage-inducible, beta
+GADD45G	growth arrest and DNA-damage-inducible, gamma
+GNA12	guanine nucleotide binding protein (G protein) alpha 12
+GNG12	guanine nucleotide binding protein (G protein), gamma 12
+GRB2	growth factor receptor-bound protein 2
+HRAS	Harvey rat sarcoma viral oncogene homolog
+IKBKB	inhibitor of kappa light polypeptide gene enhancer in B-cells, kinase beta
+IKBKG	inhibitor of kappa light polypeptide gene enhancer in B-cells, kinase gamma
+IL1A	interleukin 1, alpha
+IL1B	interleukin 1, beta
+IL1R1	interleukin 1 receptor, type I
+IL1R2	interleukin 1 receptor, type II
+JUN	jun proto-oncogene
+JUND	jun D proto-oncogene
+KRAS	Kirsten rat sarcoma viral oncogene homolog
+MAP2K1	mitogen-activated protein kinase kinase 1
+MAP2K2	mitogen-activated protein kinase kinase 2
+MAP2K3	mitogen-activated protein kinase kinase 3
+MAP2K4	mitogen-activated protein kinase kinase 4
+MAP2K5	mitogen-activated protein kinase kinase 5
+MAP2K6	mitogen-activated protein kinase kinase 6
+MAP2K7	mitogen-activated protein kinase kinase 7
+MAP3K1	mitogen-activated protein kinase kinase kinase 1, E3 ubiquitin protein ligase
+MAP3K10	mitogen-activated protein kinase kinase kinase 10
+MAP3K12	mitogen-activated protein kinase kinase kinase 12
+MAP3K13	mitogen-activated protein kinase kinase kinase 13
+MAP3K14	mitogen-activated protein kinase kinase kinase 14
+MAP3K2	mitogen-activated protein kinase kinase kinase 2
+MAP3K3	mitogen-activated protein kinase kinase kinase 3
+MAP3K4	mitogen-activated protein kinase kinase kinase 4
+MAP3K5	mitogen-activated protein kinase kinase kinase 5
+MAP3K6	mitogen-activated protein kinase kinase kinase 6
+MAP3K7	mitogen-activated protein kinase kinase kinase 7
+MAP3K8	mitogen-activated protein kinase kinase kinase 8
+MAP4K1	mitogen-activated protein kinase kinase kinase kinase 1
+MAP4K2	mitogen-activated protein kinase kinase kinase kinase 2
+MAP4K3	mitogen-activated protein kinase kinase kinase kinase 3
+MAP4K4	mitogen-activated protein kinase kinase kinase kinase 4
+MAPK1	mitogen-activated protein kinase 1
+MAPK10	mitogen-activated protein kinase 10
+MAPK11	mitogen-activated protein kinase 11
+MAPK12	mitogen-activated protein kinase 12
+MAPK13	mitogen-activated protein kinase 13
+MAPK14	mitogen-activated protein kinase 14
+MAPK3	mitogen-activated protein kinase 3
+MAPK7	mitogen-activated protein kinase 7
+MAPK8	mitogen-activated protein kinase 8
+MAPK8IP1	mitogen-activated protein kinase 8 interacting protein 1
+MAPK8IP2	mitogen-activated protein kinase 8 interacting protein 2
+MAPK8IP3	mitogen-activated protein kinase 8 interacting protein 3
+MAPK9	mitogen-activated protein kinase 9
+MAPKAPK2	mitogen-activated protein kinase-activated protein kinase 2
+MAPKAPK3	mitogen-activated protein kinase-activated protein kinase 3
+MAPKAPK5	mitogen-activated protein kinase-activated protein kinase 5
+MAPT	microtubule-associated protein tau
+MAX	MYC associated factor X
+MEF2C	myocyte enhancer factor 2C
+MKNK1	MAP kinase interacting serine/threonine kinase 1
+MKNK2	MAP kinase interacting serine/threonine kinase 2
+MOS	v-mos Moloney murine sarcoma viral oncogene homolog
+MRAS	muscle RAS oncogene homolog
+MYC	v-myc avian myelocytomatosis viral oncogene homolog
+NF1	neurofibromin 1
+NFATC2	nuclear factor of activated T-cells, cytoplasmic, calcineurin-dependent 2
+NFATC4	nuclear factor of activated T-cells, cytoplasmic, calcineurin-dependent 4
+NFKB1	nuclear factor of kappa light polypeptide gene enhancer in B-cells 1
+NFKB2	nuclear factor of kappa light polypeptide gene enhancer in B-cells 2 (p49/p100)
+NLK	nemo-like kinase
+NR4A1	nuclear receptor subfamily 4, group A, member 1
+NRAS	neuroblastoma RAS viral (v-ras) oncogene homolog
+NTF3	neurotrophin 3
+NTRK1	neurotrophic tyrosine kinase, receptor, type 1
+NTRK2	neurotrophic tyrosine kinase, receptor, type 2
+PAK1	p21 protein (Cdc42/Rac)-activated kinase 1
+PAK2	p21 protein (Cdc42/Rac)-activated kinase 2
+PDGFA	platelet-derived growth factor alpha polypeptide
+PDGFB	platelet-derived growth factor beta polypeptide
+PDGFRA	platelet-derived growth factor receptor, alpha polypeptide
+PDGFRB	platelet-derived growth factor receptor, beta polypeptide
+PLA2G10	phospholipase A2, group X
+PLA2G12A	phospholipase A2, group XIIA
+PLA2G12B	phospholipase A2, group XIIB
+PLA2G1B	phospholipase A2, group IB (pancreas)
+PLA2G2A	phospholipase A2, group IIA (platelets, synovial fluid)
+PLA2G2D	phospholipase A2, group IID
+PLA2G2E	phospholipase A2, group IIE
+PLA2G2F	phospholipase A2, group IIF
+PLA2G3	phospholipase A2, group III
+PLA2G4A	phospholipase A2, group IVA (cytosolic, calcium-dependent)
+PLA2G5	phospholipase A2, group V
+PLA2G6	phospholipase A2, group VI (cytosolic, calcium-independent)
+PPM1A	protein phosphatase, Mg2+/Mn2+ dependent, 1A
+PPM1B	protein phosphatase, Mg2+/Mn2+ dependent, 1B
+PPP3CA	protein phosphatase 3, catalytic subunit, alpha isozyme
+PPP3CB	protein phosphatase 3, catalytic subunit, beta isozyme
+PPP3CC	protein phosphatase 3, catalytic subunit, gamma isozyme
+PPP3R1	protein phosphatase 3, regulatory subunit B, alpha
+PPP3R2	protein phosphatase 3, regulatory subunit B, beta
+PPP5C	protein phosphatase 5, catalytic subunit
+PRKACA	protein kinase, cAMP-dependent, catalytic, alpha
+PRKACB	protein kinase, cAMP-dependent, catalytic, beta
+PRKACG	protein kinase, cAMP-dependent, catalytic, gamma
+PRKCA	protein kinase C, alpha
+PRKCG	protein kinase C, gamma
+PRKX	protein kinase, X-linked
+PRKY	protein kinase, Y-linked, pseudogene
+PTPN5	protein tyrosine phosphatase, non-receptor type 5 (striatum-enriched)
+PTPN7	protein tyrosine phosphatase, non-receptor type 7
+PTPRR	protein tyrosine phosphatase, receptor type, R
+RAC1	ras-related C3 botulinum toxin substrate 1 (rho family, small GTP binding protein Rac1)
+RAC2	ras-related C3 botulinum toxin substrate 2 (rho family, small GTP binding protein Rac2)
+RAC3	ras-related C3 botulinum toxin substrate 3 (rho family, small GTP binding protein Rac3)
+RAF1	Raf-1 proto-oncogene, serine/threonine kinase
+RAP1A	RAP1A, member of RAS oncogene family
+RAP1B	RAP1B, member of RAS oncogene family
+RAPGEF2	Rap guanine nucleotide exchange factor (GEF) 2
+RASA1	RAS p21 protein activator (GTPase activating protein) 1
+RASA2	RAS p21 protein activator 2
+RASGRF1	Ras protein-specific guanine nucleotide-releasing factor 1
+RASGRF2	Ras protein-specific guanine nucleotide-releasing factor 2
+RASGRP1	RAS guanyl releasing protein 1 (calcium and DAG-regulated)
+RASGRP2	RAS guanyl releasing protein 2 (calcium and DAG-regulated)
+RASGRP3	RAS guanyl releasing protein 3 (calcium and DAG-regulated)
+RASGRP4	RAS guanyl releasing protein 4
+RPS6KA1	ribosomal protein S6 kinase, 90kDa, polypeptide 1
+RPS6KA2	ribosomal protein S6 kinase, 90kDa, polypeptide 2
+RPS6KA3	ribosomal protein S6 kinase, 90kDa, polypeptide 3
+RPS6KA4	ribosomal protein S6 kinase, 90kDa, polypeptide 4
+RPS6KA5	ribosomal protein S6 kinase, 90kDa, polypeptide 5
+RPS6KA6	ribosomal protein S6 kinase, 90kDa, polypeptide 6
+RRAS	related RAS viral (r-ras) oncogene homolog
+RRAS2	related RAS viral (r-ras) oncogene homolog 2
+SOS1	son of sevenless homolog 1 (Drosophila)
+SOS2	son of sevenless homolog 2 (Drosophila)
+SRF	serum response factor (c-fos serum response element-binding transcription factor)
+STK3	serine/threonine kinase 3
+STK4	serine/threonine kinase 4
+STMN1	stathmin 1
+TAOK1	TAO kinase 1
+TAOK2	TAO kinase 2
+TAOK3	TAO kinase 3
+TGFB1	transforming growth factor, beta 1
+TGFB2	transforming growth factor, beta 2
+TGFB3	transforming growth factor, beta 3
+TGFBR1	transforming growth factor, beta receptor 1
+TGFBR2	transforming growth factor, beta receptor II (70/80kDa)
+TNF	tumor necrosis factor
+TNFRSF1A	tumor necrosis factor receptor superfamily, member 1A
+TP53	tumor protein p53
+TRAF2	TNF receptor-associated factor 2
+TRAF6	TNF receptor-associated factor 6, E3 ubiquitin protein ligase
+ZAK	sterile alpha motif and leucine zipper containing kinase AZK

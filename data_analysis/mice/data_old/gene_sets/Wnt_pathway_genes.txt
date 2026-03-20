@@ -1,0 +1,255 @@
+Symbol	Name
+AES	amino-terminal enhancer of split
+ANKRD6	ankyrin repeat domain 6
+ARID1A	AT rich interactive domain 1A (SWI-like)
+ARR3	arrestin 3, retinal (X-arrestin)
+ARRB1	arrestin, beta 1
+ARRB2	arrestin, beta 2
+AXIN1	axin 1
+BCL9	B-cell CLL/lymphoma 9
+BTRC	beta-transducin repeat containing E3 ubiquitin protein ligase
+CDH1	cadherin 1, type 1, E-cadherin (epithelial)
+CDH10	cadherin 10, type 2 (T2-cadherin)
+CDH11	cadherin 11, type 2, OB-cadherin (osteoblast)
+CDH12	cadherin 12, type 2 (N-cadherin 2)
+CDH13	cadherin 13
+CDH15	cadherin 15, type 1, M-cadherin (myotubule)
+CDH16	cadherin 16, KSP-cadherin
+CDH17	cadherin 17, LI cadherin (liver-intestine)
+CDH18	cadherin 18, type 2
+CDH19	cadherin 19, type 2
+CDH2	cadherin 2, type 1, N-cadherin (neuronal)
+CDH20	cadherin 20, type 2
+CDH22	cadherin 22, type 2
+CDH23	cadherin-related 23
+CDH24	cadherin 24, type 2
+CDH3	cadherin 3, type 1, P-cadherin (placental)
+CDH4	cadherin 4, type 1, R-cadherin (retinal)
+CDH5	cadherin 5, type 2 (vascular endothelium)
+CDH6	cadherin 6, type 2, K-cadherin (fetal kidney)
+CDH7	cadherin 7, type 2
+CDH8	cadherin 8, type 2
+CDH9	cadherin 9, type 2 (T1-cadherin)
+CDHR1	cadherin-related family member 1
+CDHR2	cadherin-related family member 2
+CELSR1	cadherin, EGF LAG seven-pass G-type receptor 1
+CELSR2	cadherin, EGF LAG seven-pass G-type receptor 2
+CELSR3	cadherin, EGF LAG seven-pass G-type receptor 3
+CER1	cerberus 1, DAN family BMP antagonist
+CHD1L	chromodomain helicase DNA binding protein 1-like
+CREBBP	CREB binding protein
+CSNK1A1	casein kinase 1, alpha 1
+CSNK1A1L	casein kinase 1, alpha 1-like
+CSNK1D	casein kinase 1, delta
+CSNK1G2	casein kinase 1, gamma 2
+CSNK1G3	casein kinase 1, gamma 3
+CSNK2A1	casein kinase 2, alpha 1 polypeptide
+CSNK2A2	casein kinase 2, alpha prime polypeptide
+CSNK2B	casein kinase 2, beta polypeptide
+CTBP1	C-terminal binding protein 1
+CTBP2	C-terminal binding protein 2
+CTNNA1	catenin (cadherin-associated protein), alpha 1, 102kDa
+CTNNA2	catenin (cadherin-associated protein), alpha 2
+CTNNA3	catenin (cadherin-associated protein), alpha 3
+CTNNAL1	catenin (cadherin-associated protein), alpha-like 1
+CTNNB1	catenin (cadherin-associated protein), beta 1, 88kDa
+DACT1	dishevelled-binding antagonist of beta-catenin 1
+DCHS1	dachsous cadherin-related 1
+DVL1	dishevelled segment polarity protein 1
+DVL2	dishevelled segment polarity protein 2
+DVL3	dishevelled segment polarity protein 3
+EP300	E1A binding protein p300
+EP400	E1A binding protein p400
+FAT1	FAT atypical cadherin 1
+FAT2	FAT atypical cadherin 2
+FAT3	FAT atypical cadherin 3
+FBXW11	F-box and WD repeat domain containing 11
+FRZB	frizzled-related protein
+FZD1	frizzled class receptor 1
+FZD10	frizzled class receptor 10
+FZD2	frizzled class receptor 2
+FZD3	frizzled class receptor 3
+FZD4	frizzled class receptor 4
+FZD5	frizzled class receptor 5
+FZD6	frizzled class receptor 6
+FZD7	frizzled class receptor 7
+FZD8	frizzled class receptor 8
+FZD9	frizzled class receptor 9
+GNA11	guanine nucleotide binding protein (G protein), alpha 11 (Gq class)
+GNA14	guanine nucleotide binding protein (G protein), alpha 14
+GNA15	guanine nucleotide binding protein (G protein), alpha 15 (Gq class)
+GNAQ	guanine nucleotide binding protein (G protein), q polypeptide
+GNB1	guanine nucleotide binding protein (G protein), beta polypeptide 1
+GNB2	guanine nucleotide binding protein (G protein), beta polypeptide 2
+GNB3	guanine nucleotide binding protein (G protein), beta polypeptide 3
+GNB4	guanine nucleotide binding protein (G protein), beta polypeptide 4
+GNG10	guanine nucleotide binding protein (G protein), gamma 10
+GNG12	guanine nucleotide binding protein (G protein), gamma 12
+GNG13	guanine nucleotide binding protein (G protein), gamma 13
+GNG2	guanine nucleotide binding protein (G protein), gamma 2
+GNG3	guanine nucleotide binding protein (G protein), gamma 3
+GNG4	guanine nucleotide binding protein (G protein), gamma 4
+GNG5	guanine nucleotide binding protein (G protein), gamma 5
+GNG7	guanine nucleotide binding protein (G protein), gamma 7
+GNG8	guanine nucleotide binding protein (G protein), gamma 8
+GSK3B	glycogen synthase kinase 3 beta
+HDAC1	histone deacetylase 1
+HDAC2	histone deacetylase 2
+HDAC3	histone deacetylase 3
+HDAC8	histone deacetylase 8
+HELLS	helicase, lymphoid-specific
+HLTF	helicase-like transcription factor
+INO80	INO80 complex subunit
+ITPR1	inositol 1,4,5-trisphosphate receptor, type 1
+ITPR2	inositol 1,4,5-trisphosphate receptor, type 2
+ITPR3	inositol 1,4,5-trisphosphate receptor, type 3
+KREMEN1	kringle containing transmembrane protein 1
+KREMEN2	kringle containing transmembrane protein 2
+LEF1	lymphoid enhancer-binding factor 1
+LRP5	low density lipoprotein receptor-related protein 5
+LRP6	low density lipoprotein receptor-related protein 6
+MAP3K7	mitogen-activated protein kinase kinase kinase 7
+NFATC1	nuclear factor of activated T-cells, cytoplasmic, calcineurin-dependent 1
+NFATC2	nuclear factor of activated T-cells, cytoplasmic, calcineurin-dependent 2
+NFATC3	nuclear factor of activated T-cells, cytoplasmic, calcineurin-dependent 3
+NFATC4	nuclear factor of activated T-cells, cytoplasmic, calcineurin-dependent 4
+NKD1	naked cuticle homolog 1 (Drosophila)
+NKD2	naked cuticle homolog 2 (Drosophila)
+NLK	nemo-like kinase
+PCDH1	protocadherin 1
+PCDH10	protocadherin 10
+PCDH11X	protocadherin 11 X-linked
+PCDH11Y	protocadherin 11 Y-linked
+PCDH12	protocadherin 12
+PCDH15	protocadherin-related 15
+PCDH18	protocadherin 18
+PCDH19	protocadherin 19
+PCDH20	protocadherin 20
+PCDH7	protocadherin 7
+PCDH8	protocadherin 8
+PCDH9	protocadherin 9
+PCDHA1	protocadherin alpha 1
+PCDHA10	protocadherin alpha 10
+PCDHA11	protocadherin alpha 11
+PCDHA12	protocadherin alpha 12
+PCDHA13	protocadherin alpha 13
+PCDHA2	protocadherin alpha 2
+PCDHA3	protocadherin alpha 3
+PCDHA4	protocadherin alpha 4
+PCDHA5	protocadherin alpha 5
+PCDHA6	protocadherin alpha 6
+PCDHA7	protocadherin alpha 7
+PCDHA8	protocadherin alpha 8
+PCDHA9	protocadherin alpha 9
+PCDHAC1	protocadherin alpha subfamily C, 1
+PCDHAC2	protocadherin alpha subfamily C, 2
+PCDHB1	protocadherin beta 1
+PCDHB10	protocadherin beta 10
+PCDHB11	protocadherin beta 11
+PCDHB12	protocadherin beta 12
+PCDHB13	protocadherin beta 13
+PCDHB14	protocadherin beta 14
+PCDHB15	protocadherin beta 15
+PCDHB16	protocadherin beta 16
+PCDHB2	protocadherin beta 2
+PCDHB3	protocadherin beta 3
+PCDHB4	protocadherin beta 4
+PCDHB5	protocadherin beta 5
+PCDHB6	protocadherin beta 6
+PCDHB7	protocadherin beta 7
+PCDHB8	protocadherin beta 8
+PCDHGA1	protocadherin gamma subfamily A, 1
+PCDHGA10	protocadherin gamma subfamily A, 10
+PCDHGA11	protocadherin gamma subfamily A, 11
+PCDHGA12	protocadherin gamma subfamily A, 12
+PCDHGA2	protocadherin gamma subfamily A, 2
+PCDHGA3	protocadherin gamma subfamily A, 3
+PCDHGA5	protocadherin gamma subfamily A, 5
+PCDHGA6	protocadherin gamma subfamily A, 6
+PCDHGA7	protocadherin gamma subfamily A, 7
+PCDHGA8	protocadherin gamma subfamily A, 8
+PCDHGB1	protocadherin gamma subfamily B, 1
+PCDHGB2	protocadherin gamma subfamily B, 2
+PCDHGB4	protocadherin gamma subfamily B, 4
+PCDHGB6	protocadherin gamma subfamily B, 6
+PCDHGB7	protocadherin gamma subfamily B, 7
+PCDHGC3	protocadherin gamma subfamily C, 3
+PCDHGC4	protocadherin gamma subfamily C, 4
+PCDHGC5	protocadherin gamma subfamily C, 5
+PLCB1	phospholipase C, beta 1 (phosphoinositide-specific)
+PLCB2	phospholipase C, beta 2
+PLCB3	phospholipase C, beta 3 (phosphatidylinositol-specific)
+PLCB4	phospholipase C, beta 4
+PPP2CA	protein phosphatase 2, catalytic subunit, alpha isozyme
+PPP2CB	protein phosphatase 2, catalytic subunit, beta isozyme
+PPP2R5A	protein phosphatase 2, regulatory subunit B', alpha
+PPP2R5B	protein phosphatase 2, regulatory subunit B', beta
+PPP2R5C	protein phosphatase 2, regulatory subunit B', gamma
+PPP2R5D	protein phosphatase 2, regulatory subunit B', delta
+PPP2R5E	protein phosphatase 2, regulatory subunit B', epsilon isoform
+PPP3CA	protein phosphatase 3, catalytic subunit, alpha isozyme
+PPP3CB	protein phosphatase 3, catalytic subunit, beta isozyme
+PPP3CC	protein phosphatase 3, catalytic subunit, gamma isozyme
+PPP3R1	protein phosphatase 3, regulatory subunit B, alpha
+PPP3R2	protein phosphatase 3, regulatory subunit B, beta
+PRKCA	protein kinase C, alpha
+PRKCB	protein kinase C, beta
+PRKCD	protein kinase C, delta
+PRKCE	protein kinase C, epsilon
+PRKCG	protein kinase C, gamma
+PRKCH	protein kinase C, eta
+PRKCI	protein kinase C, iota
+PRKCQ	protein kinase C, theta
+PRKCZ	protein kinase C, zeta
+PYGO1	pygopus family PHD finger 1
+PYGO2	pygopus family PHD finger 2
+SAG	S-antigen; retina and pineal gland (arrestin)
+SFRP1	secreted frizzled-related protein 1
+SFRP2	secreted frizzled-related protein 2
+SFRP4	secreted frizzled-related protein 4
+SFRP5	secreted frizzled-related protein 5
+SIAH1	siah E3 ubiquitin protein ligase 1
+SMAD1	SMAD family member 1
+SMAD4	SMAD family member 4
+SMARCA1	SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily a, member 1
+SMARCA2	SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily a, member 2
+SMARCA4	SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily a, member 4
+SMARCA5	SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily a, member 5
+SMARCAL1	SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily a-like 1
+SMARCB1	SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily b, member 1
+SMARCC1	SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily c, member 1
+SMARCC2	SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily c, member 2
+SMARCD1	SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily d, member 1
+SMARCD2	SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily d, member 2
+SMARCD3	SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily d, member 3
+SMARCE1	SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily e, member 1
+SRCAP	Snf2-related CREBBP activator protein
+TBL1X	transducin (beta)-like 1X-linked
+TBL1XR1	transducin (beta)-like 1 X-linked receptor 1
+TBL1Y	transducin (beta)-like 1, Y-linked
+TCF7L1	transcription factor 7-like 1 (T-cell specific, HMG-box)
+TCF7L2	transcription factor 7-like 2 (T-cell specific, HMG-box)
+TLE1	transducin-like enhancer of split 1 (E(sp1) homolog, Drosophila)
+TLE2	transducin-like enhancer of split 2
+TLE3	transducin-like enhancer of split 3
+TLE4	transducin-like enhancer of split 4
+TLE6	transducin-like enhancer of split 6
+WNT1	wingless-type MMTV integration site family, member 1
+WNT10A	wingless-type MMTV integration site family, member 10A
+WNT10B	wingless-type MMTV integration site family, member 10B
+WNT11	wingless-type MMTV integration site family, member 11
+WNT16	wingless-type MMTV integration site family, member 16
+WNT2	wingless-type MMTV integration site family member 2
+WNT2B	wingless-type MMTV integration site family, member 2B
+WNT3	wingless-type MMTV integration site family, member 3
+WNT3A	wingless-type MMTV integration site family, member 3A
+WNT4	wingless-type MMTV integration site family, member 4
+WNT5A	wingless-type MMTV integration site family, member 5A
+WNT5B	wingless-type MMTV integration site family, member 5B
+WNT6	wingless-type MMTV integration site family, member 6
+WNT7A	wingless-type MMTV integration site family, member 7A
+WNT7B	wingless-type MMTV integration site family, member 7B
+WNT8A	wingless-type MMTV integration site family, member 8A
+WNT8B	wingless-type MMTV integration site family, member 8B
+WNT9A	wingless-type MMTV integration site family, member 9A
+WNT9B	wingless-type MMTV integration site family, member 9B
