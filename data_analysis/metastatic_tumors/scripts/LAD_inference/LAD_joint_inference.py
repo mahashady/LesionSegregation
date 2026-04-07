@@ -1,6 +1,4 @@
 """
-inference.py
-
 Joint LAD inference across tumors using a mixture model.
 
 Model
@@ -25,6 +23,9 @@ from __future__ import annotations
 
 import numpy as np
 import pandas as pd
+import json
+from pathlib import Path
+import matplotlib.pyplot as plt
 
 def build_likelihood_long(
     tumor_df: pd.DataFrame,
@@ -38,16 +39,9 @@ def build_likelihood_long(
     Parameters
     ----------
     tumor_df : pd.DataFrame
-        Must contain columns:
-        - tumor_id
-        - M
-        - C
+        Must contain columns: sample, M, C, 
     likelihood_df : pd.DataFrame
-        Must contain columns:
-        - M
-        - C
-        - D
-        - prob
+        Must contain columns: M, C, LAD, prob
     d_values : list[int] or None
         If None, inferred from likelihood_df.
     min_prob : float
@@ -56,15 +50,10 @@ def build_likelihood_long(
     Returns
     -------
     pd.DataFrame
-        Columns:
-        - tumor_id
-        - M
-        - C
-        - D
-        - prob
+        Columns: sample, M, C, LAD, prob
     """
-    req_t = {"tumor_id", "M", "C"}
-    req_l = {"M", "C", "D", "prob"}
+    req_t = {"sample", "M", "C"}
+    req_l = {"M", "C", "LAD", "prob"}
 
     if not req_t.issubset(tumor_df.columns):
         raise ValueError(f"tumor_df missing columns: {req_t - set(tumor_df.columns)}")
@@ -75,24 +64,24 @@ def build_likelihood_long(
     likelihood_df = likelihood_df.copy()
 
     if d_values is None:
-        d_values = sorted(likelihood_df["D"].unique().tolist())
+        d_values = sorted(likelihood_df["LAD"].unique().tolist())
 
     expanded = (
         tumor_df.assign(_tmp=1)
-        .merge(pd.DataFrame({"D": d_values, "_tmp": 1}), on="_tmp")
+        .merge(pd.DataFrame({"LAD": d_values, "_tmp": 1}), on="_tmp")
         .drop(columns="_tmp")
     )
 
     merged = expanded.merge(
-        likelihood_df[["M", "C", "D", "prob"]],
-        on=["M", "C", "D"],
+        likelihood_df[["M", "C", "LAD", "prob"]],
+        on=["M", "C", "LAD"],
         how="left",
     )
-
+    print(merged.head())
     if merged["prob"].isna().any():
-        bad = merged.loc[merged["prob"].isna(), ["tumor_id", "M", "C", "D"]]
+        bad = merged.loc[merged["prob"].isna(), ["sample", "M", "C", "LAD"]]
         raise ValueError(
-            "Some observed (M, C, D) combinations are missing from likelihood_df.\n"
+            "Some observed (M, C, LAD) combinations are missing from likelihood_df.\n"
             f"Examples:\n{bad.head(10)}"
         )
 
@@ -107,9 +96,10 @@ def build_likelihood_matrix(
     min_prob: float = 1e-300,
 ) -> tuple[np.ndarray, list[int], pd.DataFrame]:
     """
-    Build tumor-by-D likelihood matrix L where
+    Build tumor-by-LAD likelihood matrix L where
 
         L[t, d] = P(C_t | M_t, D=d)
+    Rows correspond to samples, columns to possible LAD values.
 
     Returns
     -------
@@ -126,12 +116,12 @@ def build_likelihood_matrix(
         d_values=d_values,
         min_prob=min_prob,
     )
-
+    print(long_df.head(n=10))
     if d_values is None:
-        d_values = sorted(long_df["D"].unique().tolist())
+        d_values = sorted(long_df["LAD"].unique().tolist())
 
     L = (
-        long_df.pivot(index="tumor_id", columns="D", values="prob")
+        long_df.pivot(index="sample", columns="LAD", values="prob")
         .reindex(columns=d_values)
         .to_numpy()
     )
@@ -199,17 +189,20 @@ def em_fit_mixture_from_likelihoods(
     loglik_trace: list[float] = []
     converged = False
 
-    for _ in range(max_iter):
+    for i in range(max_iter):
+        print("Iter ", i)
+        print(pi)
         numerator = L * pi[None, :]
         denom = numerator.sum(axis=1, keepdims=True)
         responsibilities = numerator / denom
-
         pi_new = responsibilities.mean(axis=0)
+        print(pi_new)
+        print("_____________")
 
         loglik = float(np.sum(np.log(denom[:, 0])))
         loglik_trace.append(loglik)
-
         if len(loglik_trace) > 1:
+            print(abs(loglik_trace[-1] - loglik_trace[-2]))
             if abs(loglik_trace[-1] - loglik_trace[-2]) < tol:
                 pi = pi_new
                 converged = True
@@ -241,24 +234,18 @@ def summarize_posteriors(
     Returns
     -------
     pd.DataFrame
-        Columns:
-        - tumor_id
-        - M
-        - C
-        - post_D1, post_D2, ...
-        - D_map
-        - post_max
+        Columns: sample, M, C, post_D1 (post_D2, ...), D_map, post_max
     """
-    post_df = tumor_df[["tumor_id", "M", "C"]].copy().reset_index(drop=True)
+    post_df = tumor_df[["sample", "M", "C"]].copy().reset_index(drop=True)
 
     if responsibilities.shape[0] != len(post_df):
         raise ValueError("Number of rows in responsibilities does not match tumor_df.")
 
     for j, d in enumerate(d_values):
-        post_df[f"post_D{d}"] = responsibilities[:, j]
+        post_df[f"post_LAD{d}"] = responsibilities[:, j]
 
     map_idx = responsibilities.argmax(axis=1)
-    post_df["D_map"] = [d_values[i] for i in map_idx]
+    post_df["LAD_map"] = [d_values[i] for i in map_idx]
     post_df["post_max"] = responsibilities.max(axis=1)
 
     return post_df
@@ -272,7 +259,7 @@ def summarize_pi(
     Return the estimated LAD mixture proportions in a tidy table.
     """
     return pd.DataFrame({
-        "D": d_values,
+        "LAD": d_values,
         "pi_hat": np.asarray(pi_hat, dtype=float),
     })
 
@@ -338,7 +325,7 @@ def bootstrap_pi(
     )
 
     pi_hat = fit0["pi_df"]["pi_hat"].to_numpy()
-    d_values = fit0["pi_df"]["D"].tolist()
+    d_values = fit0["pi_df"]["LAD"].tolist()
 
     tumor_df = tumor_df.reset_index(drop=True).copy()
     T = len(tumor_df)
@@ -350,7 +337,7 @@ def bootstrap_pi(
         boot_df = tumor_df.iloc[idx].copy().reset_index(drop=True)
 
         # Make IDs unique within the bootstrap sample
-        boot_df["tumor_id"] = [f"boot{b}_row{i}" for i in range(len(boot_df))]
+        boot_df["sample"] = [f"boot{b}_row{i}" for i in range(len(boot_df))]
 
         try:
             fit_b = run_joint_inference(
@@ -380,7 +367,7 @@ def bootstrap_pi(
     boot_se = boot_mat.std(axis=0, ddof=1)
 
     summary_df = pd.DataFrame({
-        "D": d_values,
+        "LAD": d_values,
         "pi_hat": pi_hat,
         "boot_se": boot_se,
         "ci_low": ci_low,
@@ -409,16 +396,9 @@ def run_joint_inference(
     Parameters
     ----------
     tumor_df : pd.DataFrame
-        Must contain:
-        - tumor_id
-        - M
-        - C
+        Must contain: sample, M (number of multi-allelic sites), C (number of chroms)
     likelihood_df : pd.DataFrame
-        Must contain:
-        - M
-        - C
-        - D
-        - prob
+        Must contain: M, C, LAD, prob
     d_values : list[int] or None
         LAD states to use. If None, inferred from likelihood_df.
     max_iter : int
@@ -439,7 +419,7 @@ def run_joint_inference(
     Returns
     -------
     dict
-        - likelihood_long : long-form table with P(C_t | M_t, D)
+        - likelihood_long : long-form table with P(C_t | M_t, LAD)
         - likelihood_matrix : np.ndarray, shape (T, K)
         - d_values : list[int]
         - em_result : raw EM result dict
@@ -450,8 +430,9 @@ def run_joint_inference(
     """
     tumor_df = tumor_df.copy()
 
-    if tumor_df["tumor_id"].duplicated().any():
-        raise ValueError("tumor_df contains duplicated tumor_id values.")
+    if tumor_df["sample"].duplicated().any():
+        raise ValueError("tumor_df contains duplicated sample values.")
+
 
     L, d_values, likelihood_long = build_likelihood_matrix(
         tumor_df=tumor_df,
@@ -504,39 +485,111 @@ def run_joint_inference(
         "bootstrap_mat": bootstrap_mat,
     }
 
-def main(args):
-    json_samples = ""
-    df_multistat_by_chr = "/home/bbg/mandrianova/Burst_kinetics/data_analysis/data_analysis/metastatic_tumors/results/ALL_Hartwig_bi_multi.by_chrom.txt"
-    output_multi_summary = "/home/bbg/mandrianova/Burst_kinetics/data_analysis/data_analysis/metastatic_tumors/results/multi_stat_by_chr.enriched.platinum.SBS17_less10.csv"
-    with open(json_samples, "r") as f:
-        data = json.load(f)
-    list_of_samples = data["enriched"]
+def save_joint_inference_results(result: dict, outdir: str | Path, prefix: str) -> None:
+    outdir = Path(outdir)
+    outdir.mkdir(parents=True, exist_ok=True)
 
-    tumor_df = build_tumor_summary(
-        input_file: df_multistat_by_chr,
-        output_file: output_multi_summary,
-        samples_of_interest: list_of_samples,
-        include_quatro: bool = True
-    )
+    result["pi_df"].to_csv(outdir / f"{prefix}.pi.tsv", sep="\t", index=False)
+    result["posterior_df"].to_csv(outdir / f"{prefix}.posterior.tsv", sep="\t", index=False)
+    result["likelihood_long"].to_csv(outdir / f"{prefix}.likelihood_long.tsv", sep="\t", index=False)
+
+    if result["bootstrap_pi_df"] is not None:
+        result["bootstrap_pi_df"].to_csv(
+            outdir / f"{prefix}.pi_bootstrap.tsv",
+            sep="\t",
+            index=False
+        )
+
+def plot_pi_with_ci(result: dict, outfile: str | Path | None = None):
+    pi_df = result["pi_df"].copy()
+    boot_df = result["bootstrap_pi_df"]
+
+    fig, ax = plt.subplots(figsize=(5, 4))
+
+    if boot_df is not None:
+        plot_df = pi_df.merge(boot_df[["LAD", "ci_low", "ci_high"]], on="LAD", how="left")
+        yerr = [
+            plot_df["pi_hat"] - plot_df["ci_low"],
+            plot_df["ci_high"] - plot_df["pi_hat"],
+        ]
+        ax.bar(plot_df["LAD"].astype(str), plot_df["pi_hat"])
+        ax.errorbar(
+            x=range(len(plot_df)),
+            y=plot_df["pi_hat"],
+            yerr=yerr,
+            fmt="none",
+            capsize=4,
+        )
+    else:
+        plot_df = pi_df
+        ax.bar(plot_df["LAD"].astype(str), plot_df["pi_hat"])
+
+    ax.set_xlabel("LAD")
+    ax.set_ylabel("Estimated proportion")
+    ax.set_title("Joint inferred LAD distribution")
+    ax.set_ylim(0, max(0.05, plot_df["pi_hat"].max() * 1.25))
+    fig.tight_layout()
+
+    if outfile is not None:
+        fig.savefig(outfile, dpi=300, bbox_inches="tight")
+
+    return fig
+
+def plot_posterior_confidence(result: dict, outfile: str | Path | None = None):
+    posterior_df = result["posterior_df"].copy()
+
+    fig, ax = plt.subplots(figsize=(5, 4))
+    ax.hist(posterior_df["post_max"], bins=20)
+    ax.set_xlabel("Max posterior probability per tumor")
+    ax.set_ylabel("Number of tumors")
+    ax.set_title("Confidence of tumor LAD assignments")
+    fig.tight_layout()
+
+    if outfile is not None:
+        fig.savefig(outfile, dpi=300, bbox_inches="tight")
+
+    return fig
+
+
+def main():
+    tumors_summary_file = "/home/bbg/mandrianova/Burst_kinetics/data_analysis/data_analysis/metastatic_tumors/results/multi_stat_by_chr.enriched.platinum.SBS17b_prop_lt_0.1.csv"
+    likelihood_file = "/home/bbg/mandrianova/Burst_kinetics/data_analysis/data_analysis/metastatic_tumors/results/LAD_inference/likelihood_matrix_for_LAD_inference.csv"
+    outdir = Path("/home/bbg/mandrianova/Burst_kinetics/data_analysis/data_analysis/metastatic_tumors/results/LAD_inference")
+    prefix = "joint_LAD_inference.platinum.SBS17b_prop_lt_0.1"
+    tumor_df = pd.read_csv(tumors_summary_file, sep="\t")
+    tumor_df = tumor_df[tumor_df["M"] != 1]
+    print(tumor_df.head())
+
+    likelihood_df = pd.read_csv(likelihood_file, sep="\t")
+    print(likelihood_df.head())
 
     result = run_joint_inference(
         tumor_df=tumor_df,
         likelihood_df=likelihood_df,
-        bootstrap=True,
+        bootstrap=False,
         n_boot=1000,
         random_seed=42,
     )
+
+    save_joint_inference_results(result, outdir=outdir, prefix=prefix)
+
+    plots_dir = outdir / "plots"
+    plots_dir.mkdir(parents=True, exist_ok=True)
+    
+    fig1 = plot_pi_with_ci(result, outfile=plots_dir / f"{prefix}.pi_plot.png")
+    plt.close(fig1)
+
+    fig2 = plot_posterior_confidence(result, outfile=plots_dir / f"{prefix}.posterior_confidence.png")
+    plt.close(fig2)
 
     print(result["pi_df"])
     print(result["posterior_df"].head())
 
     if result["bootstrap_pi_df"] is not None:
         print(result["bootstrap_pi_df"])
-    
+
 
   
 
 if __name__=="__main__":
-    parser = argparse.ArgumentParser()
-    args = parser.parse_args()
-    main(args)    
+    main()    
