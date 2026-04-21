@@ -3,7 +3,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 from typing import Iterable, Mapping
-
+from pathlib import Path
 
 def get_autosome_length_weights(chr_lengths: Mapping[str, int] | None = None) -> np.ndarray:
     """
@@ -270,6 +270,9 @@ def build_likelihood_df(
     seed: int | None = 1,
     pseudocount: float = 0.0,
     complete_grid: bool = True,
+    model: str = "no_recombination",
+    recomb_lambda: float | None = None,
+    win_size: int = 10_000_000,
 ) -> pd.DataFrame:
     """
     Build the full lookup table likelihood_df with probabilities P(C | M, D).
@@ -296,34 +299,61 @@ def build_likelihood_df(
     pd.DataFrame
         Columns: M, C, D, prob
     """
-    base_weights = get_autosome_length_weights(chr_lengths)
     rng = np.random.default_rng(seed)
-
     out = []
 
-    for M in M_values:
-        for D in D_values:
-            print(f"{M}-{D}")
-            # Create a fresh seed per (M, D) for reproducibility but independence
-            local_seed = int(rng.integers(0, 2**32 - 1))
-            df_md = simulate_pc_given_m_d(
-                M=M,
-                D=D,
-                n_iter=n_iter,
-                base_weights=base_weights,
-                iv=np.repeat(2, 22),
-                seed=local_seed,
-                pseudocount=pseudocount,
-                complete_grid=complete_grid,
-            )
-            out.append(df_md)
+    if model == "no_recombination":
+        base_weights = get_autosome_length_weights(chr_lengths)
+
+        for M in M_values:
+            for D in D_values:
+                print(f"{M}-{D}")
+                local_seed = int(rng.integers(0, 2**32 - 1))
+                df_md = simulate_pc_given_m_d(
+                    M=M,
+                    D=D,
+                    n_iter=n_iter,
+                    base_weights=base_weights,
+                    iv=np.repeat(2, 22),
+                    seed=local_seed,
+                    pseudocount=pseudocount,
+                    complete_grid=complete_grid,
+                )
+                out.append(df_md)
+
+    elif model == "recombination":
+        if recomb_lambda is None:
+            raise ValueError("recomb_lambda must be provided for model='recombination'")
+
+        rates = build_bins_from_chr_lengths(
+            chr_lengths=chr_lengths,
+            win_size=win_size,
+        )
+
+        for M in M_values:
+            for D in D_values:
+                print(f"{M}-{D}")
+                local_seed = int(rng.integers(0, 2**32 - 1))
+                df_md = simulate_pc_given_m_d_recombination(
+                    M=M,
+                    D=D,
+                    rates=rates,
+                    recomb_lambda=recomb_lambda,
+                    n_iter=n_iter,
+                    seed=local_seed,
+                    pseudocount=pseudocount,
+                    complete_grid=complete_grid,
+                )
+                out.append(df_md)
+
+    else:
+        raise ValueError("model must be 'no_recombination' or 'recombination'")
 
     likelihood_df = pd.concat(out, ignore_index=True)
 
-    # safety check
     check = likelihood_df.groupby(["M", "LAD"])["prob"].sum().reset_index()
     if not np.allclose(check["prob"].values, 1.0):
-        raise RuntimeError("Probabilities do not sum to 1 within each (M, D) block.")
+        raise RuntimeError("Probabilities do not sum to 1 within each (M, LAD) block.")
 
     return likelihood_df
 
@@ -379,3 +409,285 @@ def load_chr_oe(
 
     chr_oe = data_all[keep_cols].merge(chrom, on="sample", how="inner")
     return chr_oe   
+
+#############################################################
+### Simulation with recombination
+#############################################################
+
+def simulate_pvv_recombination(
+    rates: pd.DataFrame,
+    d: int,
+    recomb_lambda: float,
+    rng: np.random.Generator | None = None,
+) -> pd.DataFrame:
+    """
+    Simulate lesion-bearing bins after d divisions with recombination.
+
+    Parameters
+    ----------
+    rates : pd.DataFrame
+        Must contain columns: Chrom, bin, rate
+    d : int
+        Number of divisions
+    recomb_lambda : float
+        Poisson mean number of recombinations per chromosome per division
+    rng : np.random.Generator or None
+
+    Returns
+    -------
+    pd.DataFrame
+        Columns:
+          - Chrom
+          - bin
+          - rate
+          - mat_active
+          - pat_active
+    """
+    if rng is None:
+        rng = np.random.default_rng()
+
+    req = {"Chrom", "bin", "rate"}
+    if not req.issubset(rates.columns):
+        raise ValueError(f"rates missing required columns: {req - set(rates.columns)}")
+
+    chr_states = []
+    for chrom in rates["Chrom"].unique():
+        chr_rates = rates.loc[rates["Chrom"] == chrom].copy().reset_index(drop=True)
+        n_bins = len(chr_rates)
+
+        chr_states.append({
+            "Chrom": chrom,
+            "bin": chr_rates["bin"].to_numpy(),
+            "rate": chr_rates["rate"].to_numpy(dtype=float),
+            "mat": np.ones(n_bins, dtype=bool),
+            "pat": np.ones(n_bins, dtype=bool),
+        })
+
+    for _ in range(d):
+        for state in chr_states:
+            n_bins = len(state["rate"])
+
+            # recombination before segregation
+            n_recomb = rng.poisson(recomb_lambda)
+            if n_recomb >= n_bins:
+                n_recomb = n_bins - 1
+
+            if n_recomb > 0:
+                breakpoints = np.sort(
+                    rng.choice(np.arange(1, n_bins), size=n_recomb, replace=False)
+                )
+
+                segments = np.zeros(n_bins, dtype=int)
+                start = 0
+                seg_id = 0
+                for bp in list(breakpoints) + [n_bins]:
+                    segments[start:bp] = seg_id
+                    seg_id += 1
+                    start = bp
+
+                new_mat = state["mat"].copy()
+                new_pat = state["pat"].copy()
+
+                # alternate exchange status across segments
+                for s in np.unique(segments):
+                    exchange = (s % 2 == 0)
+                    idx = segments == s
+                    if exchange:
+                        new_pat[idx] = state["mat"][idx]
+                        new_mat[idx] = state["pat"][idx]
+
+                state["mat"] = new_mat
+                state["pat"] = new_pat
+
+            # random segregation: lose one homolog
+            if rng.random() < 0.5:
+                state["pat"][:] = False
+            else:
+                state["mat"][:] = False
+
+    out = []
+    for state in chr_states:
+        out.append(pd.DataFrame({
+            "Chrom": state["Chrom"],
+            "bin": state["bin"],
+            "rate": state["rate"],
+            "mat_active": state["mat"],
+            "pat_active": state["pat"],
+        }))
+
+    return pd.concat(out, ignore_index=True)
+
+def simulate_one_C_recombination(
+    M: int,
+    D: int,
+    rates: pd.DataFrame,
+    recomb_lambda: float,
+    rng: np.random.Generator | None = None,
+) -> int:
+    """
+    Simulate one realization of C given M and LAD using recombination model.
+
+    Parameters
+    ----------
+    M : int
+        Number of multiallelic sites
+    D : int
+        LAD state
+    rates : pd.DataFrame
+        Bin-level table with columns Chrom, bin, rate
+    recomb_lambda : float
+        Poisson mean number of recombinations per chromosome per division
+
+    Returns
+    -------
+    int
+        Number of chromosomes carrying at least one multiallelic site
+    """
+    if rng is None:
+        rng = np.random.default_rng()
+
+    if M < 0:
+        raise ValueError("M must be >= 0")
+    if D < 1:
+        raise ValueError("D must be >= 1")
+    if M == 0:
+        return 0
+
+    div = D - 1
+    sim = simulate_pvv_recombination(
+        rates=rates,
+        d=div,
+        recomb_lambda=recomb_lambda,
+        rng=rng,
+    )
+
+    sim["n_active"] = sim["mat_active"].astype(int) + sim["pat_active"].astype(int)
+    sim["active_weight"] = sim["rate"] * sim["n_active"]
+
+    total = sim["active_weight"].sum()
+    if total <= 0:
+        return 0
+
+    probs = sim["active_weight"].to_numpy(dtype=float) / total
+
+    chosen_idx = rng.choice(np.arange(len(sim)), size=M, replace=True, p=probs)
+    chosen_chroms = sim.iloc[chosen_idx]["Chrom"].to_numpy()
+
+    return int(pd.unique(chosen_chroms).size)
+
+def simulate_pc_given_m_d_recombination(
+    M: int,
+    D: int,
+    rates: pd.DataFrame,
+    recomb_lambda: float,
+    n_iter: int = 10000,
+    seed: int | None = None,
+    pseudocount: float = 0.0,
+    complete_grid: bool = True,
+) -> pd.DataFrame:
+    """
+    Estimate P(C | M, LAD) by Monte Carlo under recombination model.
+    """
+    rng = np.random.default_rng(seed)
+
+    sim_C = np.array(
+        [
+            simulate_one_C_recombination(
+                M=M,
+                D=D,
+                rates=rates,
+                recomb_lambda=recomb_lambda,
+                rng=rng,
+            )
+            for _ in range(n_iter)
+        ],
+        dtype=int
+    )
+
+    counts = pd.Series(sim_C).value_counts().sort_index()
+
+    if complete_grid:
+        c_min = 0 if M == 0 else 1
+        c_max = min(M, rates["Chrom"].nunique())
+        all_c = pd.Index(range(c_min, c_max + 1))
+        counts = counts.reindex(all_c, fill_value=0)
+
+    counts = counts.astype(float)
+    if pseudocount > 0:
+        counts = counts + pseudocount
+
+    probs = counts / counts.sum()
+
+    return pd.DataFrame({
+        "M": M,
+        "C": probs.index.astype(int),
+        "LAD": D,
+        "prob": probs.values.astype(float),
+    })
+
+
+def build_bins_from_chr_lengths(
+    chr_lengths: Mapping[str, int] | None = None,
+    win_size: int = 10_000_000,
+) -> pd.DataFrame:
+    """
+    Create a per-bin table from chromosome lengths.
+
+    Returns
+    -------
+    pd.DataFrame
+        Columns:
+          - Chrom : chromosome name ("1"..."22")
+          - bin   : bin index within chromosome (1-based)
+          - start : genomic start position (1-based)
+          - end   : genomic end position
+          - rate  : bin length (used as mutation opportunity weight)
+    """
+    if chr_lengths is None:
+        chr_lengths = {
+            "1": 248956422,
+            "2": 242193529,
+            "3": 198295559,
+            "4": 190214555,
+            "5": 181538259,
+            "6": 170805979,
+            "7": 159345973,
+            "8": 145138636,
+            "9": 138394717,
+            "10": 133797422,
+            "11": 135086622,
+            "12": 133275309,
+            "13": 114364328,
+            "14": 107043718,
+            "15": 101991189,
+            "16": 90338345,
+            "17": 83257441,
+            "18": 80373285,
+            "19": 58617616,
+            "20": 64444167,
+            "21": 46709983,
+            "22": 50818468,
+        }
+
+    rows = []
+    for chrom in [str(i) for i in range(1, 23)]:
+        if chrom not in chr_lengths:
+            raise ValueError(f"Missing chromosome length for chromosome {chrom}")
+
+        chrom_len = int(chr_lengths[chrom])
+        n_bins = int(np.ceil(chrom_len / win_size))
+
+        for b in range(n_bins):
+            start = b * win_size + 1
+            end = min((b + 1) * win_size, chrom_len)
+            rate = end - start + 1
+
+            rows.append({
+                "Chrom": chrom,
+                "bin": b + 1,
+                "start": start,
+                "end": end,
+                "rate": float(rate),
+            })
+
+    return pd.DataFrame(rows)    

@@ -1,15 +1,6 @@
 #$ -S /usr/bin/python
 import argparse
-import glob
-import string
-import gzip
-import re
-import os
-import subprocess
 import pandas as pd
-import numpy as np
-import random
-import statistics
 import json
 import csv
 from collections import defaultdict
