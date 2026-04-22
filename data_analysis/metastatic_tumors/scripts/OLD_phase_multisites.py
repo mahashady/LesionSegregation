@@ -1,18 +1,6 @@
 #$ -S /usr/bin/python
-import argparse
 import glob
-import string
-import gzip
-import re
 import os
-import subprocess
-import pandas as pd
-import numpy as np
-import random
-import statistics
-import pysam
-
-
 
 """ 
 """
@@ -23,9 +11,9 @@ def main(args):
     no_phasing = 0
     nucleotides = ['A','T','G','C']
     chromosomes = [str(i) for i in range(1,23)]
-    files = glob.glob("../results/multi_sites_by_sample_"+ subset + "_chemo.alkyl.immuno/*_multi_sites.txt")
-    outfile = open("../results/phased_multi_" + subset + "_chemo.alkyl.immuno.txt","w")
-    outfile_summary = open("../results/phased_summary_multi_" + subset + "_chemo.alkyl.immuno.txt","w")
+    files = glob.glob("../results/multi-allelic_sites/sites/multi_sites_by_sample_"+ subset + "_chemo.alkyl.immuno/*_multi_sites.txt")
+    outfile = open("../results/phasing/phased_multi_" + subset + "_chemo.alkyl.immuno.txt","w")
+    outfile_summary = open("../results/phasing/phased_summary_multi_" + subset + "_chemo.alkyl.immuno.txt","w")
     all_multi = 0
     no_germline = 0
     for file_name in files:
