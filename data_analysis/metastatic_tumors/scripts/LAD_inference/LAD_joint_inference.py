@@ -54,7 +54,7 @@ def run_lad_inference(
     ci: float = 0.95,
     permutation: bool = False,
     n_perm: int = 5000,
-    random_seed: int = 42,
+    random_seed: int = 72,
     max_iter: int = 1000,
 ):
     if mode == "binary":
