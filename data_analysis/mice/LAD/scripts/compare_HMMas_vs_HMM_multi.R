@@ -8,7 +8,7 @@ chr_size_file <- "../../data/c3h.chromSize.main"
 hmm_multi_dir <- "../results/HMM_multi_result"
 hmm_as_dir <- "../results/HMM_as_result"
 
-out_dir <- "../results/HMMmulti_vs_HMM_as"
+out_dir <- "../results/HMMmulti_vs_HMM_as_mixtures"
 subdirs <- c("plots", "tables")
 
 dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
@@ -413,12 +413,29 @@ analyze_one_sample <- function(
 # Run all samples
 # ----------------------------
 
-df_samples <- read.table("../results/Summary_LAD_with_symmetrical_no_mixtures.txt", sep=",", header=TRUE)
+#df_samples <- read.table("../results/Summary_LAD_with_symmetrical_no_mixtures.txt", sep=",", header=TRUE)
+df_samples <- read.table("../results/Summary_mixtures.txt", sep=",", header=TRUE)
 samples <- df_samples$Sample
 chr_size <- read_chr_sizes(chr_size_file)
 
 plot_one_sample_hmm_tracks(
-  sample = "90213_N3",
+  sample = "91215_N2",
+  chr_size = chr_size,
+  hmm_as_dir = hmm_as_dir,
+  hmm_multi_dir = hmm_multi_dir,
+  out_dir = file.path(out_dir, "plots")
+)
+
+plot_one_sample_hmm_tracks(
+  sample = "91863_N3",
+  chr_size = chr_size,
+  hmm_as_dir = hmm_as_dir,
+  hmm_multi_dir = hmm_multi_dir,
+  out_dir = file.path(out_dir, "plots")
+)
+
+plot_one_sample_hmm_tracks(
+  sample = "88308_N2",
   chr_size = chr_size,
   hmm_as_dir = hmm_as_dir,
   hmm_multi_dir = hmm_multi_dir,
