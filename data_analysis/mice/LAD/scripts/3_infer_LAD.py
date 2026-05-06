@@ -111,9 +111,14 @@ def main(args):
     # ----------------------------
     full_table["Ploidy_by_HMM_as"] = "one_tumour"
 
-    as_props = full_table[[f"segments_HMM_as_state_A{i}_prop" for i in range(1, 6)]]
+    segments_as_props = full_table[[f"segments_HMM_as_state_A{i}_prop" for i in range(1, 6)]]
+    sites_as_props = full_table[[f"sites_HMM_as_state_A{i}_prop" for i in range(1, 6)]]
     # tumors with >=4 states having prop >0.05 are mixtures
-    full_table.loc[(as_props > 0.05).sum(axis=1) >= 4, "Ploidy_by_HMM_as"] = "mixture_tumours"
+    full_table.loc[
+        ((segments_as_props > 0.05).sum(axis=1) == 5) &
+        ((sites_as_props > 0.05).sum(axis=1) == 5),
+        "Ploidy_by_HMM_as"
+    ] = "mixture_tumours"
     print(len(full_table[full_table["Ploidy_by_HMM_as"] == "mixture_tumours"]))
     full_table["tumour_mixture"] = 0
     mask_mixtures = ((full_table["Mixture_tumours"] == "mixture_tumours") & (full_table["subsets_fit"] == "Good")) | (
@@ -126,16 +131,36 @@ def main(args):
     # ----------------------------
     full_table["Symmetry"] = "Asymmetric"
 
-
-    # If the most extreme asymmetry states are contribute very few OR
-    # most extreme asymmetry states have low emissions OR
+    # If the HMMas state A3 covers more than 85% of sites OR
+    # HMMas state2 and HMMas state4 are close to HMMas_state3 by emission and together contribute more than 90% of sites OR
     # opposite asymmetries in clonal and subclonal mutations and good fit of vaf in clonal and subclonal
     sym_mask = (
-        ((full_table["segments_HMM_as_state_A1_prop"] + full_table["segments_HMM_as_state_A5_prop"]) < 0.2)
-        | (full_table["emission_HMM_as_state_T>N_A1"] < 0.8)
-        | (full_table["emission_HMM_as_state_T>N_A5"] > 0.2)
-        | ((full_table["Mixture_tumours"] == "Symmetric") & (full_table["subsets_fit"] == "Good"))
+        (
+            (
+                full_table["sites_HMM_as_state_A3_prop"] > 0.85
+            )
         )
+        |
+        (
+            (
+                (full_table["sites_HMM_as_state_A2_prop"] + 
+                full_table["sites_HMM_as_state_A3_prop"]  + 
+                full_table["sites_HMM_as_state_A4_prop"]) > 0.85
+            )
+            &
+            (
+                (full_table["emission_HMM_as_state_T>N_A2"] < 0.65)
+                &
+                (full_table["emission_HMM_as_state_T>N_A4"] > 0.35)
+            )
+        )
+        |
+        (
+            (full_table["Mixture_tumours"] == "Symmetric")
+            &
+            (full_table["subsets_fit"] == "Good")
+        )
+    )
     print(sym_mask)
     full_table.loc[sym_mask, "Symmetry"] = "Symmetric"
 
