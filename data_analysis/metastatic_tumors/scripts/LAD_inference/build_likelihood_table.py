@@ -27,7 +27,7 @@ def parse_args() -> argparse.Namespace:
 
     p.add_argument(
         "--outdir",
-        default="/home/bbg/mandrianova/Burst_kinetics/data_analysis/data_analysis/metastatic_tumors/results/LAD_inference",
+        default="/home/bbg/mandrianova/Burst_kinetics/data_analysis/data_analysis/metastatic_tumors/results/LAD_inference/likelihood_matrices/",
         help="Output directory",
     )
     p.add_argument(
