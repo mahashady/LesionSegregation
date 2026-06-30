@@ -33,7 +33,7 @@ def parse_args():
     p.add_argument("--n_reps", type=int, default=20)
 
     p.add_argument("--early_lads", default="1,2,3,4")
-    p.add_argument("--late_lads", default="5")
+    p.add_argument("--late_lads", default="5,6,7,8,9,10")
 
     p.add_argument("--seed", type=int, default=72)
 
@@ -78,16 +78,19 @@ def main():
     )
 
     print("\nCalibration finished.")
-
+    print(tumor_df.head())
     observed_fit = run_binary_inference(
         tumor_df=tumor_df[["sample", "M", "C"]],
         likelihood_df=likelihood_df,
         low_lads=early_lads,
+        do_bootstrap=True,
     )
-    print(observed_fit)
     observed_q_hat = float(observed_fit["binary_q_hat"]["q_hat"].iloc[0])
-
-    print(f"Observed q_hat = {observed_q_hat:.3f}")
+    observed_ci_df = observed_fit.get("binary_q_CI", None)
+    print(observed_ci_df)
+    if observed_ci_df is not None:
+        observed_ci_low = float(observed_ci_df["ci_early"].iloc[0])
+        observed_ci_high = float(observed_ci_df["ci_late"].iloc[0])
 
     low_lads_str = "-".join(map(str, early_lads))
     late_lads_str = "-".join(map(str, late_lads))
@@ -100,6 +103,10 @@ def main():
     plot_file = outdir / f"{prefix}.png"
     print(f"Generating plot saved to {plot_file}")
     plot_binary_calibration(results, outfile=plot_file, observed_q_hat=observed_q_hat)
+
+    plot_file = outdir / f"{prefix}.for_paper.png"
+    print(f"Generating plot saved to {plot_file}")
+    plot_binary_calibration_publication(results, outfile=plot_file, observed_q_hat=observed_q_hat, observed_ci=(observed_ci_low, observed_ci_high))
 
     print("\nDone.")
 

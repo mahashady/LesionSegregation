@@ -377,8 +377,8 @@ def bootstrap_pi(
         "LAD": d_values,
         "pi_hat": pi_hat,
         "boot_se": boot_se,
-        "ci_low": ci_low,
-        "ci_high": ci_high,
+        "ci_early": ci_low,
+        "ci_late": ci_high,
         "n_boot_success": boot_mat.shape[0],
     })
 
@@ -533,7 +533,7 @@ def golden_section_maximize(
 def build_group_likelihoods(
     tumor_df: pd.DataFrame,
     likelihood_df: pd.DataFrame,
-    low_lads: List[int] = [1, 2],
+    low_lads: List[int] = [1, 2, 3, 4],
     min_prob: float = 1e-300,
 ) -> Tuple[np.ndarray, np.ndarray, List[int]]:
     L, d_values, _ = build_likelihood_matrix(
@@ -547,7 +547,7 @@ def build_group_likelihoods(
     low_set = set(low_lads)
     high_lads = [d for d in d_values if d not in low_set]
     if len(high_lads) == 0:
-        raise ValueError("High LAD set is empty. Check low_lads or LAD states present in likelihood_df.")
+        raise ValueError("Late LAD set is empty. Check low_lads or LAD states present in likelihood_df.")
 
     lad_to_j = {d: j for j, d in enumerate(d_values)}
     low_js = [lad_to_j[d] for d in low_lads if d in lad_to_j]
@@ -567,7 +567,7 @@ def fit_binary_mixture(L_low: np.ndarray, L_high: np.ndarray, tol: float = 1e-10
     L_low = np.asarray(L_low, dtype=float)
     L_high = np.asarray(L_high, dtype=float)
     if L_low.shape != L_high.shape:
-        raise ValueError("L_low and L_high must have the same shape.")
+        raise ValueError("L_early and L_late must have the same shape.")
     if np.any(L_low <= 0) or np.any(L_high <= 0):
         raise ValueError("Likelihoods must be >0. Check min_prob flooring.")
 
@@ -620,8 +620,8 @@ def bootstrap_q(
     return pd.DataFrame({
         "q_hat_bootstrap_mean": [float(np.mean(q_vals))],
         "q_hat_bootstrap_sd": [float(np.std(q_vals, ddof=1))],
-        "ci_low": [ci_low],
-        "ci_high": [ci_high],
+        "ci_early": [ci_low],
+        "ci_late": [ci_high],
         "n_boot": [int(n_boot)],
         "ci_level": [float(ci)],
     })
@@ -704,10 +704,10 @@ def run_binary_inference(
     fit = fit_binary_mixture(L_low, L_high, tol=tol)
 
     posterior = tumor_df.loc[:, ["sample", "M", "C"]].copy().reset_index(drop=True)
-    posterior["post_low_LAD12"] = fit.post_low
-    posterior["post_high_LAD3plus"] = fit.post_high
-    posterior["class_map"] = np.where(posterior["post_low_LAD12"] >= 0.5, "LAD12", "LAD3plus")
-    posterior["post_max"] = posterior[["post_low_LAD12", "post_high_LAD3plus"]].max(axis=1)
+    posterior["post_early_LAD"] = fit.post_low
+    posterior["post_late_LAD"] = fit.post_high
+    posterior["class_map"] = np.where(posterior["post_early_LAD"] >= 0.5, "early LAD", "late LAD")
+    posterior["post_max"] = posterior[["post_early_LAD", "post_late_LAD"]].max(axis=1)
 
     out: Dict[str, pd.DataFrame] = {}
     out["binary_q_hat"] = pd.DataFrame({
@@ -784,10 +784,10 @@ def plot_pi_with_ci(result: dict, outfile: str | Path | None = None):
     fig, ax = plt.subplots(figsize=(5, 4))
 
     if boot_df is not None:
-        plot_df = pi_df.merge(boot_df[["LAD", "ci_low", "ci_high"]], on="LAD", how="left")
+        plot_df = pi_df.merge(boot_df[["LAD", "ci_early", "ci_late"]], on="LAD", how="left")
         yerr = [
-            plot_df["pi_hat"] - plot_df["ci_low"],
-            plot_df["ci_high"] - plot_df["pi_hat"],
+            plot_df["pi_hat"] - plot_df["ci_early"],
+            plot_df["ci_late"] - plot_df["pi_hat"],
         ]
         ax.bar(plot_df["LAD"].astype(str), plot_df["pi_hat"])
         ax.errorbar(
@@ -812,20 +812,101 @@ def plot_pi_with_ci(result: dict, outfile: str | Path | None = None):
 
     return fig
 
+def plot_binary_q_point_estimate(
+    result: dict,
+    outfile: str | Path | None = None,
+):
+    """
+    Point estimate plot for inferred Early LAD proportion q_hat.
+    """
 
-def plot_binary_q_with_ci(result: dict, outfile: str | Path | None = None):
     q_hat = float(result["binary_q_hat"]["q_hat"].iloc[0])
     ci_df = result.get("binary_q_CI", None)
 
-    fig, ax = plt.subplots(figsize=(4, 4))
+    fig, ax = plt.subplots(figsize=(3.2, 4.2))
 
-    # Base bars
-    ax.bar(["low", "high"], [q_hat, 1.0 - q_hat], color=["#4C72B0", "#DD8452"])
+    # Point estimate
+    ax.errorbar(
+        x=[0],
+        y=[q_hat],
+        yerr=None,
+        fmt="o",
+        color="black",
+        markersize=6,
+        capsize=0,
+        zorder=3,
+    )
 
-    # Add CI for low group
+    # Confidence interval
     if ci_df is not None:
-        ci_low = float(ci_df["ci_low"].iloc[0])
-        ci_high = float(ci_df["ci_high"].iloc[0])
+        ci_low = float(ci_df["ci_early"].iloc[0])
+        ci_high = float(ci_df["ci_late"].iloc[0])
+
+        yerr = [[q_hat - ci_low], [ci_high - q_hat]]
+
+        ax.errorbar(
+            x=[0],
+            y=[q_hat],
+            yerr=yerr,
+            fmt="o",
+            color="black",
+            ecolor="black",
+            elinewidth=1.5,
+            capsize=5,
+            capthick=1.5,
+            markersize=6,
+            zorder=4,
+        )
+
+    ax.set_xlim(-0.6, 0.6)
+    ax.set_ylim(0, 1.1)
+
+    ax.set_xticks([0])
+    ax.set_xticklabels(
+        ["Early LAD (LAD 1-4)\nproportion"],
+        fontsize=11,
+    )
+
+    ax.set_ylabel("Estimated proportion", fontsize=12)
+    ax.set_yticks(np.arange(0, 1.01, 0.2))
+    ax.tick_params(axis="y", labelsize=11)
+
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+
+    ax.grid(axis="y", linestyle="--", alpha=0.25)
+
+    fig.tight_layout()
+
+    if outfile is not None:
+        fig.savefig(outfile, dpi=300, bbox_inches="tight")
+
+    return fig
+
+def plot_binary_q_with_ci(result: dict, outfile: str | Path | None = None):
+
+    q_hat = float(result["binary_q_hat"]["q_hat"].iloc[0])
+    ci_df = result.get("binary_q_CI", None)
+
+    fig, ax = plt.subplots(figsize=(3.5, 4))
+
+    x = [0, 1]
+    heights = [q_hat, 1.0 - q_hat]
+
+    ax.bar(
+        x,
+        heights,
+        width=0.5,
+        color=["#4C72B0", "#DD8452"],
+        edgecolor="black",
+        linewidth=0.8,
+    )
+
+    # Confidence interval for Early group
+    if ci_df is not None:
+
+        ci_low = float(ci_df["ci_early"].iloc[0])
+        ci_high = float(ci_df["ci_late"].iloc[0])
 
         yerr = [[q_hat - ci_low], [ci_high - q_hat]]
 
@@ -834,24 +915,49 @@ def plot_binary_q_with_ci(result: dict, outfile: str | Path | None = None):
             y=[q_hat],
             yerr=yerr,
             fmt="none",
-            capsize=5,
-            color="black",          
-            linewidth=1.5,
+            color="black",
+            linewidth=1.2,
+            capsize=4,
+            capthick=1.2,
+            zorder=10,
         )
 
-        y_min = 0
-        y_max = 1.1
-    else:
-        y_min, y_max = 0, 1
+    ax.set_xticks(x)
+    ax.set_xticklabels(
+        ["Early\n(LAD 1–4)", "Late\n(LAD 5+)"],
+        fontsize=11,
+    )
 
-    ax.set_ylabel("Estimated proportion")
-    ax.set_ylim(y_min, y_max)
-    ax.set_title("Binary LAD distribution")
+    ax.set_ylabel(
+        "Estimated proportion",
+        fontsize=12,
+    )
+
+    ax.set_ylim(0, 1.1)
+    ax.set_yticks(np.arange(0, 1.01, 0.2))
+
+    ax.tick_params(
+        axis="y",
+        labelsize=11,
+    )
+
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+
+    ax.grid(
+        axis="y",
+        linestyle="--",
+        alpha=0.3,
+    )
 
     fig.tight_layout()
 
     if outfile is not None:
-        fig.savefig(outfile, dpi=300, bbox_inches="tight")
+        fig.savefig(
+            outfile,
+            dpi=300,
+            bbox_inches="tight",
+        )
 
     return fig
 

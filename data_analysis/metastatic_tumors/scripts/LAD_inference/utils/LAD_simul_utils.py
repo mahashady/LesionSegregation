@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 from typing import Iterable, Mapping
 from pathlib import Path
+import matplotlib.pyplot as plt
 
 def get_autosome_length_weights(chr_lengths: Mapping[str, int] | None = None) -> np.ndarray:
     """
