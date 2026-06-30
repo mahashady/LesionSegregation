@@ -12,6 +12,7 @@ from utils.LAD_inference_utils import (
     save_binary_inference_results,
     save_joint_inference_results,
     plot_binary_q_with_ci,
+    plot_binary_q_point_estimate,
     plot_pi_with_ci,
     plot_posterior_confidence,
 )
@@ -25,7 +26,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--prefix", required=True, help="Prefix for output files")
 
     p.add_argument("--mode", choices=["binary", "multistate"], default="binary")
-    p.add_argument("--low_lads", default="1,2", help="Comma-separated LADs in the low group")
+    p.add_argument("--low_lads", default="1,2,3,4", help="Comma-separated LADs in the low group")
     p.add_argument("--min_prob", type=float, default=1e-300)
     p.add_argument("--tol", type=float, default=1e-10)
     p.add_argument("--max_iter", type=int, default=1000)
@@ -121,6 +122,9 @@ def main() -> None:
         save_binary_inference_results(result, outdir=outdir, prefix=args.prefix)
 
         fig = plot_binary_q_with_ci(result, outfile=plots_dir / f"{args.prefix}.binary_q_plot.png")
+        plt.close(fig)
+
+        fig = plot_binary_q_point_estimate(result,outfile=plots_dir / f"{args.prefix}.binary_q_point_estimate.png")
         plt.close(fig)
 
         print(result["binary_q_hat"])

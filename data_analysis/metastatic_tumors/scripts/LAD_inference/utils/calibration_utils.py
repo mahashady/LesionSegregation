@@ -34,8 +34,8 @@ def simulate_dataset_from_lookup(
     observed_tumor_df: pd.DataFrame,
     likelihood_df: pd.DataFrame,
     q_early: float,
-    early_lads: Sequence[int] = (1, 2, 3),
-    late_lads: Sequence[int] = (4, 5, 6, 7),
+    early_lads: Sequence[int] = (1, 2, 3, 4),
+    late_lads: Sequence[int] = (5, 6, 7, 8, 9, 10),
     rng: np.random.Generator | None = None,
     within_group_probs_early: Sequence[float] | None = None,
     within_group_probs_late: Sequence[float] | None = None,
@@ -108,8 +108,8 @@ def run_binary_calibration(
     likelihood_df: pd.DataFrame,
     true_q_values: Iterable[float],
     n_reps: int = 20,
-    early_lads: Sequence[int] = (1, 2, 3),
-    late_lads: Sequence[int] = (4, 5, 6, 7),
+    early_lads: Sequence[int] = (1, 2, 3, 4),
+    late_lads: Sequence[int] = (5, 6, 7, 8, 9, 10),
     inference_low_lads: Sequence[int] | None = None,
     random_seed: int = 72,
     min_prob: float = 1e-300,
@@ -249,6 +249,164 @@ def plot_binary_calibration(
     ax.set_title("Binary LAD calibration")
     ax.set_ylim(-0.1, 1.1)
     ax.set_xlim(-0.1, 1.1)
+
+    fig.tight_layout()
+
+    if outfile is not None:
+        fig.savefig(outfile, dpi=300, bbox_inches="tight")
+
+    return fig
+
+def plot_binary_calibration_publication(
+    calib_df: pd.DataFrame,
+    outfile: str | Path | None = None,
+    observed_q_hat: float | None = None,
+    observed_ci: tuple[float, float] | None = None,    
+):
+    """
+    Publication-style calibration plot:
+      x = true early LAD proportion
+      y = inferred early LAD proportion
+
+    Shows:
+      - individual simulation replicates as light points
+      - median q_hat per true q
+      - 95% empirical interval
+      - diagonal y = x reference line
+      - optional observed q_hat as horizontal line
+    """
+
+    plot_df = calib_df.copy()
+    q_levels = np.array(sorted(plot_df["q_true"].unique()), dtype=float)
+
+    summary = (
+        plot_df
+        .groupby("q_true")["q_hat"]
+        .agg(
+            median="median",
+            q025=lambda x: np.quantile(x, 0.025),
+            q975=lambda x: np.quantile(x, 0.975),
+        )
+        .reset_index()
+    )
+
+    fig, ax = plt.subplots(figsize=(5.5, 4.2))
+
+    rng = np.random.default_rng(1)
+
+    # Individual replicates
+    for q in q_levels:
+        y = plot_df.loc[plot_df["q_true"] == q, "q_hat"].to_numpy()
+        x = rng.normal(loc=q, scale=0.008, size=len(y))
+
+        ax.scatter(
+            x,
+            y,
+            s=12,
+            color="black",
+            alpha=0.35,
+            linewidths=0,
+            zorder=2,
+        )
+
+    # 95% empirical intervals
+    yerr = np.vstack([
+        summary["median"] - summary["q025"],
+        summary["q975"] - summary["median"],
+    ])
+
+    ax.errorbar(
+        summary["q_true"],
+        summary["median"],
+        yerr=yerr,
+        fmt="o",
+        color="black",
+        ecolor="black",
+        elinewidth=1.4,
+        capsize=4,
+        capthick=1.4,
+        markersize=5,
+        zorder=4,
+        label="Median ± 95% interval",
+    )
+
+    # Calibration diagonal
+    ax.plot(
+        [0, 1],
+        [0, 1],
+        linestyle="--",
+        color="red",
+        linewidth=1.2,
+        zorder=1,
+        label="Perfect calibration",
+    )
+
+    # Observed estimate
+    if observed_q_hat is not None:
+        if observed_ci is not None:
+            ci_low, ci_high = observed_ci
+
+            ax.errorbar(
+                observed_q_hat,
+                observed_q_hat,
+                xerr=[
+                    [observed_q_hat - ci_low],
+                    [ci_high - observed_q_hat],
+                ],
+                yerr=[
+                    [observed_q_hat - ci_low],
+                    [ci_high - observed_q_hat],
+                ],
+                fmt="o",
+                markersize=9,
+                color="#D55E00",
+                ecolor="#D55E00",
+                markeredgecolor="black",
+                markeredgewidth=0.8,
+                elinewidth=1.6,
+                capsize=4,
+                capthick=1.6,
+                zorder=6,
+                label=f"Observed q̂ = {observed_q_hat:.2f} 95% CI",
+            )
+        else:
+            ax.scatter(
+                observed_q_hat,
+                observed_q_hat,
+                s=120,
+                color="#D55E00",
+                edgecolor="black",
+                linewidth=0.8,
+                zorder=6,
+                label=f"Observed q̂ = {observed_q_hat:.2f}",
+            )
+
+    ax.set_xlabel("Simulated early LAD proportion", fontsize=12)
+    ax.set_ylabel("Inferred early LAD proportion", fontsize=12)
+
+    ax.set_xlim(-0.03, 1.03)
+    ax.set_ylim(-0.03, 1.03)
+
+    ax.set_xticks(np.arange(0, 1.01, 0.25))
+    ax.set_yticks(np.arange(0, 1.01, 0.25))
+
+    ax.tick_params(axis="both", labelsize=11)
+
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+
+    ax.grid(
+        axis="both",
+        linestyle="--",
+        alpha=0.25,
+        linewidth=0.8,
+    )
+
+    ax.legend(
+        frameon=False,
+        fontsize=9,
+        loc="lower right",
+    )
 
     fig.tight_layout()
 
