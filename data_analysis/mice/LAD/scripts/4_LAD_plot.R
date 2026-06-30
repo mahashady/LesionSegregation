@@ -1,8 +1,10 @@
 library(ggplot2)
 library(dplyr)
+library(ggside)
 
-divisions <- read.table("../results/Summary_LAD_with_symmetrical_no_mixtures.txt", header=TRUE, sep = ",")
-divisions <- divisions[divisions$LAD_ML_segm != "0" & divisions$LAD_ML_segm != "1",]
+divisions_all <- read.table("../results/Summary_LAD_with_symmetrical_no_mixtures.txt", header=TRUE, sep = ",")
+divisions_not_sym <- divisions_all[divisions_all$LAD_ML_segm != "0",]
+divisions <- divisions_all[divisions_all$LAD_ML_segm != "0" & divisions_all$LAD_ML_segm != "1",]
 plot_state1_2<-(ggplot(divisions, aes(x=segments_HMM_multi_state_M1_prop, y = segments_HMM_multi_state_M2_prop,col=LAD_ML_segm)) +
                 geom_segment(aes(x = 1/4, y = 0, xend = 1/4, yend = 2/4), linetype="dashed",col="darkgrey") +
                 geom_segment(aes(x = 0, y = 2/4, xend = 1/4, yend = 2/4), linetype="dashed",col="darkgrey") +
@@ -64,4 +66,77 @@ MRCA_distr_by_line <- (ggplot(lad_by_line, aes(x = LAD_ML_segm, y=prop_one_drive
                        + xlab("LAD"))
 ggsave(MRCA_distr_by_line, file="../plots/LAD_distribution_by_line.jpeg", width = 6, height = 4, dpi = 300)
 
+divisions_not_sym$prop_multiallelic = divisions_not_sym$segments_HMM_multi_state_M2_prop + divisions_not_sym$segments_HMM_multi_state_M3_prop
+divisions_not_sym$driver_id = paste(divisions_not_sym$drivers, divisions_not_sym$driver_positions, sep="_")
+divisions_not_sym <- divisions_not_sym[divisions_not_sym$driver_id %in% c("Egfr_11:14185624_T/A","Braf_6:37548568_A/T", "Hras_7:145859242_T/A", "Hras_7:145859242_T/C"),]
+print(head(divisions_not_sym))
+driver_names <- data.frame(
+  driver_id = c("Egfr_11:14185624_T/A", "Braf_6:37548568_A/T", "Hras_7:145859242_T/A", "Hras_7:145859242_T/C"),
+  driver_name = c("Egfr F254I", "Braf V637E", "Hras Q61L", "Hras Q61R")
+)
 
+divisions_not_sym <- divisions_not_sym %>%
+  left_join(driver_names, by = "driver_id")
+  
+print(head(divisions_not_sym))
+
+df_side <- divisions_not_sym %>%
+    count(driver_name, LAD_ML_segm) %>%
+    group_by(driver_name) %>%
+    mutate(prop = n / sum(n))
+
+plot_multi_vs_LAD <- ggplot(
+  divisions_not_sym,
+  aes(x = factor(LAD_ML_segm), y = prop_multiallelic)
+) +
+  geom_boxplot(
+    width = 0.55,
+    outlier.shape = NA,
+    linewidth = 0.4,
+    col = "darkgrey"
+  ) +
+  geom_jitter(
+    aes(col = driver_name),
+    width = 0.17,
+    size = 1,
+    alpha = 1
+  ) +
+  ggside::geom_xsidecol(
+    data = df_side,
+      aes(
+        x = factor(LAD_ML_segm),
+        y = prop,
+        fill = driver_name
+      ),
+    inherit.aes = FALSE,
+    width = 0.7
+  ) +
+  facet_wrap(~driver_name, nrow = 2) +
+  labs(
+    x = "infered LAD",
+    y = "Proportion of multiallelic sements",
+  ) +
+  theme_bw(base_size = 11) +
+  theme(
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor = element_blank(),
+    strip.background = element_rect(fill = "grey90", colour = NA),
+    strip.text = element_text(face = "bold", size = 10),
+    axis.title = element_text(size = 11),
+    axis.text = element_text(size = 9, colour = "black"),
+    plot.title = element_text(size = 12, face = "bold", hjust = 0.5),
+    panel.spacing = unit(0.8, "lines"),
+    legend.position = "none",
+    ggside.panel.scale = 0.25    
+  ) + 
+  scale_color_manual(values=c("Egfr F254I"="#9BCD9B", "Braf V637E"="#EE6363","Hras Q61L"="#9AC0CD", "Hras Q61R"="#9AC0CD")) +
+  scale_fill_manual(values=c("Egfr F254I"="#9BCD9B", "Braf V637E"="#EE6363","Hras Q61L"="#9AC0CD", "Hras Q61R"="#9AC0CD")) +
+  scale_xsidey_continuous(breaks = c(0.5), limits = c(0, 1))
+
+ggsave(
+  filename = "../plots/multi_vs_LAD.C3H.by_gene.jpeg",
+  plot = plot_multi_vs_LAD,
+  width = 6,
+  height = 6,
+  dpi = 300
+)
