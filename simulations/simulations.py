@@ -318,7 +318,7 @@ def full_process(chr_sizes, selection_coefs, driver_lesions, driver_strands, req
         logging.info(f'Final clone information after {total_gens} generation:')
         logging.info(clones)
 
-        # Get mrca
+        # Get LAD (mrca)
         mrca_filtered_driver = None if len(clones_filtered) == 0 else find_mrca(clones_filtered)
         mrca_filtered_no_grouping = None if len(clones_filtered_no_grouping) == 0 else find_mrca(clones_filtered_no_grouping)
 
@@ -662,37 +662,6 @@ def main():
     surviving_cells_all_df = pd.concat(surviving_cells_all)
     surviving_cells_all_df.to_csv(f'{sim_dir}/surviving_cells_info.csv', index=False)
 
-    plot_histogram(driver_counts_filtered_driver_all, ['num drivers', 'clone proportion'], f'{sim_dir}/driver_counts_per_clone_filtered_driver.pdf',
-                   binrange=(0, max(driver_counts_filtered_driver_all)+1), discrete=True, stat='probability')
-    plot_histogram(driver_counts_filtered_no_grouping_all, ['num drivers', 'clone proportion'], f'{sim_dir}/driver_counts_per_clone_filtered_no_grouping.pdf',
-                   binrange=(0, max(driver_counts_filtered_no_grouping_all)+1), discrete=True, stat='probability')
-
-    plot_histogram_mrca(mrca_list_filtered_driver, ['MRCA generation', 'tumor proportion'],
-                        f'{sim_dir}/mrca_generation_counts_{min_tumor}_cells_filtered_driver.pdf',
-                        discrete=True, stat='probability')
-
-    if mrca_list_filtered_no_grouping:
-        plot_histogram_mrca(mrca_list_filtered_no_grouping, ['MRCA generation', 'tumor proportion'],
-                            f'{sim_dir}/mrca_generation_counts_{min_tumor}_cells_filtered_no_grouping.pdf',
-                            discrete=True, stat='probability')
-
-    if mrca_2_drivers or mrca_1_2_drivers:
-        if mrca_1_driver:
-            plot_histogram_mrca(mrca_1_driver, ['MRCA generation', 'tumor proportion'],
-                            f'{sim_dir}/mrca_generation_counts_{min_tumor}_cells_1_driver_tumors_filtered_no_grouping.pdf',
-                            discrete=True, stat='probability')
-        if mrca_2_drivers:
-            plot_histogram_mrca(mrca_2_drivers, ['MRCA generation', 'tumor proportion'],
-                            f'{sim_dir}/mrca_generation_counts_{min_tumor}_cells_2plus_driver_tumors_filtered_no_grouping.pdf',
-                            discrete=True, stat='probability')
-        if mrca_1_2_drivers:
-            plot_histogram_mrca(mrca_1_2_drivers, ['MRCA generation', 'tumor proportion'],
-                            f'{sim_dir}/mrca_generation_counts_{min_tumor}_cells_1_and_more_driver_clones_tumors_filtered_no_grouping.pdf',
-                            discrete=True, stat='probability')
-
-    plot_histogram(fitness_list, ['Fitness advantage', 'clone proportion'], f'{sim_dir}/fitness_advantage_per_clone.pdf', bins=100,
-                   binrange=(0, 1), stat='probability')
-
     # write files for plots
     yaml.dump(driver_counts_filtered_driver_all, open(f'{sim_dir}driver_counts_filtered_driver.yml', 'w'))
     yaml.dump(driver_counts_filtered_no_grouping_all, open(f'{sim_dir}driver_counts_filtered_no_grouping.yml', 'w'))
@@ -700,14 +669,7 @@ def main():
     yaml.dump(mrca_list_filtered_driver, open(f'{sim_dir}mrca_list_{min_tumor}_filtered_driver.yml', 'w'))
     yaml.dump(mrca_list_filtered_no_grouping, open(f'{sim_dir}mrca_list_{min_tumor}_filtered_no_grouping.yml', 'w'))
 
-    plot_histogram(tumor_sizes, [f'tumor size (clones >= {CLONE_MIN_PROPORTION} of cells)', 'proportion'], f'{sim_dir}/tumor_size_sizable_clones.pdf',
-                   log_scale=True, stat='probability')
 
-    plot_scatter_clone_prop(surviving_cells_all_df, ['clone proportion before clonal expansion',
-                                          'clone proportion after clone expansion'], f'{sim_dir}/clone_proportion_change.pdf')
-    surviving_cells_all_df = surviving_cells_all_df.loc[surviving_cells_all_df['final clone size'] > 0]
-    plot_histogram_clone_size(surviving_cells_all_df,
-                              ['clone size', 'clone count'], f'{sim_dir}/clone_sizes_all.pdf')
 
 
 if __name__ == '__main__':
