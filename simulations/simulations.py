@@ -73,11 +73,11 @@ def lesions_remaining(cells):
             return True
     return False
 
-def log_cell_info(cell, selection_coefs, driver_strands, epistasis_type, require_two_strands, error_free_tx, smax):
+def log_cell_info(cell, selection_coefs, driver_strands, epistasis_type, require_two_strands, baseline_fitness, error_free_tx, smax):
     logging.info(f'Cell {cell.id}')
     logging.info(f'Driver mutations: {cell.get_driver_mutations(selection_coefs)}')
     logging.info(f'Driver lesion status: {cell.has_driver_lesions(selection_coefs)}')
-    logging.info(f'Cell fitness: {cell.get_fitness(selection_coefs, driver_strands, epistasis_type, require_two_strands, error_free_tx, smax)}')
+    logging.info(f'Cell fitness: {cell.get_fitness(selection_coefs, driver_strands, epistasis_type, require_two_strands, baseline_fitness, error_free_tx, smax)}')
 
 
 def find_mrca(clones):
@@ -101,13 +101,13 @@ def mrca_1_check_all_4(clones_df):
         return True
     return False
 
-def division_or_cell_death(cells, selection_coefs, driver_strands, epistatic_interactions, require_two_strands, error_free_rate, error_free_tx, repair_rate, shared_mut_through_repair, repair_process, asymmetric_rate_0, asymmetric_rate, smax, verbose, record_detailed=False):
+def division_or_cell_death(cells, selection_coefs, driver_strands, epistatic_interactions, require_two_strands, error_free_rate, error_free_tx, repair_rate, shared_mut_through_repair, repair_process, asymmetric_rate_0, asymmetric_rate, baseline_fitness, smax, verbose, record_detailed=False):
     updated_cells = []
     for cell in cells:
         if repair_rate != 0:
             cell.repair_lesions(repair_rate, shared_mut_through_repair, repair_process)
 
-        decision = cell.division_decision(selection_coefs, driver_strands, epistatic_interactions, require_two_strands, asymmetric_rate_0, asymmetric_rate, error_free_tx, smax)
+        decision = cell.division_decision(selection_coefs, driver_strands, epistatic_interactions, require_two_strands, asymmetric_rate_0, asymmetric_rate, baseline_fitness, error_free_tx, smax)
 
         if record_detailed and verbose:
             logging.info(f'\nCell {cell.id}: decision = {decision}')
@@ -119,21 +119,21 @@ def division_or_cell_death(cells, selection_coefs, driver_strands, epistatic_int
             if decision == 'birth':
                 updated_cells.extend([cell1, cell2])
                 if record_detailed and verbose:
-                    log_cell_info(cell1, selection_coefs, epistatic_interactions, require_two_strands, error_free_tx, smax)
-                    log_cell_info(cell2, selection_coefs, epistatic_interactions, require_two_strands, error_free_tx, smax)
+                    log_cell_info(cell1, selection_coefs, epistatic_interactions, require_two_strands, baseline_fitness, error_free_tx, smax)
+                    log_cell_info(cell2, selection_coefs, epistatic_interactions, require_two_strands, baseline_fitness, error_free_tx, smax)
             else:
                 updated_cells.append(cell1)
                 if record_detailed and verbose:
-                    log_cell_info(cell1, selection_coefs, epistatic_interactions, require_two_strands, error_free_tx, smax)
+                    log_cell_info(cell1, selection_coefs, epistatic_interactions, require_two_strands, baseline_fitness, error_free_tx, smax)
 
     return updated_cells
 
-def simple_division_or_cell_death(cells_ct_tuples, selection_coefs, driver_strands, epistasis_type, require_two_strands, error_free_tx, asymmetric_rate_0, asymmetric_rate, smax, verbose, record_detailed=False):
+def simple_division_or_cell_death(cells_ct_tuples, selection_coefs, driver_strands, epistasis_type, require_two_strands, error_free_tx, asymmetric_rate_0, asymmetric_rate, baseline_fitness, smax, verbose, record_detailed=False):
     updated_cells = []
     for cell, ct in cells_ct_tuples:
         new_ct = 0
         for cell_i in range(ct):
-            decision = cell.division_decision(selection_coefs, driver_strands, epistasis_type, require_two_strands, asymmetric_rate_0, asymmetric_rate, error_free_tx, smax)
+            decision = cell.division_decision(selection_coefs, driver_strands, epistasis_type, require_two_strands, asymmetric_rate_0, asymmetric_rate, baseline_fitness, error_free_tx, smax)
             if record_detailed and verbose:
                 logging.info(f'\nCell {cell.id} ind {cell_i}: decision = {decision}')
             if decision == 'birth':
@@ -153,7 +153,7 @@ def get_smax(selection_coefs):
     return max(1, w-1)
 
 
-def cell_division_until_drivers_saturated(chr_sizes, selection_coefs, driver_lesion_dict, driver_strands, epistasis_type, require_two_strands, error_free_rate, error_free_tx, repair_rate, shared_mut_through_repair, repair_process, asymmetric_rate_0, asymmetric_rate, n_track_cells, min_gens, verbose):
+def cell_division_until_drivers_saturated(chr_sizes, selection_coefs, driver_lesion_dict, driver_strands, epistasis_type, require_two_strands, error_free_rate, error_free_tx, repair_rate, shared_mut_through_repair, repair_process, asymmetric_rate_0, asymmetric_rate, baseline_fitness, n_track_cells, min_gens, verbose):
     generation = 0
     cell = Cell(chr_sizes, '')
     cell.den_exposure(driver_lesion_dict)
@@ -178,14 +178,14 @@ def cell_division_until_drivers_saturated(chr_sizes, selection_coefs, driver_les
     cells = division_or_cell_death(cells=[cell], selection_coefs=selection_coefs, driver_strands=driver_strands, epistatic_interactions=epistasis_type,
                                    require_two_strands=require_two_strands, error_free_rate=error_free_rate, error_free_tx=error_free_tx,
                                    repair_rate=0, shared_mut_through_repair=0, repair_process=repair_process,
-                                   asymmetric_rate_0=asymmetric_rate_0, asymmetric_rate=asymmetric_rate, smax=s_max,
+                                   asymmetric_rate_0=asymmetric_rate_0, asymmetric_rate=asymmetric_rate, baseline_fitness=baseline_fitness, smax=s_max,
                                    verbose=verbose, record_detailed=True)
 
 
     if verbose:
         logging.info(f'\nGeneration {generation}:')
         for cell in cells:
-            log_cell_info(cell, selection_coefs, driver_strands, epistasis_type, require_two_strands, error_free_tx, s_max)
+            log_cell_info(cell, selection_coefs, driver_strands, epistasis_type, require_two_strands, baseline_fitness, error_free_tx, s_max)
 
     if len(cells) == 0:
         lost_first_cell = True
@@ -195,12 +195,13 @@ def cell_division_until_drivers_saturated(chr_sizes, selection_coefs, driver_les
     # detailed lineage tracking
     while generation < n_track_cells:
         generation += 1
-
+        if generation >= 15:
+            baseline_fitness = min(0.01, baseline_fitness)
         if verbose:
             logging.info(f'\nGeneration {generation}:')
         cells = division_or_cell_death(cells, selection_coefs, driver_strands, epistasis_type, require_two_strands, error_free_rate,
                                        error_free_tx, repair_rate, shared_mut_through_repair, repair_process,
-                                       asymmetric_rate_0, asymmetric_rate, s_max, verbose, record_detailed=True)
+                                       asymmetric_rate_0, asymmetric_rate, baseline_fitness, s_max, verbose, record_detailed=True)
 
         if len(cells) == 0:
             break
@@ -222,13 +223,15 @@ def cell_division_until_drivers_saturated(chr_sizes, selection_coefs, driver_les
 
     while driver_lesions_remaining(cells_w_lesions, selection_coefs):
         generation += 1
+        if generation >= 15:
+            baseline_fitness = min(0.01, baseline_fitness)
         # propagate cells with lesions
         cells_w_lesions = division_or_cell_death(cells_w_lesions, selection_coefs, driver_strands, epistasis_type, require_two_strands, error_free_rate,
                                                 error_free_tx, repair_rate, shared_mut_through_repair, repair_process,
-                                                asymmetric_rate_0, asymmetric_rate, s_max, verbose, record_detailed=True)
+                                                asymmetric_rate_0, asymmetric_rate, baseline_fitness, s_max, verbose, record_detailed=True)
         # propagate_cells_without
         cells_no_lesions = simple_division_or_cell_death(cells_no_lesions, selection_coefs, driver_strands, epistasis_type, require_two_strands,
-                                                         error_free_tx, asymmetric_rate_0, asymmetric_rate, s_max, verbose, record_detailed=True)
+                                                         error_free_tx, asymmetric_rate_0, asymmetric_rate, baseline_fitness, s_max, verbose, record_detailed=True)
         if len(cells) == 0:
             break
         # update lesions and no lesions list
@@ -245,17 +248,21 @@ def cell_division_until_drivers_saturated(chr_sizes, selection_coefs, driver_les
 
     while generation < min_gens:
         generation += 1
+        if generation >= 15:
+            baseline_fitness = min(0.01, baseline_fitness)
         # use simple update
         cells_no_lesions = simple_division_or_cell_death(cells_no_lesions, selection_coefs, driver_strands, epistasis_type, require_two_strands,
-                                                     error_free_tx, asymmetric_rate_0, asymmetric_rate, s_max, verbose)
+                                                     error_free_tx, asymmetric_rate_0, asymmetric_rate, baseline_fitness, s_max, verbose)
         if verbose:
             logging.info(f'Generation {generation}, #cells = {len(cells)}, drivers remaning? {driver_lesions_remaining(cells, selection_coefs)}, any lesions? {lesions_remaining(cells)}')
         if len(cells) == 0:
             break
     return cells_no_lesions, generation, shared_drivers, s_max, drivers_repaired_first_cell, duplex_first_cell, lost_first_cell
+        cells = division_or_cell_death(cells, selection_coefs, driver_strands, epistasis_type, require_two_strands, error_free_rate,
 
 
-def clonal_expansion(cells, max_generations, carrying_capacity, selection_coefs, driver_strands, epistasis_type, require_two_strands, asymmetric_rate_0, asymmetric_rate, error_free_tx, smax, verbose):
+
+def clonal_expansion(cells, max_generations, carrying_capacity, selection_coefs, driver_strands, epistasis_type, require_two_strands, asymmetric_rate_0, asymmetric_rate, baseline_fitness, starting_generations, error_free_tx, smax, verbose):
     n_0 = 0
     for cell, ct in cells:
         n_0 += ct
@@ -263,9 +270,9 @@ def clonal_expansion(cells, max_generations, carrying_capacity, selection_coefs,
     growth_fn = lambda x, y: n_0*(x**y) # x is the growth rate, y is the time step
 
     cell_expansion = [[cell, cell.id,
-                       cell.get_fitness(selection_coefs, driver_strands, epistasis_type, require_two_strands, error_free_tx, smax),
+                       cell.get_fitness(selection_coefs, driver_strands, epistasis_type, require_two_strands, baseline_fitness, error_free_tx, smax),
                        cell.get_branching_process_probabilities(selection_coefs, driver_strands, epistasis_type, require_two_strands,
-                                                                asymmetric_rate_0, asymmetric_rate, error_free_tx, smax),
+                                                                asymmetric_rate_0, asymmetric_rate, baseline_fitness, error_free_tx, smax),
                        ct/n_0, ct] for cell, ct in cells]
 
     ## RECORD CLONES
@@ -277,9 +284,18 @@ def clonal_expansion(cells, max_generations, carrying_capacity, selection_coefs,
     surviving_cells_info_df = pd.DataFrame(surviving_cells_info, columns=['clone id', 'clone fitness', 'b,d,c', 'initial clone proportion', 'initial clone size'])
 
     for gen in range(1, max_generations+1):
+        # once we hit 15 generations (if we hadn't already), recompute cell fitness with 1% baseline
+        if gen + starting_generations == 15 and baseline_fitness != 0:
+            new_cell_expansion = [[clone[0], clone[0].id,
+                                   clone[0].get_fitness(selection_coefs, driver_strands, epistasis_type, require_two_strands, 0.01, error_free_tx, smax),
+                                   clone[0].get_branching_process_probabilities(selection_coefs, driver_strands, epistasis_type, require_two_strands,
+                                                                            asymmetric_rate_0, asymmetric_rate, 0.01, error_free_tx, smax),
+                                   clone[-1]/n_0, clone[-1]] for clone in cell_expansion]
+            cell_expansion = new_cell_expansion
         w_bar = get_average_fitness(cell_expansion)
         N_t = growth_fn(w_bar, gen) # feed in rate
         cell_prob = get_cell_propagation_probability(cell_expansion, w_bar)
+        print('cell prob: ', cell_prob)
         try:
             new_generation = np.random.multinomial(N_t, cell_prob)
         except OverflowError:
@@ -300,11 +316,13 @@ def clonal_expansion(cells, max_generations, carrying_capacity, selection_coefs,
 
     return cell_expansion, gen, surviving_cells_info_df
 
-def full_process(chr_sizes, selection_coefs, driver_lesions, driver_strands, require_two_strands, epistasis_type, error_free_rate, error_free_tx, repair_rate, shared_mut_through_repair, repair_process, asymmetric_rate_0, asymmetric_rate, n_track_cells, min_detailed_gens, max_gens, carrying_capacity, outdir, verbose):
-    cells, ngenerations, shared_drivers, smax, drivers_repaired_immediately, duplex_first_cell, lost_first_cell = cell_division_until_drivers_saturated(chr_sizes, selection_coefs, driver_lesions, driver_strands, epistasis_type, require_two_strands, error_free_rate, error_free_tx, repair_rate, shared_mut_through_repair, repair_process, asymmetric_rate_0 ,asymmetric_rate, n_track_cells, min_detailed_gens, verbose)
+def full_process(chr_sizes, selection_coefs, driver_lesions, driver_strands, require_two_strands, epistasis_type, error_free_rate, error_free_tx, repair_rate, shared_mut_through_repair, repair_process, asymmetric_rate_0, asymmetric_rate, baseline_fitness, n_track_cells, min_detailed_gens, max_gens, carrying_capacity, outdir, verbose):
+    cells, ngenerations, shared_drivers, smax, drivers_repaired_immediately, duplex_first_cell, lost_first_cell = cell_division_until_drivers_saturated(chr_sizes, selection_coefs, driver_lesions, driver_strands, epistasis_type, require_two_strands, error_free_rate, error_free_tx, repair_rate, shared_mut_through_repair, repair_process, asymmetric_rate_0 ,asymmetric_rate, baseline_fitness, n_track_cells, min_detailed_gens, verbose)
+    if ngenerations >= 15:
+        baseline_fitness = min(0.01, baseline_fitness)
     # Note cells are now in form tuple (cell, count)
     if len(cells) > 0:
-        clones, total_gens, surviving_cells = clonal_expansion(cells, max_gens, carrying_capacity, selection_coefs, driver_strands, epistasis_type, require_two_strands, asymmetric_rate_0, asymmetric_rate, error_free_tx, smax, verbose)
+        clones, total_gens, surviving_cells = clonal_expansion(cells, max_gens, carrying_capacity, selection_coefs, driver_strands, epistasis_type, require_two_strands, asymmetric_rate_0, asymmetric_rate, baseline_fitness, ngenerations, error_free_tx, smax, verbose)
         # Remove small clones
         #   First group by drivers
         clones_by_driver = group_clones_by_drivers(clones, selection_coefs)
@@ -318,7 +336,7 @@ def full_process(chr_sizes, selection_coefs, driver_lesions, driver_strands, req
         logging.info(f'Final clone information after {total_gens} generation:')
         logging.info(clones)
 
-        # Get LAD (mrca)
+        # Get mrca
         mrca_filtered_driver = None if len(clones_filtered) == 0 else find_mrca(clones_filtered)
         mrca_filtered_no_grouping = None if len(clones_filtered_no_grouping) == 0 else find_mrca(clones_filtered_no_grouping)
 
@@ -350,6 +368,7 @@ def full_process(chr_sizes, selection_coefs, driver_lesions, driver_strands, req
     else:
         logging.info('No cells remaining')
         return False, None, None, None, None, None, None, None, None, None, drivers_repaired_immediately, duplex_first_cell, lost_first_cell
+
 
 def plot_histogram(data, axis_labels, plotname, **kwargs):
     fig, ax = plt.subplots()
@@ -412,6 +431,7 @@ def main():
     parser.add_argument('--repair_process', '-rp', required=False, default='lesion_mut', choices=['lesion_mut', 'mut_mut'], help='process for getting a mutation through repair')
     parser.add_argument('--asymmetric_division_prob_start', '-ad0', required=False, default=0, help='probability of asymmetric division default')
     parser.add_argument('--asymmetric_division_prob', '-ad', required=False, default=0, help='probability of asymmetric division with driver')
+    parser.add_argument('--baseline_fitness', '-bf', required=False, default=0, help='baseline selective advantage to give to normal cells')
     parser.add_argument('--n_track_segregations', '-n', required=False, default=5, help='number of generations to track segregation for each cell')
     parser.add_argument('--min_detailed_generations', '-min', required=False, default=10, help='min generations to run detailed process for')
     parser.add_argument('--max_generations', '-max', required=False, default=300, help='max generations to run clonal expansion for')
@@ -434,6 +454,7 @@ def main():
     shared_mutations_through_repair = float(args.shared_mutations_through_repair)
     asymmetric_rate_0 = float(args.asymmetric_division_prob_start)
     asymmetric_rate = float(args.asymmetric_division_prob)
+    baseline_fitness = float(args.baseline_fitness)
     n_track_segregation = float(args.n_track_segregations)
     min_detailed_gens = int(args.min_detailed_generations)
     max_gens = int(args.max_generations)
@@ -454,7 +475,7 @@ def main():
         os.mkdir(sim_dir)
     sim_dir = f'{sim_dir}/epistasis_{args.epistasis_type}_driver_on_{args.driver_strand}_strands_' \
               f'efr_{error_free_replication_rate}_eft_{error_free_transcription_rate}_2strands_{require_two_strands}_' \
-              f'repair_{repair_rate}_{shared_mutations_through_repair}_{args.repair_process}'
+              f'repair_{repair_rate}_{shared_mutations_through_repair}_{args.repair_process}_baseline_fitness_{baseline_fitness}_P30'
     if not os.path.isdir(sim_dir):
         os.mkdir(sim_dir)
     day = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
@@ -498,6 +519,7 @@ def main():
     logger.info(f'Rate of induced shared mutations from lesions through repair {shared_mutations_through_repair}')
     logger.info(f'Process of producing a mutation through repair {args.repair_process}')
     logger.info(f'Asymmetric division rate set to {asymmetric_rate_0} in base cell and {asymmetric_rate} when there is a driver')
+    logger.info(f'Normal cell selective advantage set as {baseline_fitness}')
     logger.info(f'Requiring both strands to carry a driver mutation to induce a fitness boost? {require_two_strands}')
     logger.info(f'Tracking cell division in detail until driver lesions are all removed, at least for first {n_track_segregation} generations')
     logger.info(f'Running detailed generations until at least {min_detailed_gens} generations')
@@ -572,7 +594,7 @@ def main():
         drivers_rep_imm, duplex_first_cell, lost_first_cell = full_process(chr_sizes, selection_coefs, driver_lesions, driver_strands, require_two_strands, epistasis_type,
                                                                                          error_free_replication_rate, error_free_transcription_rate,
                                                                                          repair_rate, shared_mutations_through_repair, args.repair_process,
-                                                                                         asymmetric_rate_0, asymmetric_rate,
+                                                                                         asymmetric_rate_0, asymmetric_rate, baseline_fitness,
                                                                                          n_track_segregation, min_detailed_gens, max_gens, carrying_capacity,
                                                                                          sim_outprefix, verbose)
 

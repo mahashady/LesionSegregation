@@ -629,7 +629,8 @@ class Cell():
             out[chrom_pair_ind] = info
         return out
 
-    def get_fitness(self, selection_coefs, driver_strands, epistasis_type, require_two_strands, error_free_tx, smax):
+
+    def get_fitness(self, selection_coefs, driver_strands, epistasis_type, require_two_strands, baseline_fitness, error_free_tx, smax):
         '''
         Gets fitness for each chromosome, computes overall fitness of cell accordingly
         :return:
@@ -697,13 +698,12 @@ class Cell():
             n_drivers += len(pos)
         fitness = helper(drivers, epistasis_type, selection_coefs, n_drivers)
         s = (fitness-1)/smax
-        fitness = 1+s
+        fitness = min(1+s+baseline_fitness, 2)
         return fitness
 
-    def get_branching_process_probabilities(self, selection_coefs, driver_strands, epistasis_type, require_two_strands, asymmetric_rate_0, asymmetric_rate_fit, error_free_tx, smax):
+    def get_branching_process_probabilities(self, selection_coefs, driver_strands, epistasis_type, require_two_strands, asymmetric_rate_0, asymmetric_rate_fit, baseline_fitness, error_free_tx, smax):
 
-        fitness = self.get_fitness(selection_coefs, driver_strands, epistasis_type, require_two_strands, error_free_tx, smax)
-
+        fitness = self.get_fitness(selection_coefs, driver_strands, epistasis_type, require_two_strands, baseline_fitness, error_free_tx, smax)
         s = fitness-1
         c = asymmetric_rate_0 if s == 0 else asymmetric_rate_fit
         b = (s - c + 1)/2
@@ -714,13 +714,13 @@ class Cell():
         return b, d, c
 
 
-    def division_decision(self, selection_coefs, driver_strands, epistasis_type, require_two_strands, asymmetric_rate_0, asymmetric_rate_fit, error_free_tx, smax):
+    def division_decision(self, selection_coefs, driver_strands, epistasis_type, require_two_strands, asymmetric_rate_0, asymmetric_rate_fit, baseline_fitness, error_free_tx, smax):
         '''
         w = 1+log(b/d)
         b+d = 1-asymmetric_rate
         :return: current options: 'death', 'division'
         '''
-        birth_rate, death_rate, c_rate = self.get_branching_process_probabilities(selection_coefs, driver_strands, epistasis_type, require_two_strands, asymmetric_rate_0, asymmetric_rate_fit, error_free_tx, smax)
+        birth_rate, death_rate, c_rate = self.get_branching_process_probabilities(selection_coefs, driver_strands, epistasis_type, require_two_strands, asymmetric_rate_0, asymmetric_rate_fit, baseline_fitness, error_free_tx, smax)
         choice = np.random.choice(a=['asymmetric', 'birth', 'death'],
                                   replace=True,
                                   p=[c_rate, birth_rate, death_rate])
